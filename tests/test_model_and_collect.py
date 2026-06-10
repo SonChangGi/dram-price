@@ -54,6 +54,64 @@ class ModelAndCollectTests(unittest.TestCase):
             self.assertTrue(series["series"])
             self.assertTrue(series["series"][0]["categories"])
 
+    def test_fixture_collector_preserves_prior_dates_and_updates_current_date(self) -> None:
+        with TemporaryDirectory() as tmp:
+            output = Path(tmp) / "data"
+            output.mkdir()
+            product_id = "trendforce-spot-ddr5-16gb-2gx8-4800-5600"
+            existing = {
+                "schema_version": 1,
+                "generated_at": "2026-06-09T00:00:00Z",
+                "observations": [
+                    {
+                        "source": "trendforce",
+                        "kind": "spot",
+                        "product_id": product_id,
+                        "product_name": "DDR5 16Gb (2Gx8) 4800/5600",
+                        "category": "ddr5",
+                        "cadence": "daily",
+                        "date": "2026-06-09",
+                        "values": {"session_average": 40.0},
+                    },
+                    {
+                        "source": "trendforce",
+                        "kind": "spot",
+                        "product_id": product_id,
+                        "product_name": "DDR5 16Gb (2Gx8) 4800/5600",
+                        "category": "ddr5",
+                        "cadence": "daily",
+                        "date": "2026-06-10",
+                        "values": {"session_average": 1.0},
+                    },
+                ],
+            }
+            (output / "prices.json").write_text(json.dumps(existing), encoding="utf-8")
+            cmd = [
+                sys.executable,
+                "-m",
+                "dram_tracker.collect",
+                "--fixture-dir",
+                str(ROOT / "tests" / "fixtures"),
+                "--output",
+                str(output),
+            ]
+            subprocess.run(
+                cmd,
+                cwd=ROOT,
+                env={**os.environ, "PYTHONPATH": str(ROOT / "src")},
+                text=True,
+                capture_output=True,
+                check=True,
+            )
+            prices = json.loads((output / "prices.json").read_text(encoding="utf-8"))
+            observations = prices["observations"]
+            prior = [obs for obs in observations if obs["product_id"] == product_id and obs["date"] == "2026-06-09"]
+            current = [obs for obs in observations if obs["product_id"] == product_id and obs["date"] == "2026-06-10"]
+            self.assertEqual(len(prior), 1)
+            self.assertEqual(prior[0]["values"]["session_average"], 40.0)
+            self.assertEqual(len(current), 1)
+            self.assertEqual(current[0]["values"]["session_average"], 44.5)
+
     def test_failed_source_preserves_existing_data_and_records_status(self) -> None:
         with TemporaryDirectory() as tmp:
             root = Path(tmp)

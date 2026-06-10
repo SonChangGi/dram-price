@@ -25,6 +25,7 @@ const CAVEAT_LABELS = {
   'MemoryMarket publicly discloses six-month weekly history; respect source terms and attribution.': 'MemoryMarket은 최근 약 6개월 주간 이력을 공개합니다. 출처 표기와 이용 조건을 확인하세요.',
   'Contract prices are monthly/update-date observations; collected_at is not the effective price date.': '고정가는 월간/업데이트일 기준 관측치이며 수집 시각이 실제 가격 적용일은 아닙니다.',
 };
+const KNOWN_METRIC_VALUE_KEYS = new Set(['average', 'daily_high', 'daily_low', 'high', 'low', 'session_average', 'session_high', 'session_low']);
 
 const state = { prices: [], series: [], status: null };
 
@@ -48,7 +49,14 @@ function metricFor(obs, requested) {
   if (requested === 'daily_low') return values.daily_low ?? values.low ?? values.session_low;
   if (requested === 'session_average') return values.session_average ?? values.average;
   if (requested === 'average') return values.average ?? values.session_average;
+  if (requested !== 'auto' && Object.hasOwn(values, requested)) return values[requested];
   return values.session_average ?? values.average ?? values.daily_high ?? values.high ?? values.session_high;
+}
+
+function asFiniteNumber(value) {
+  if (value === null || value === undefined || value === '') return null;
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
 }
 
 function formatNumber(value, options = {}) {
@@ -99,7 +107,7 @@ function sourceLabel(source) {
 }
 
 function metricLabel(metric) {
-  return METRIC_LABELS[metric] || metric;
+  return METRIC_LABELS[metric] || metric.replaceAll('_', ' ');
 }
 
 function caveatLabel(text) {
@@ -139,22 +147,123 @@ function appendInfoItem(parent, title, detail, className = 'mini-item') {
   parent.append(item);
 }
 
-function populateFilters() {
+function replaceOptions(select, options, preferredValue) {
+  select.replaceChildren();
+  options.forEach((option) => appendOption(select, option.value, option.label));
+  const values = new Set(options.map((option) => option.value));
+  select.value = values.has(preferredValue) ? preferredValue : options[0]?.value || '';
+}
+
+function filterRows({ source = 'all', kind = 'all', category = 'all', product = 'all' } = {}) {
+  let rows = state.prices.slice();
+  if (source !== 'all') rows = rows.filter((obs) => obs.source === source);
+  if (kind !== 'all') rows = rows.filter((obs) => obs.kind === kind);
+  if (category !== 'all') rows = rows.filter((obs) => observationCategory(obs) === category);
+  if (product !== 'all' && product !== 'representative') rows = rows.filter((obs) => obs.product_id === product);
+  return rows;
+}
+
+function matchingRepresentativeIds({ source = 'all', kind = 'all', category = 'all' } = {}) {
+  const productIds = new Set(filterRows({ source, kind, category }).map((obs) => obs.product_id));
+  return new Set(
+    state.series
+      .filter((item) => item.representative)
+      .filter((item) => productIds.has(item.product_id))
+      .map((item) => item.product_id),
+  );
+}
+
+function productOptionLabel(item) {
+  const categories = seriesCategories(item).map(categoryLabel).join(', ');
+  return `${item.representative ? '★ ' : ''}${item.product_name} (${sourceLabel(item.source)} · ${categories})`;
+}
+
+function productOptionsFor(rows, context) {
+  const productIds = new Set(rows.map((obs) => obs.product_id));
+  const representatives = matchingRepresentativeIds(context);
+  const options = [];
+  if (representatives.size) options.push({ value: 'representative', label: '대표 제품 우선' });
+  options.push({ value: 'all', label: '전체 제품' });
+  state.series
+    .filter((item) => productIds.has(item.product_id))
+    .forEach((item) => options.push({ value: item.product_id, label: productOptionLabel(item) }));
+  return options;
+}
+
+function rowsForProductSelection({ source = 'all', kind = 'all', category = 'all', product = 'all' } = {}) {
+  let rows = filterRows({ source, kind, category });
+  if (product === 'representative') {
+    const reps = matchingRepresentativeIds({ source, kind, category });
+    rows = rows.filter((obs) => reps.has(obs.product_id));
+  } else if (product !== 'all') {
+    rows = rows.filter((obs) => obs.product_id === product);
+  }
+  return rows;
+}
+
+function hasMetric(obs, metric) {
+  const values = obs.values || {};
+  if (metric === 'auto') return true;
+  if (metric === 'daily_high') return asFiniteNumber(values.daily_high ?? values.high ?? values.session_high) !== null;
+  if (metric === 'daily_low') return asFiniteNumber(values.daily_low ?? values.low ?? values.session_low) !== null;
+  if (metric === 'session_average') return asFiniteNumber(values.session_average) !== null;
+  if (metric === 'average') return asFiniteNumber(values.average) !== null;
+  return asFiniteNumber(values[metric]) !== null;
+}
+
+function metricOptionsFor(rows) {
+  const knownOptions = Object.keys(METRIC_LABELS)
+    .filter((metric) => metric === 'auto' || rows.some((obs) => hasMetric(obs, metric)))
+    .map((metric) => ({ value: metric, label: metricLabel(metric) }));
+  const dynamicMetrics = uniqueSorted(
+    rows.flatMap((obs) =>
+      Object.entries(obs.values || {})
+        .filter(([key, value]) => !KNOWN_METRIC_VALUE_KEYS.has(key) && !key.endsWith('_change_percent') && asFiniteNumber(value) !== null)
+        .map(([key]) => key),
+    ),
+  );
+  return [...knownOptions, ...dynamicMetrics.map((metric) => ({ value: metric, label: metricLabel(metric) }))];
+}
+
+function refreshFilterOptions() {
   const sourceFilter = document.getElementById('source-filter');
-  uniqueSorted(state.prices.map((obs) => obs.source)).forEach((source) => appendOption(sourceFilter, source, sourceLabel(source)));
-
   const kindFilter = document.getElementById('kind-filter');
-  uniqueSorted(state.prices.map((obs) => obs.kind)).forEach((kind) => appendOption(kindFilter, kind, kindLabel(kind)));
-
   const categoryFilter = document.getElementById('category-filter');
-  uniqueSorted(state.prices.map(observationCategory)).forEach((category) => appendOption(categoryFilter, category, categoryLabel(category)));
-
   const productFilter = document.getElementById('product-filter');
-  state.series.forEach((item) => {
-    const categories = seriesCategories(item).map(categoryLabel).join(', ');
-    appendOption(productFilter, item.product_id, `${item.representative ? '★ ' : ''}${item.product_name} (${sourceLabel(item.source)} · ${categories})`);
-  });
+  const metricFilter = document.getElementById('metric-filter');
 
+  replaceOptions(
+    sourceFilter,
+    [{ value: 'all', label: '전체 소스' }, ...uniqueSorted(state.prices.map((obs) => obs.source)).map((source) => ({ value: source, label: sourceLabel(source) }))],
+    sourceFilter.value || 'all',
+  );
+
+  const source = sourceFilter.value;
+  const rowsBySource = filterRows({ source });
+  replaceOptions(
+    kindFilter,
+    [{ value: 'all', label: '전체' }, ...uniqueSorted(rowsBySource.map((obs) => obs.kind)).map((kind) => ({ value: kind, label: kindLabel(kind) }))],
+    kindFilter.value || 'all',
+  );
+
+  const kind = kindFilter.value;
+  const rowsByKind = filterRows({ source, kind });
+  replaceOptions(
+    categoryFilter,
+    [{ value: 'all', label: '전체 카테고리' }, ...uniqueSorted(rowsByKind.map(observationCategory)).map((category) => ({ value: category, label: categoryLabel(category) }))],
+    categoryFilter.value || 'all',
+  );
+
+  const category = categoryFilter.value;
+  const rowsByCategory = filterRows({ source, kind, category });
+  replaceOptions(productFilter, productOptionsFor(rowsByCategory, { source, kind, category }), productFilter.value || 'representative');
+
+  const product = productFilter.value;
+  replaceOptions(metricFilter, metricOptionsFor(rowsForProductSelection({ source, kind, category, product })), metricFilter.value || 'auto');
+}
+
+function populateFilters() {
+  refreshFilterOptions();
   document.querySelectorAll('select').forEach((select) => select.addEventListener('change', render));
 }
 
@@ -163,23 +272,7 @@ function selectedObservations() {
   const kind = document.getElementById('kind-filter').value;
   const category = document.getElementById('category-filter').value;
   const product = document.getElementById('product-filter').value;
-  let rows = state.prices.slice();
-  if (source !== 'all') rows = rows.filter((obs) => obs.source === source);
-  if (kind !== 'all') rows = rows.filter((obs) => obs.kind === kind);
-  if (category !== 'all') rows = rows.filter((obs) => observationCategory(obs) === category);
-  if (product === 'representative') {
-    const reps = new Set(
-      state.series
-        .filter((item) => item.representative)
-        .filter((item) => source === 'all' || item.source === source)
-        .filter((item) => category === 'all' || seriesCategories(item).includes(category))
-        .map((item) => item.product_id),
-    );
-    rows = rows.filter((obs) => reps.has(obs.product_id));
-  } else if (product !== 'all') {
-    rows = rows.filter((obs) => obs.product_id === product);
-  }
-  return rows;
+  return rowsForProductSelection({ source, kind, category, product });
 }
 
 function renderHeroStatus() {
@@ -231,8 +324,8 @@ function renderStatus() {
 function groupSeries(rows, requestedMetric) {
   const groups = new Map();
   rows.forEach((obs) => {
-    const value = Number(metricFor(obs, requestedMetric));
-    if (!Number.isFinite(value)) return;
+    const value = asFiniteNumber(metricFor(obs, requestedMetric));
+    if (value === null) return;
     const key = `${obs.product_id}|${obs.kind}`;
     if (!groups.has(key)) groups.set(key, { label: `${obs.product_name} · ${kindLabel(obs.kind)}`, points: [] });
     groups.get(key).points.push({ date: String(obs.date || ''), value });
@@ -380,17 +473,19 @@ function renderTable(rows) {
   }
   sortedRows.forEach((obs) => {
     const tr = document.createElement('tr');
+    const value = asFiniteNumber(metricFor(obs, metric));
     appendCell(tr, obs.date || 'unknown');
     appendBadgeCell(tr, kindLabel(obs.kind), obs.kind === 'contract' ? 'badge warn' : obs.kind === 'spot' ? 'badge good' : 'badge neutral');
     appendCell(tr, categoryLabel(observationCategory(obs)));
     appendCell(tr, obs.product_name || obs.product_id || 'unknown');
     appendBadgeCell(tr, sourceLabel(obs.source), 'badge neutral');
-    appendCell(tr, `${formatNumber(Number(metricFor(obs, metric)))} ${obs.currency || ''}`.trim());
+    appendCell(tr, value === null ? 'n/a' : `${formatNumber(value)} ${obs.currency || ''}`.trim());
     body.append(tr);
   });
 }
 
 function render() {
+  refreshFilterOptions();
   const rows = selectedObservations();
   renderStatus();
   renderChart(rows);

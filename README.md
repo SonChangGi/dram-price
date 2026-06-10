@@ -41,6 +41,8 @@ Two workflows are included:
 
 To enable Pages, create the repository on GitHub, push this branch, then enable **Settings → Pages → GitHub Actions**.
 
+The project intentionally stores collected observations in committed JSON files rather than relying on only the latest source pages. The daily collector reads the existing `data/prices.json`, merges newly collected rows by `source + kind + product_id + cadence + date`, and writes the normalized result back to `data/`. That means a new day adds a new observation while a repeated scrape of the same source/date updates that row. `series.json` and `status.json` are regenerated from the merged observation set so the dashboard can safely load one static dataset on GitHub Pages.
+
 ## Source caveats
 
 - Public TrendForce/DRAMeXchange pages expose current tables; free historical TrendForce/DRAMeXchange data is not assumed.

@@ -7,3 +7,5 @@ __pycache__/
 tmp/
 site/
 .DS_Store
+
+test-results/
