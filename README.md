@@ -36,8 +36,10 @@ When available, observations also include `category` (for example `ddr`, `rdimm`
 
 Two workflows are included:
 
-- `.github/workflows/update-data.yml` runs daily at `02:17 UTC` and on manual dispatch. It collects data, runs tests, and commits `data/` only when data changes.
-- `.github/workflows/deploy-pages.yml` publishes `web/` plus `data/` to GitHub Pages when dashboard or data files change.
+- `.github/workflows/update-data.yml` runs daily at `02:17 UTC` and on manual dispatch. It collects data, runs tests, commits `data/` when data changes, and deploys the refreshed static site to GitHub Pages in the same workflow.
+- `.github/workflows/deploy-pages.yml` still publishes `web/` plus `data/` to GitHub Pages for normal dashboard/data pushes made outside the scheduled bot update path.
+
+The dashboard also links to the manual **Update DRAM price data** workflow page. A browser button cannot safely trigger collection by itself without exposing a GitHub token, so manual refreshes intentionally require a signed-in GitHub account with repository write access.
 
 To enable Pages, create the repository on GitHub, push this branch, then enable **Settings → Pages → GitHub Actions**.
 

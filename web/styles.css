@@ -167,6 +167,21 @@ tbody tr:hover { background: #f8fbff; }
 .explain-box ul { margin: 0; padding-left: 1.2rem; line-height: 1.85; color: #334155; }
 .explain { background: var(--accent-soft); }
 .explain p { line-height: 1.75; color: #334155; }
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: .4rem;
+  padding: .72rem 1rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 850;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(36, 87, 214, .18);
+}
+.action-button:hover { background: #1d4ed8; }
+.action-note { margin-bottom: 0; font-size: .9rem; }
 .disclaimer { border-radius: 22px; padding: 1.25rem; color: #475569; line-height: 1.75; }
 footer { display: flex; justify-content: space-between; gap: 1rem; color: var(--muted); padding: 1.5rem clamp(1rem, 4vw, 4rem); }
 @media (max-width: 1180px) {
