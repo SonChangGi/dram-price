@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DRAM Price Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Personal DRAM market monitor</p>
+        <h1>DRAM Price Tracker</h1>
+        <p>TrendForce current spot/contract tables and MemoryMarket six-month weekly proxy history in one static dashboard.</p>
+      </div>
+      <div class="hero-card">
+        <strong id="observation-count">--</strong>
+        <span>observations</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel status-panel">
+        <div>
+          <h2>Collection status</h2>
+          <p id="generated-at">Loading data…</p>
+          <ul id="source-status"></ul>
+        </div>
+        <div class="notice">
+          <strong>Source caveat</strong>
+          <p>Public pages can change. Keep attribution and review source terms before publishing broadly.</p>
+        </div>
+      </section>
+
+      <section class="panel controls">
+        <label>
+          Source
+          <select id="source-filter"><option value="all">All sources</option></select>
+        </label>
+        <label>
+          Price kind
+          <select id="kind-filter"><option value="all">All</option></select>
+        </label>
+        <label>
+          Category
+          <select id="category-filter"><option value="all">All categories</option></select>
+        </label>
+        <label>
+          Product
+          <select id="product-filter"><option value="representative">Representative defaults</option><option value="all">All products</option></select>
+        </label>
+        <label>
+          Metric
+          <select id="metric-filter">
+            <option value="auto">Auto</option>
+            <option value="session_average">TrendForce session average</option>
+            <option value="average">MemoryMarket average</option>
+            <option value="daily_high">Daily high</option>
+            <option value="daily_low">Daily low</option>
+          </select>
+        </label>
+        <label>
+          Chart series
+          <select id="series-limit">
+            <option value="all">All matching series</option>
+            <option value="12">Top 12 matching series</option>
+            <option value="24">Top 24 matching series</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="panel chart-panel">
+        <div class="chart-header">
+          <h2>Price chart</h2>
+          <p id="chart-subtitle">Representative series are shown by default.</p>
+        </div>
+        <div id="chart" class="chart" role="img" aria-label="DRAM price chart"></div>
+      </section>
+
+      <section class="panel table-panel">
+        <h2>Latest observations</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Date</th><th>Kind</th><th>Category</th><th>Product</th><th>Source</th><th>Value</th></tr></thead>
+            <tbody id="latest-table"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Data sources: <a href="https://www.trendforce.com/price/dram/dram_spot">TrendForce</a>, <a href="https://www.memorymarket.com/price">MemoryMarket</a>. This page is for personal tracking and research.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

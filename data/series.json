@@ -1,0 +1,822 @@
+{
+  "generated_at": "2026-06-10T10:04:32Z",
+  "schema_version": 1,
+  "series": [
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "ddr"
+      ],
+      "category": "ddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100222",
+      "product_name": "DDR4 16Gb 3200",
+      "representative": true,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "ddr"
+      ],
+      "category": "ddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100221",
+      "product_name": "DDR4 8Gb 3200",
+      "representative": true,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "ddr"
+      ],
+      "category": "ddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100266",
+      "product_name": "DDR5 16Gb Major",
+      "representative": true,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "ddr"
+      ],
+      "category": "ddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100267",
+      "product_name": "DDR5 16Gb eTT",
+      "representative": true,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "monthly"
+      ],
+      "categories": [
+        "ddr4"
+      ],
+      "category": "ddr4",
+      "kinds": [
+        "contract"
+      ],
+      "product_id": "trendforce-contract-ddr4-16gb-so-dimm",
+      "product_name": "DDR4 16GB SO-DIMM",
+      "representative": true,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "daily"
+      ],
+      "categories": [
+        "ddr4"
+      ],
+      "category": "ddr4",
+      "kinds": [
+        "spot"
+      ],
+      "product_id": "trendforce-spot-ddr4-16gb-2gx8-3200",
+      "product_name": "DDR4 16Gb (2Gx8) 3200",
+      "representative": true,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "daily"
+      ],
+      "categories": [
+        "ddr4"
+      ],
+      "category": "ddr4",
+      "kinds": [
+        "spot"
+      ],
+      "product_id": "trendforce-spot-ddr4-8gb-1gx8-3200",
+      "product_name": "DDR4 8Gb (1Gx8) 3200",
+      "representative": true,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "daily"
+      ],
+      "categories": [
+        "ddr5"
+      ],
+      "category": "ddr5",
+      "kinds": [
+        "spot"
+      ],
+      "product_id": "trendforce-spot-ddr5-16gb-2gx8-4800-5600",
+      "product_name": "DDR5 16Gb (2Gx8) 4800/5600",
+      "representative": true,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "daily"
+      ],
+      "categories": [
+        "ddr5"
+      ],
+      "category": "ddr5",
+      "kinds": [
+        "spot"
+      ],
+      "product_id": "trendforce-spot-ddr5-16gb-2gx8-ett",
+      "product_name": "DDR5 16Gb (2Gx8) eTT",
+      "representative": true,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "monthly"
+      ],
+      "categories": [
+        "ddr5"
+      ],
+      "category": "ddr5",
+      "kinds": [
+        "contract"
+      ],
+      "product_id": "trendforce-contract-ddr5-8gb-so-dimm",
+      "product_name": "DDR5 8GB SO-DIMM",
+      "representative": true,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "ddr"
+      ],
+      "category": "ddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100246",
+      "product_name": "DDR4 16Gb eTT",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "ddr"
+      ],
+      "category": "ddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100248",
+      "product_name": "DDR4 4Gb eTT",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "ddr"
+      ],
+      "category": "ddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100247",
+      "product_name": "DDR4 8Gb eTT",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "rdimm"
+      ],
+      "category": "rdimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100254",
+      "product_name": "DDR4 RDIMM 16GB 3200",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "rdimm"
+      ],
+      "category": "rdimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100255",
+      "product_name": "DDR4 RDIMM 32GB 3200",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "rdimm"
+      ],
+      "category": "rdimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100256",
+      "product_name": "DDR4 RDIMM 64GB 3200",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "sodimm"
+      ],
+      "category": "sodimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100228",
+      "product_name": "DDR4 SODIMM 16GB 3200",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "sodimm"
+      ],
+      "category": "sodimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100227",
+      "product_name": "DDR4 SODIMM 8GB 3200",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "udimm"
+      ],
+      "category": "udimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100224",
+      "product_name": "DDR4 UDIMM 16GB 3200",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "udimm"
+      ],
+      "category": "udimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100225",
+      "product_name": "DDR4 UDIMM 32GB 3200",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "udimm"
+      ],
+      "category": "udimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100223",
+      "product_name": "DDR4 UDIMM 8GB 3200",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "ddr"
+      ],
+      "category": "ddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100265",
+      "product_name": "DDR5 24Gb Major",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "rdimm"
+      ],
+      "category": "rdimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100262",
+      "product_name": "DDR5 RDIMM 32GB",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "rdimm"
+      ],
+      "category": "rdimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100263",
+      "product_name": "DDR5 RDIMM 64GB",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "rdimm"
+      ],
+      "category": "rdimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100264",
+      "product_name": "DDR5 RDIMM 96GB",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "sodimm"
+      ],
+      "category": "sodimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100321",
+      "product_name": "DDR5 SODIMM 16GB 5600",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "sodimm"
+      ],
+      "category": "sodimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100320",
+      "product_name": "DDR5 SODIMM 8GB 5600",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "udimm"
+      ],
+      "category": "udimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100268",
+      "product_name": "DDR5 UDIMM 16GB 5600",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "udimm"
+      ],
+      "category": "udimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100269",
+      "product_name": "DDR5 UDIMM 16GB 6000",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "udimm"
+      ],
+      "category": "udimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100270",
+      "product_name": "DDR5 UDIMM 32GB 5600",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "udimm"
+      ],
+      "category": "udimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100271",
+      "product_name": "DDR5 UDIMM 32GB 6000",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "udimm"
+      ],
+      "category": "udimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100322",
+      "product_name": "DDR5 UDIMM 8GB 5600",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "udimm"
+      ],
+      "category": "udimm",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100323",
+      "product_name": "DDR5 UDIMM 8GB 6000",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "lpddr"
+      ],
+      "category": "lpddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100156",
+      "product_name": "LPDDR4X 16Gb",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "lpddr"
+      ],
+      "category": "lpddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100183",
+      "product_name": "LPDDR4X 32Gb",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "lpddr"
+      ],
+      "category": "lpddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100182",
+      "product_name": "LPDDR4X 48Gb",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "lpddr"
+      ],
+      "category": "lpddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100229",
+      "product_name": "LPDDR4X 64Gb",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "lpddr"
+      ],
+      "category": "lpddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100324",
+      "product_name": "LPDDR5X 128Gb",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "lpddr"
+      ],
+      "category": "lpddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100328",
+      "product_name": "LPDDR5X 32Gb",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "lpddr"
+      ],
+      "category": "lpddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100327",
+      "product_name": "LPDDR5X 48Gb",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "lpddr"
+      ],
+      "category": "lpddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100326",
+      "product_name": "LPDDR5X 64Gb",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "weekly"
+      ],
+      "categories": [
+        "lpddr"
+      ],
+      "category": "lpddr",
+      "kinds": [
+        "spot_proxy"
+      ],
+      "product_id": "memorymarket-100325",
+      "product_name": "LPDDR5X 96Gb",
+      "representative": false,
+      "source": "memorymarket"
+    },
+    {
+      "cadences": [
+        "monthly"
+      ],
+      "categories": [
+        "ddr3"
+      ],
+      "category": "ddr3",
+      "kinds": [
+        "contract"
+      ],
+      "product_id": "trendforce-contract-ddr3-4gb-256mx16",
+      "product_name": "DDR3 4Gb 256Mx16",
+      "representative": false,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "daily"
+      ],
+      "categories": [
+        "ddr3"
+      ],
+      "category": "ddr3",
+      "kinds": [
+        "spot"
+      ],
+      "product_id": "trendforce-spot-ddr3-4gb-512mx8-1600-1866",
+      "product_name": "DDR3 4Gb 512Mx8 1600/1866",
+      "representative": false,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "daily"
+      ],
+      "categories": [
+        "ddr4"
+      ],
+      "category": "ddr4",
+      "kinds": [
+        "spot"
+      ],
+      "product_id": "trendforce-spot-ddr4-16gb-2gx8-ett",
+      "product_name": "DDR4 16Gb (2Gx8) eTT",
+      "representative": false,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "monthly"
+      ],
+      "categories": [
+        "ddr4"
+      ],
+      "category": "ddr4",
+      "kinds": [
+        "contract"
+      ],
+      "product_id": "trendforce-contract-ddr4-16gb-2gx8",
+      "product_name": "DDR4 16Gb 2Gx8",
+      "representative": false,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "monthly"
+      ],
+      "categories": [
+        "ddr4"
+      ],
+      "category": "ddr4",
+      "kinds": [
+        "contract"
+      ],
+      "product_id": "trendforce-contract-ddr4-4gb-256mx16",
+      "product_name": "DDR4 4Gb 256Mx16",
+      "representative": false,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "monthly"
+      ],
+      "categories": [
+        "ddr4"
+      ],
+      "category": "ddr4",
+      "kinds": [
+        "contract"
+      ],
+      "product_id": "trendforce-contract-ddr4-8gb-so-dimm",
+      "product_name": "DDR4 8GB SO-DIMM",
+      "representative": false,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "daily"
+      ],
+      "categories": [
+        "ddr4"
+      ],
+      "category": "ddr4",
+      "kinds": [
+        "spot"
+      ],
+      "product_id": "trendforce-spot-ddr4-8gb-1gx8-ett",
+      "product_name": "DDR4 8Gb (1Gx8) eTT",
+      "representative": false,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "monthly"
+      ],
+      "categories": [
+        "ddr4"
+      ],
+      "category": "ddr4",
+      "kinds": [
+        "contract"
+      ],
+      "product_id": "trendforce-contract-ddr4-8gb-1gx8",
+      "product_name": "DDR4 8Gb 1Gx8",
+      "representative": false,
+      "source": "trendforce"
+    },
+    {
+      "cadences": [
+        "monthly"
+      ],
+      "categories": [
+        "dram"
+      ],
+      "category": "dram",
+      "kinds": [
+        "contract"
+      ],
+      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
+      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
+      "representative": false,
+      "source": "trendforce"
+    }
+  ]
+}

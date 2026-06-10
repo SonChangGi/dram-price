@@ -1,0 +1,82 @@
+{
+  "caveats": [
+    "TrendForce/DRAMeXchange public pages expose current tables but not free historical data.",
+    "MemoryMarket publicly discloses six-month weekly history; respect source terms and attribution.",
+    "Contract prices are monthly/update-date observations; collected_at is not the effective price date."
+  ],
+  "counts_by_kind": {
+    "contract": 8,
+    "spot": 7,
+    "spot_proxy": 603
+  },
+  "counts_by_source": {
+    "memorymarket": 603,
+    "trendforce": 15
+  },
+  "generated_at": "2026-06-10T10:04:32Z",
+  "observation_count": 618,
+  "schema_version": 1,
+  "sources": [
+    {
+      "errors": [],
+      "observation_count": 15,
+      "ok": true,
+      "source": "trendforce",
+      "urls": [
+        "https://www.trendforce.com/price/dram/dram_spot",
+        "https://www.trendforce.com/price/dram/dram_contract"
+      ],
+      "warnings": []
+    },
+    {
+      "errors": [],
+      "observation_count": 603,
+      "ok": true,
+      "source": "memorymarket",
+      "urls": [
+        "https://www.memorymarket.com/price/ddr",
+        "https://www.memorymarket.com/price/rdimm",
+        "https://www.memorymarket.com/price/udimm",
+        "https://www.memorymarket.com/price/sodimm",
+        "https://www.memorymarket.com/price/lpddr",
+        "https://www.memorymarket.com/price/ews/100222",
+        "https://www.memorymarket.com/price/ews/100246",
+        "https://www.memorymarket.com/price/ews/100248",
+        "https://www.memorymarket.com/price/ews/100221",
+        "https://www.memorymarket.com/price/ews/100247",
+        "https://www.memorymarket.com/price/ems/100254",
+        "https://www.memorymarket.com/price/ems/100255",
+        "https://www.memorymarket.com/price/ems/100256",
+        "https://www.memorymarket.com/price/ews/100228",
+        "https://www.memorymarket.com/price/ews/100227",
+        "https://www.memorymarket.com/price/ews/100224",
+        "https://www.memorymarket.com/price/ews/100225",
+        "https://www.memorymarket.com/price/ews/100223",
+        "https://www.memorymarket.com/price/ews/100266",
+        "https://www.memorymarket.com/price/ews/100267",
+        "https://www.memorymarket.com/price/ews/100265",
+        "https://www.memorymarket.com/price/ems/100262",
+        "https://www.memorymarket.com/price/ems/100263",
+        "https://www.memorymarket.com/price/ems/100264",
+        "https://www.memorymarket.com/price/ews/100321",
+        "https://www.memorymarket.com/price/ews/100320",
+        "https://www.memorymarket.com/price/ews/100268",
+        "https://www.memorymarket.com/price/ews/100269",
+        "https://www.memorymarket.com/price/ews/100270",
+        "https://www.memorymarket.com/price/ews/100271",
+        "https://www.memorymarket.com/price/ews/100322",
+        "https://www.memorymarket.com/price/ews/100323",
+        "https://www.memorymarket.com/price/ews/100156",
+        "https://www.memorymarket.com/price/ews/100183",
+        "https://www.memorymarket.com/price/ews/100182",
+        "https://www.memorymarket.com/price/ews/100229",
+        "https://www.memorymarket.com/price/ews/100324",
+        "https://www.memorymarket.com/price/ews/100328",
+        "https://www.memorymarket.com/price/ews/100327",
+        "https://www.memorymarket.com/price/ews/100326",
+        "https://www.memorymarket.com/price/ews/100325"
+      ],
+      "warnings": []
+    }
+  ]
+}
