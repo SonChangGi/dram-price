@@ -118,3 +118,97 @@ def summarize_status(observations: list[dict[str, Any]], source_status: list[dic
             "Contract prices are monthly/update-date observations; collected_at is not the effective price date.",
         ],
     }
+
+
+def build_public_summary(
+    observations: list[dict[str, Any]],
+    series: list[dict[str, Any]],
+    status: dict[str, Any],
+    generated_at: str,
+) -> dict[str, Any]:
+    """Return a compact cross-project summary for the quant-dashboard hub."""
+
+    latest_by_product: dict[str, dict[str, Any]] = {}
+    for obs in observations:
+        key = str(obs.get("product_id") or obs.get("product_name") or "unknown")
+        current = latest_by_product.get(key)
+        if current is None or str(obs.get("date") or "") >= str(current.get("date") or ""):
+            latest_by_product[key] = obs
+    representative_ids = {str(item.get("product_id")) for item in series if item.get("representative")}
+    latest_rows = sorted(
+        latest_by_product.values(),
+        key=lambda item: (
+            str(item.get("product_id")) not in representative_ids,
+            str(item.get("date") or ""),
+            str(item.get("product_name") or ""),
+        ),
+        reverse=False,
+    )[:12]
+    latest_date = max((str(obs.get("date")) for obs in observations if obs.get("date")), default=None)
+    source_states = status.get("sources") if isinstance(status.get("sources"), list) else []
+    failed_sources = [str(source.get("source")) for source in source_states if isinstance(source, dict) and not source.get("ok", True)]
+    state = "degraded" if failed_sources else ("ok" if observations else "degraded")
+    return {
+        "schemaVersion": 1,
+        "contract": "quant-research-summary",
+        "projectId": "dram",
+        "projectName": "D램(DRAM) 가격 랩",
+        "generatedAt": generated_at,
+        "dataAsOf": latest_date,
+        "timezone": "UTC",
+        "detailUrl": "https://sonchanggi.github.io/dram-price/",
+        "detailDataUrl": "https://sonchanggi.github.io/dram-price/data/prices.json",
+        "status": {
+            "state": state,
+            "label": "source degraded" if failed_sources else f"{len(observations)}개 가격 관측치",
+            "cadence": "TrendForce current tables + MemoryMarket weekly public history",
+            "expectedFreshnessDays": 14,
+            "degradedReasons": failed_sources,
+        },
+        "coverage": {
+            "observationCount": len(observations),
+            "seriesCount": len(series),
+            "countsBySource": status.get("counts_by_source", {}),
+            "countsByKind": status.get("counts_by_kind", {}),
+        },
+        "highlights": [
+            {"label": "관측치", "value": len(observations), "description": "source/kind/product/date 병합 후 저장"},
+            {"label": "제품군", "value": len(series), "description": "대표 DRAM 시리즈 포함"},
+            {"label": "최근 관측일", "value": latest_date, "description": "관측별 effective date 우선"},
+        ],
+        "primaryEntities": [
+            {
+                "symbol": "DRAM",
+                "name": row.get("product_name"),
+                "label": f"{row.get('product_name') or 'DRAM'} · {row.get('kind') or 'kind N/A'}",
+                "sector": "Semiconductors",
+                "sectorLabel": "반도체",
+                "themes": ["DRAM", "Memory", "Semiconductors", str(row.get("category") or "")],
+                "metrics": {
+                    "price": row.get("price"),
+                    "unit": row.get("unit"),
+                    "date": row.get("date"),
+                    "source": row.get("source"),
+                    "kind": row.get("kind"),
+                    "cadence": row.get("cadence"),
+                },
+                "signals": ["메모리 가격 방향은 반도체 밸류체인 점검 출발점입니다."],
+                "warnings": ["공개 원천별 업데이트 주기와 품목 커버리지가 다릅니다."],
+            }
+            for row in latest_rows
+        ],
+        "limitations": list(status.get("caveats") or []),
+        "sources": [
+            {"label": "TrendForce / DRAMeXchange", "url": "https://www.dramexchange.com/"},
+            {"label": "MemoryMarket", "url": "https://www.memorymarket.com/"},
+        ],
+        "automation": {
+            "workflowUrl": "https://github.com/SonChangGi/dram-price/actions/workflows/update-data.yml",
+            "manualUpdateLabel": "GitHub Actions update-data 수동 실행",
+            "tokenPolicy": "Static page keeps no source credentials.",
+        },
+        "payload": {
+            "summaryBytes": None,
+            "detailBytes": None,
+        },
+    }

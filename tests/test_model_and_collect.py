@@ -200,12 +200,17 @@ class ModelAndCollectTests(unittest.TestCase):
             prices = json.loads((output / "prices.json").read_text(encoding="utf-8"))
             status = json.loads((output / "status.json").read_text(encoding="utf-8"))
             series = json.loads((output / "series.json").read_text(encoding="utf-8"))
+            summary = json.loads((output / "summary.json").read_text(encoding="utf-8"))
             self.assertEqual(prices["schema_version"], 1)
             self.assertEqual(status["observation_count"], len(prices["observations"]))
             self.assertGreaterEqual({obs["kind"] for obs in prices["observations"]}, {"spot", "contract", "spot_proxy"})
             self.assertIn("category", prices["observations"][0])
             self.assertTrue(series["series"])
             self.assertTrue(series["series"][0]["categories"])
+            self.assertEqual(summary["contract"], "quant-research-summary")
+            self.assertEqual(summary["projectId"], "dram")
+            self.assertTrue(summary["primaryEntities"])
+            self.assertTrue(any("공개" in item or "source" in item.lower() for item in summary["limitations"]))
 
     def test_fixture_collector_preserves_prior_dates_and_updates_current_date(self) -> None:
         with TemporaryDirectory() as tmp:

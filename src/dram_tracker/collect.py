@@ -9,7 +9,16 @@ from pathlib import Path
 from typing import Any
 
 from dram_tracker.http import fetch_text
-from dram_tracker.model import SCHEMA_VERSION, build_series, merge_observations, read_json, summarize_status, utc_now_iso, write_json
+from dram_tracker.model import (
+    SCHEMA_VERSION,
+    build_public_summary,
+    build_series,
+    merge_observations,
+    read_json,
+    summarize_status,
+    utc_now_iso,
+    write_json,
+)
 from dram_tracker.sources import memorymarket, trendforce
 
 
@@ -111,9 +120,13 @@ def run(args: argparse.Namespace) -> int:
     existing_observations = existing_payload.get("observations", []) if isinstance(existing_payload, dict) else []
     observations = merge_observations(existing_observations, new_observations)
 
+    series = build_series(observations)
+    status = summarize_status(observations, source_status, collected_at)
     write_json(prices_path, {"schema_version": SCHEMA_VERSION, "generated_at": collected_at, "observations": observations})
-    write_json(output / "series.json", {"schema_version": SCHEMA_VERSION, "generated_at": collected_at, "series": build_series(observations)})
-    write_json(output / "status.json", summarize_status(observations, source_status, collected_at))
+    write_json(output / "series.json", {"schema_version": SCHEMA_VERSION, "generated_at": collected_at, "series": series})
+    write_json(output / "status.json", status)
+    summary = build_public_summary(observations, series, status, collected_at)
+    write_json(output / "summary.json", summary)
 
     print(f"collected {len(new_observations)} new observations; stored {len(observations)} total observations in {output}")
     failed = [source for source in source_status if not source.get("ok")]
