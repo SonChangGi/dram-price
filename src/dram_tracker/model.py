@@ -205,6 +205,7 @@ def build_public_summary(
         "automation": {
             "workflowUrl": "https://github.com/SonChangGi/dram-price/actions/workflows/update-data.yml",
             "manualUpdateLabel": "GitHub Actions update-data 수동 실행",
+            "automationStatusUrl": "https://sonchanggi.github.io/dram-price/data/automation-status.json",
             "tokenPolicy": "Static page keeps no source credentials.",
         },
         "payload": {

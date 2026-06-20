@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import json
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,6 +47,12 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("::warning::Scheduled DRAM collection failed", workflow)
         self.assertIn("::warning::Scheduled collection finished", workflow)
         self.assertIn("::warning::Scheduled validation failed", workflow)
+        self.assertIn("Write scheduled automation failure marker", workflow)
+        self.assertIn("Commit scheduled automation failure marker", workflow)
+        self.assertIn("Prepare degraded static site", workflow)
+        self.assertIn("git checkout -- data/prices.json data/series.json data/status.json data/summary.json", workflow)
+        self.assertIn("--state degraded", workflow)
+        self.assertIn("Directive: do not commit prices/series/status/summary from failed scheduled runs", workflow)
 
     def test_update_workflow_commits_and_deploys_only_after_clean_collection(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
@@ -57,9 +64,12 @@ class WorkflowContractTests(unittest.TestCase):
         )
         for step_name in ("Commit data changes", "Prepare static site"):
             self.assertIn(f"- name: {step_name}\n        if: {required_gate}", workflow)
-        for action in ("actions/configure-pages@v5", "actions/upload-pages-artifact@v3"):
+        for action in (
+            "actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5",
+            "actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3",
+        ):
             self.assertIn(f"- uses: {action}\n        if: {required_gate}", workflow)
-        self.assertIn(f"- id: deployment\n        if: {required_gate}\n        uses: actions/deploy-pages@v4", workflow)
+        self.assertIn(f"- id: deployment\n        if: {required_gate}\n        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4", workflow)
         self.assertIn(
             "if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && "
             "(steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success')",
@@ -81,3 +91,15 @@ class WorkflowContractTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class WebAutomationStatusContractTests(unittest.TestCase):
+    def test_web_app_loads_and_renders_automation_status_marker(self) -> None:
+        app = _read(ROOT / "web" / "app.js")
+        self.assertIn("automation-status.json", app)
+        self.assertIn("loadAutomationStatus", app)
+        self.assertIn("automationLabel", app)
+        self.assertIn("priceDataPolicy", app)
+        marker = json.loads((ROOT / "data" / "automation-status.json").read_text(encoding="utf-8"))
+        self.assertEqual(marker["schemaVersion"], 1)
+        self.assertIn(marker["state"], {"ok", "degraded", "stale"})
+        self.assertIn("never publishes newly collected price observations", marker["priceDataPolicy"])

@@ -1,5 +1,6 @@
 {
   "automation": {
+    "automationStatusUrl": "https://sonchanggi.github.io/dram-price/data/automation-status.json",
     "manualUpdateLabel": "GitHub Actions update-data 수동 실행",
     "tokenPolicy": "Static page keeps no source credentials.",
     "workflowUrl": "https://github.com/SonChangGi/dram-price/actions/workflows/update-data.yml"
@@ -46,7 +47,7 @@
   ],
   "payload": {
     "detailBytes": 417860,
-    "summaryBytes": null
+    "summaryBytes": 10755
   },
   "primaryEntities": [
     {

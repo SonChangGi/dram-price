@@ -1,6 +1,6 @@
 const DATA_PATHS = [
-  { prices: 'data/prices.json', series: 'data/series.json', status: 'data/status.json' },
-  { prices: '../data/prices.json', series: '../data/series.json', status: '../data/status.json' },
+  { prices: 'data/prices.json', series: 'data/series.json', status: 'data/status.json', automationStatus: 'data/automation-status.json' },
+  { prices: '../data/prices.json', series: '../data/series.json', status: '../data/status.json', automationStatus: '../data/automation-status.json' },
 ];
 const COLORS = ['#2457d6', '#0f766e', '#e11d48', '#f97316', '#7c3aed', '#0891b2', '#4d7c0f', '#be123c', '#2563eb', '#dc2626'];
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -27,7 +27,7 @@ const CAVEAT_LABELS = {
 };
 const KNOWN_METRIC_VALUE_KEYS = new Set(['average', 'daily_high', 'daily_low', 'high', 'low', 'session_average', 'session_high', 'session_low']);
 
-const state = { prices: [], series: [], status: null };
+const state = { prices: [], series: [], status: null, automationStatus: null };
 
 async function loadJsonFallback(kind) {
   const errors = [];
@@ -41,6 +41,35 @@ async function loadJsonFallback(kind) {
     }
   }
   throw new Error(errors.join('; '));
+}
+
+
+async function loadAutomationStatus() {
+  try {
+    return await loadJsonFallback('automationStatus');
+  } catch (_error) {
+    return {
+      schemaVersion: 1,
+      state: 'stale',
+      label: '자동화 상태 파일 없음',
+      reason: 'automation_status_missing',
+      generatedAt: state.status?.generated_at || null,
+      priceDataPolicy: 'Missing automation marker; rely on validated price status only.',
+    };
+  }
+}
+
+function automationLabel(marker) {
+  if (!marker) return '자동화 상태 미확인';
+  const reason = marker.reason ? ` · ${marker.reason}` : '';
+  return `${marker.label || marker.state || '상태 미확인'}${reason}`;
+}
+
+function automationTone(marker) {
+  if (!marker) return 'gate-item block';
+  if (marker.state === 'ok') return 'gate-item pass';
+  if (marker.state === 'degraded') return 'gate-item fail';
+  return 'gate-item block';
 }
 
 function metricFor(obs, requested) {
@@ -283,6 +312,7 @@ function renderHeroStatus() {
   appendStatusLine(card, '최근 수집', formatDateTime(state.status?.generated_at));
   appendStatusLine(card, '총 관측치', `${formatNumber(state.status?.observation_count ?? state.prices.length)}개`);
   appendStatusLine(card, '소스 상태', `${okSources}/${totalSources} 정상`);
+  appendStatusLine(card, '자동화', automationLabel(state.automationStatus));
   appendStatusLine(card, '배포 방식', 'GitHub Pages 정적 대시보드');
 }
 
@@ -309,6 +339,12 @@ function renderStatus() {
 
   const sourceStatus = document.getElementById('source-status');
   sourceStatus.replaceChildren();
+  appendInfoItem(
+    sourceStatus,
+    automationLabel(state.automationStatus),
+    `${formatDateTime(state.automationStatus?.generatedAt)} · ${state.automationStatus?.priceDataPolicy || '가격 데이터 정책 정보 없음'}`,
+    automationTone(state.automationStatus),
+  );
   (state.status?.sources || []).forEach((source) => {
     const warnings = [...(source.warnings || []), ...(source.errors || [])];
     const className = source.ok ? 'gate-item pass' : source.errors?.length ? 'gate-item fail' : 'gate-item block';
@@ -498,6 +534,7 @@ async function init() {
     state.prices = prices.observations || [];
     state.series = series.series || [];
     state.status = status;
+    state.automationStatus = await loadAutomationStatus();
     populateFilters();
     render();
   } catch (error) {

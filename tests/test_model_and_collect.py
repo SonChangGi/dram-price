@@ -176,6 +176,40 @@ class ModelAndCollectTests(unittest.TestCase):
         self.assertEqual(len(merged), 1)
         self.assertEqual(merged[0]["values"]["average"], 2)
 
+
+    def test_automation_status_cli_writes_public_marker_without_price_payload(self) -> None:
+        with TemporaryDirectory() as tmp:
+            output = Path(tmp) / "automation-status.json"
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "dram_tracker.automation_status",
+                    "--output",
+                    str(output),
+                    "--state",
+                    "degraded",
+                    "--reason",
+                    "scheduled_tests_failed",
+                    "--target-date",
+                    "2026-06-10",
+                    "--source-step",
+                    "tests",
+                ],
+                cwd=ROOT,
+                env={**os.environ, "PYTHONPATH": str(ROOT / "src")},
+                text=True,
+                capture_output=True,
+                check=True,
+            )
+            marker = json.loads(output.read_text(encoding="utf-8"))
+            self.assertIn("automation_status=degraded", result.stdout)
+            self.assertEqual(marker["schemaVersion"], 1)
+            self.assertEqual(marker["state"], "degraded")
+            self.assertEqual(marker["reason"], "scheduled_tests_failed")
+            self.assertEqual(marker["targetDate"], "2026-06-10")
+            self.assertIn("never publishes newly collected price observations", marker["priceDataPolicy"])
+
     def test_fixture_collector_writes_valid_json_outputs(self) -> None:
         with TemporaryDirectory() as tmp:
             output = Path(tmp) / "data"
