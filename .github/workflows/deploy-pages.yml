@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   deploy:
-    # Scheduled data refreshes deploy from update-data.yml after collection succeeds.
+    # Manual data refreshes deploy from update-data.yml after collection succeeds.
     # This guard skips only commits explicitly marked as already deployed by update-data.yml.
     if: >-
       github.event_name != 'push' ||
