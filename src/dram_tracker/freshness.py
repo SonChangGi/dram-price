@@ -1,4 +1,4 @@
-"""Freshness decision helper for scheduled DRAM data refreshes."""
+"""Freshness decision helper for reviewed DRAM data refreshes."""
 
 from __future__ import annotations
 
@@ -80,7 +80,7 @@ def decide_collection_need(
     require_daily_date: str | None = None,
     minimum_daily_spot_rows: int = 1,
 ) -> FreshnessDecision:
-    """Return whether a scheduled collection should run for the local calendar day."""
+    """Return whether a collection should run for the requested local calendar day."""
     try:
         local_tz = ZoneInfo(timezone_name)
     except ZoneInfoNotFoundError as exc:

@@ -34,7 +34,7 @@
     <main>
       <section class="notice">
         <strong>중요:</strong> 개인 리서치용 가격 모니터입니다. 공개 페이지 구조가 바뀌면 일부 데이터가 비거나 지연될 수 있으며,
-        자동 수집은 GitHub Actions 예약 실행으로 관리됩니다.
+        자동 예약 실행은 중지되어 있으며, 검토 후 GitHub Actions 수동 실행으로 갱신합니다.
       </section>
 
       <section class="controls" aria-label="대시보드 필터">
@@ -177,17 +177,17 @@
           </div>
         </div>
         <div class="explain">
-          <p class="eyebrow">자동화</p>
-          <h2>매일 저장되는 정적 데이터</h2>
+          <p class="eyebrow">수동 자동화</p>
+          <h2>검토 후 갱신되는 정적 데이터</h2>
           <p>
-            GitHub Actions가 매일 <code>data/</code> JSON을 갱신하고,
+            자동 스케줄은 멀티 repo 롤백 이후 중지되어 있습니다. 검토 후 수동 workflow_dispatch를 실행하면
             같은 실행 안에서 GitHub Pages에 <code>web/</code>과 <code>data/</code>를 다시 배포합니다.
           </p>
           <a class="action-button" href="https://github.com/SonChangGi/dram-price/actions/workflows/update-data.yml" target="_blank" rel="noopener">
             수동 업데이트 열기
           </a>
           <p class="action-note">
-            자동 실행이 지연되면 GitHub에 로그인한 뒤 <strong>Run workflow</strong>를 누르세요. 저장소 쓰기 권한이 있어야 실행됩니다.
+            공개 소스 상태를 확인한 뒤 GitHub에 로그인해 <strong>Run workflow</strong>를 누르세요. 저장소 쓰기 권한이 있어야 실행됩니다.
           </p>
         </div>
       </section>

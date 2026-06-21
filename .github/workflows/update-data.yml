@@ -2,12 +2,9 @@ name: Update DRAM price data
 
 on:
   workflow_dispatch:
-  schedule:
-    # Primary daily refresh: 09:20 UTC (18:20 KST). GitHub cron schedules are UTC.
-    - cron: '20 9 * * *'
-    # Next-day backfill check: 21:00 UTC (06:00 KST on the following local day).
-    # This run fetches only when the previous KST day's daily spot data is missing.
-    - cron: '0 21 * * *'
+    # Automatic source refresh is suspended after the multi-repo rollback.
+    # Manual runs still execute the existing freshness, collection, test, and
+    # commit gates before publishing DRAM data.
 
 permissions:
   contents: write
@@ -20,9 +17,8 @@ concurrency:
 
 jobs:
   update-data:
-    # Scheduled source refreshes are best-effort: keep logs/warnings, but do not
-    # create GitHub "run failed" mail when public source data is late/unavailable.
-    # Manual dispatch stays fail-fast so debugging runs still surface problems.
+    # Legacy scheduled-source guards remain dormant while automatic refresh is
+    # suspended. Manual dispatch stays fail-fast so reviewed runs surface problems.
     continue-on-error: ${{ github.event_name == 'schedule' }}
     environment:
       name: github-pages
@@ -97,8 +93,14 @@ jobs:
         if: steps.tests.outcome == 'failure' && github.event_name == 'schedule'
         run: |
           echo "::warning::Scheduled validation failed after collection; keeping the last published data and skipping commit/deploy."
-      - name: Commit data changes
+      - name: Validate public data publication floor
+        id: publication
         if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success'
+        env:
+          PYTHONPATH: src
+        run: python scripts/validate_publication.py
+      - name: Commit data changes
+        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success'
         run: |
           if git diff --quiet -- data; then
             echo "No data changes to commit."
@@ -109,7 +111,7 @@ jobs:
           git add data
           git commit \
             -m "Preserve current DRAM observations" \
-            -m "Constraint: scheduled public-source data refresh" \
+            -m "Constraint: reviewed manual public-source data refresh" \
             -m "Confidence: high" \
             -m "Scope-risk: narrow" \
             -m "Directive: keep source caveats and status evidence with data refreshes" \
@@ -117,20 +119,20 @@ jobs:
             -m "Skip-Pages-Deploy: update-data-workflow"
           git push
       - name: Prepare static site
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success'
+        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success'
         run: |
           rm -rf site
           mkdir -p site
           cp -R web/. site/
           cp -R data site/data
       - uses: actions/configure-pages@v5
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success'
+        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success'
         with:
           enablement: true
       - uses: actions/upload-pages-artifact@v3
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success'
+        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success'
         with:
           path: site
       - id: deployment
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success'
+        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success'
         uses: actions/deploy-pages@v4
