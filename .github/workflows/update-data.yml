@@ -2,9 +2,12 @@ name: Update DRAM price data
 
 on:
   workflow_dispatch:
-    # Automatic source refresh is suspended after the multi-repo rollback.
-    # Manual runs still execute the existing freshness, collection, test, and
-    # commit gates before publishing DRAM data.
+    # Manual dispatch forces collection through the same validation gates.
+  schedule:
+    # 09:00 KST daily: collect current TrendForce public tables when available.
+    - cron: "0 0 * * *"
+    # 06:00 KST daily: retry yesterday when the source publishes late.
+    - cron: "0 21 * * *"
 
 permissions:
   contents: write
@@ -17,8 +20,8 @@ concurrency:
 
 jobs:
   update-data:
-    # Legacy scheduled-source guards remain dormant while automatic refresh is
-    # suspended. Manual dispatch stays fail-fast so reviewed runs surface problems.
+    # Scheduled-source guards keep provider outages visible in logs without
+    # publishing partial data. Manual dispatch stays fail-fast so reviewed runs surface problems.
     continue-on-error: ${{ github.event_name == 'schedule' }}
     environment:
       name: github-pages
@@ -111,7 +114,7 @@ jobs:
           git add data
           git commit \
             -m "Preserve current DRAM observations" \
-            -m "Constraint: reviewed manual public-source data refresh" \
+            -m "Constraint: scheduled/manual public-source refresh must pass freshness, test, and publication gates" \
             -m "Confidence: high" \
             -m "Scope-risk: narrow" \
             -m "Directive: keep source caveats and status evidence with data refreshes" \

@@ -15,12 +15,13 @@ def _read(path: Path) -> str:
 
 
 class WorkflowContractTests(unittest.TestCase):
-    def test_update_workflow_is_manual_only_after_rollback_with_backfill_branch_preserved(self) -> None:
+    def test_update_workflow_has_scheduled_refresh_with_backfill_branch_preserved(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
         self.assertIn("workflow_dispatch:", workflow)
-        self.assertIn("Automatic source refresh is suspended", workflow)
-        self.assertNotIn("schedule:", workflow)
-        self.assertNotIn("cron:", workflow)
+        self.assertIn("schedule:", workflow)
+        self.assertIn('cron: "0 0 * * *"', workflow)
+        self.assertIn('cron: "0 21 * * *"', workflow)
+        self.assertIn("09:00 KST daily", workflow)
         self.assertIn('elif [ "$SCHEDULE" = "0 21 * * *" ]; then', workflow)
         self.assertIn("args+=(--require-daily-date yesterday)", workflow)
         self.assertIn("args+=(--require-daily-date today)", workflow)
@@ -36,11 +37,11 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertLess(workflow.index("Verify requested daily data after collection"), workflow.index("Run tests"))
         self.assertLess(workflow.index("Verify requested daily data after collection"), workflow.index("Commit data changes"))
 
-    def test_manual_runs_stay_fail_fast_while_legacy_schedule_guards_remain_dormant(self) -> None:
+    def test_manual_runs_stay_fail_fast_while_schedules_soft_fail_provider_outages(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
         scheduled_guard = "continue-on-error: ${{ github.event_name == 'schedule' }}"
         self.assertEqual(4, workflow.count(scheduled_guard))
-        self.assertIn("# suspended. Manual dispatch stays fail-fast", workflow)
+        self.assertIn("Scheduled-source guards keep provider outages visible", workflow)
         self.assertIn("Report scheduled collection failure", workflow)
         self.assertIn("Report scheduled target-date miss", workflow)
         self.assertIn("Report scheduled test failure", workflow)
