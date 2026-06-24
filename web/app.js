@@ -2,7 +2,7 @@ const DATA_PATHS = [
   { prices: 'data/prices.json', series: 'data/series.json', status: 'data/status.json' },
   { prices: '../data/prices.json', series: '../data/series.json', status: '../data/status.json' },
 ];
-const COLORS = ['#2457d6', '#0f766e', '#e11d48', '#f97316', '#7c3aed', '#0891b2', '#4d7c0f', '#be123c', '#2563eb', '#dc2626'];
+const COLORS = ['#7dd3fc', '#86efac', '#fb7185', '#fbbf24', '#c4b5fd', '#67e8f9', '#bef264', '#f9a8d4', '#93c5fd', '#fca5a5'];
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const KIND_LABELS = {
   contract: '고정가',
@@ -405,7 +405,7 @@ function renderChart(rows) {
   const svg = createSvgElement('svg', { viewBox: `0 0 ${width} ${height}`, preserveAspectRatio: 'xMidYMid meet' });
   Array.from({ length: 5 }, (_, idx) => yMin + (idx / 4) * (yMax - yMin)).forEach((value) => {
     svg.append(createSvgElement('line', { class: 'grid', x1: left, x2: width - right, y1: y(value), y2: y(value) }));
-    appendSvgText(svg, formatNumber(value), { x: 16, y: y(value) + 4, 'font-size': 13, 'font-weight': 650, fill: '#52647c' });
+    appendSvgText(svg, formatNumber(value), { x: 16, y: y(value) + 4, 'font-size': 13, 'font-weight': 650, fill: '#aab3c2' });
   });
   svg.append(createSvgElement('line', { class: 'axis', x1: left, x2: width - right, y1: height - bottom, y2: height - bottom }));
   svg.append(createSvgElement('line', { class: 'axis', x1: left, x2: left, y1: top, y2: height - bottom }));
@@ -418,7 +418,7 @@ function renderChart(rows) {
     const date = dates[dateIdx];
     const xPos = x(date);
     const textAnchor = dateIdx === 0 ? 'start' : dateIdx === dates.length - 1 ? 'end' : 'middle';
-    appendSvgText(svg, date, { x: xPos, y: height - 22, 'text-anchor': textAnchor, 'font-size': 13, 'font-weight': 650, fill: '#52647c' });
+    appendSvgText(svg, date, { x: xPos, y: height - 22, 'text-anchor': textAnchor, 'font-size': 13, 'font-weight': 650, fill: '#aab3c2' });
   });
 
   groups.forEach((group, idx) => {
