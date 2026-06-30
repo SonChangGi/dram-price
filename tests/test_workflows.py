@@ -15,15 +15,15 @@ def _read(path: Path) -> str:
 
 
 class WorkflowContractTests(unittest.TestCase):
-    def test_update_workflow_has_scheduled_refresh_with_backfill_branch_preserved(self) -> None:
+    def test_update_workflow_has_staggered_scheduled_refresh_loop(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
         self.assertIn("workflow_dispatch:", workflow)
         self.assertIn("schedule:", workflow)
-        self.assertIn('cron: "0 0 * * *"', workflow)
-        self.assertIn('cron: "0 21 * * *"', workflow)
-        self.assertIn("09:00 KST daily", workflow)
-        self.assertIn('elif [ "$SCHEDULE" = "0 21 * * *" ]; then', workflow)
-        self.assertIn("args+=(--require-daily-date yesterday)", workflow)
+        self.assertIn('cron: "15 0 * * *"', workflow)
+        self.assertIn('cron: "15 2 * * *"', workflow)
+        self.assertIn("09:15 KST daily", workflow)
+        self.assertIn('cron: "15 4 * * *"', workflow)
+        self.assertNotIn("--require-daily-date yesterday", workflow)
         self.assertIn("args+=(--require-daily-date today)", workflow)
 
     def test_update_workflow_has_explicit_completeness_post_check(self) -> None:
