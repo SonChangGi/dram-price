@@ -1,21 +1,19 @@
 <!doctype html>
-<html lang="ko" data-project-id="dram">
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>DRAM 가격 데일리 대시보드</title>
     <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="common-ui.css?v=20260703-light-polish-v7" />
   </head>
   <body id="top">
     <header class="hero">
-    <nav class="top-nav" data-common-nav aria-label="Quant 프로젝트 공통 이동"></nav>
       <div>
         <p class="eyebrow">DRAM 가격 랩</p>
         <h1>DRAM 가격 데일리 대시보드</h1>
         <p class="hero-copy">
-          DRAM 대표 가격과 주요 제품 흐름을 밝은 표와 차트로 확인합니다.
-          세부 제품과 지표는 필터로 좁혀 봅니다.
+          DRAM 현물가, 고정가, 주간 현물 프록시를 큼직한 글자와 여백으로 비교하는 개인 가격 모니터입니다.
+          대표 제품은 바로 보이고, 세부 제품·카테고리·지표는 필터로 좁혀 봅니다.
         </p>
         <nav class="hero-actions" aria-label="대시보드 이동">
           <a class="hero-dashboard-button" href="https://sonchanggi.github.io/quant-dashboard/">
@@ -161,9 +159,7 @@
         </div>
       </section>
 
-      <details class="panel two-col">
-      <summary>표기 기준과 수동 자동화</summary>
-      <div class="details-body">
+      <section class="panel two-col">
         <div>
           <p class="eyebrow">표기 기준</p>
           <h2>가격 종류와 지표 읽기</h2>
@@ -190,27 +186,20 @@
             공개 소스 상태를 확인한 뒤 GitHub에 로그인해 <strong>Run workflow</strong>를 누르세요. 저장소 쓰기 권한이 있어야 실행됩니다.
           </p>
         </div>
-            </div>
-    </details>
+      </section>
 
-      <details class="notice moved-notice">
-      <summary>운영 고지</summary>
-      <div class="details-body">
+      <section class="notice moved-notice">
         <strong>운영 고지:</strong> 개인 리서치용 가격 모니터입니다. 공개 페이지 구조가 바뀌면 일부 데이터가 비거나 지연될 수 있으며,
         자동 예약 실행은 중지되어 있으며, 검토 후 GitHub Actions 수동 실행으로 갱신합니다.
-            </div>
-    </details>
+      </section>
 
-      <details class="disclaimer">
-      <summary>주의 및 한계</summary>
-      <div class="details-body">
+      <section class="disclaimer">
         <h2>주의 및 한계</h2>
         <p>
           본 대시보드는 개인 리서치와 가격 흐름 모니터링을 위한 화면입니다. 공개 데이터의 저작권·이용 조건을 확인해야 하며,
           소스 HTML 변경, 무료 공개 범위 제한, 고정가/현물가의 기준일 차이로 인해 실제 시장 체결 가격과 다를 수 있습니다.
         </p>
-            </div>
-    </details>
+      </section>
     </main>
 
     <footer>
@@ -225,6 +214,5 @@
     <div id="page-bottom" tabindex="-1" aria-hidden="true"></div>
 
     <script src="app.js"></script>
-    <script src="common-ui.js?v=20260703-light-polish-v7"></script>
   </body>
 </html>
