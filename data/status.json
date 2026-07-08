@@ -5,16 +5,16 @@
     "Contract prices are monthly/update-date observations; collected_at is not the effective price date."
   ],
   "counts_by_kind": {
-    "contract": 144,
-    "spot": 126,
+    "contract": 152,
+    "spot": 133,
     "spot_proxy": 729
   },
   "counts_by_source": {
     "memorymarket": 729,
-    "trendforce": 270
+    "trendforce": 285
   },
-  "generated_at": "2026-07-07T04:15:45Z",
-  "observation_count": 999,
+  "generated_at": "2026-07-08T03:42:36Z",
+  "observation_count": 1014,
   "schema_version": 1,
   "sources": [
     {
@@ -30,7 +30,7 @@
     },
     {
       "errors": [],
-      "observation_count": 612,
+      "observation_count": 606,
       "ok": true,
       "source": "memorymarket",
       "urls": [
@@ -76,7 +76,9 @@
         "https://www.memorymarket.com/price/ews/100326",
         "https://www.memorymarket.com/price/ews/100325"
       ],
-      "warnings": []
+      "warnings": [
+        "DDR5 RDIMM 32GB: failed to fetch https://www.memorymarket.com/price/ems/100262: <urlopen error _ssl.c:993: The handshake operation timed out>"
+      ]
     }
   ]
 }
