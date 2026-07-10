@@ -57,7 +57,7 @@ class WorkflowContractTests(unittest.TestCase):
             "(steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && "
             "steps.tests.outcome == 'success'"
         )
-        required_gate = pre_publication_gate + " && steps.publication.outcome == 'success'"
+        required_gate = pre_publication_gate + " && steps.publication.outcome == 'success' && steps.health.outcome == 'success'"
         self.assertIn(
             f"- name: Validate public data publication floor\n        id: publication\n        if: {pre_publication_gate}",
             workflow,
@@ -74,6 +74,17 @@ class WorkflowContractTests(unittest.TestCase):
             workflow,
             rf"- id: deployment\n        if: {re.escape(required_gate)}\n        uses: actions/deploy-pages@[0-9a-f]{{40}} # v4",
         )
+
+    def test_update_workflow_persists_and_escalates_repeated_degradation(self) -> None:
+        workflow = _read(UPDATE_WORKFLOW)
+        self.assertIn("Update persistent automation health", workflow)
+        self.assertIn("scripts/update_automation_health.py", workflow)
+        self.assertIn("data/automation-health.json", workflow)
+        self.assertIn("Commit automation health without partial market data", workflow)
+        self.assertIn("git add data/automation-health.json", workflow)
+        self.assertIn("Escalate repeated automation degradation", workflow)
+        self.assertIn("steps.health.outputs.alert_required == 'true'", workflow)
+        self.assertLess(workflow.index("Update persistent automation health"), workflow.index("Commit data changes"))
 
     def test_update_workflow_marks_self_deployed_commits_explicitly(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)

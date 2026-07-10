@@ -22,8 +22,8 @@ concurrency:
 jobs:
   update-data:
     # Scheduled-source guards keep provider outages visible in logs without
-    # publishing partial data. Manual dispatch stays fail-fast so reviewed runs surface problems.
-    continue-on-error: ${{ github.event_name == 'schedule' }}
+    # publishing partial data. Repeated degradation is escalated after three
+    # attempted collections; manual dispatch stays fail-fast.
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -98,11 +98,30 @@ jobs:
       - name: Validate public data publication floor
         id: publication
         if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success'
+        continue-on-error: ${{ github.event_name == 'schedule' }}
         env:
           PYTHONPATH: src
         run: python scripts/validate_publication.py
+      - name: Update persistent automation health
+        id: health
+        if: always() && steps.freshness.outputs.should_collect == 'true'
+        env:
+          COLLECTION_OUTCOME: ${{ steps.collect.outcome }}
+          TARGET_OUTCOME: ${{ steps.verify_target_date.outcome }}
+          TESTS_OUTCOME: ${{ steps.tests.outcome }}
+          PUBLICATION_OUTCOME: ${{ steps.publication.outcome }}
+          TARGET_DATE: ${{ steps.freshness.outputs.target_date }}
+        run: |
+          python scripts/update_automation_health.py \
+            --state data/automation-health.json \
+            --status data/status.json \
+            --collection-outcome "${COLLECTION_OUTCOME:-skipped}" \
+            --target-outcome "${TARGET_OUTCOME:-skipped}" \
+            --tests-outcome "${TESTS_OUTCOME:-skipped}" \
+            --publication-outcome "${PUBLICATION_OUTCOME:-skipped}" \
+            --target-date "${TARGET_DATE:-}"
       - name: Commit data changes
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success'
+        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success'
         run: |
           if git diff --quiet -- data; then
             echo "No data changes to commit."
@@ -120,21 +139,44 @@ jobs:
             -m "Tested: python -m dram_tracker.freshness --fail-if-collect-needed and python -m unittest discover -s tests -v after collection" \
             -m "Skip-Pages-Deploy: update-data-workflow"
           git push
+      - name: Commit automation health without partial market data
+        if: always() && steps.freshness.outputs.should_collect == 'true' && (steps.collect.outcome != 'success' || (steps.freshness.outputs.target_date != '' && steps.verify_target_date.outcome != 'success') || steps.tests.outcome != 'success' || steps.publication.outcome != 'success')
+        run: |
+          if git diff --quiet -- data/automation-health.json; then
+            echo "No automation health change to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/automation-health.json
+          git commit \
+            -m "Record DRAM automation degradation" \
+            -m "Constraint: Preserve the last verified market data while tracking repeated provider or validation failures." \
+            -m "Directive: Escalate only after the persisted alert threshold is reached." \
+            -m "Skip-Pages-Deploy: update-data-workflow"
+          git push
       - name: Prepare static site
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success'
+        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success'
         run: |
           rm -rf site
           mkdir -p site
           cp -R web/. site/
           cp -R data site/data
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success'
+        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success'
         with:
           enablement: true
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success'
+        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success'
         with:
           path: site
       - id: deployment
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success'
+        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success'
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+      - name: Escalate repeated automation degradation
+        if: always() && steps.health.outputs.alert_required == 'true'
+        run: |
+          echo "::error::DRAM automation degradation reached the persisted alert threshold."
+          echo "warning_streak=${{ steps.health.outputs.warning_streak }}"
+          echo "blocking_streak=${{ steps.health.outputs.blocking_streak }}"
+          exit 1

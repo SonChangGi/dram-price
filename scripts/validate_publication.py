@@ -20,6 +20,7 @@ def main() -> int:
     summary = read_json(data_dir / "summary.json")
     prices = read_json(data_dir / "prices.json")
     status = read_json(data_dir / "status.json")
+    health = read_json(data_dir / "automation-health.json")
     require(summary.get("contract") == "quant-research-summary", "summary contract mismatch")
     require(summary.get("projectId") == "dram", "summary projectId mismatch")
     entities = summary.get("primaryEntities")
@@ -27,6 +28,10 @@ def main() -> int:
     observations = prices.get("observations") if isinstance(prices, dict) else None
     require(isinstance(observations, list) and len(observations) >= 2, "prices needs at least two observations")
     require(status.get("generatedAt") or status.get("generated_at"), "status needs generated timestamp")
+    require(health.get("contract") == "dram-automation-health", "automation health contract mismatch")
+    require(health.get("projectId") == "dram", "automation health projectId mismatch")
+    require(isinstance(health.get("consecutiveWarningRuns"), int), "automation health warning streak missing")
+    require(isinstance(health.get("consecutiveBlockingFailures"), int), "automation health blocking streak missing")
     print(f"Validated DRAM publication data: {len(entities)} entities, {len(observations)} observations")
     return 0
 
