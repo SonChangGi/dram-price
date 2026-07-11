@@ -2,21 +2,21 @@
   "schemaVersion": 1,
   "contract": "dram-automation-health",
   "projectId": "dram",
-  "updatedAt": "2026-07-10T06:48:11.101658Z",
-  "targetDate": "2026-07-10",
-  "status": "warning",
+  "updatedAt": "2026-07-11T03:45:07.000661Z",
+  "targetDate": "2026-07-11",
+  "status": "blocked",
   "collectionOutcome": "success",
-  "targetVerificationOutcome": "success",
-  "testsOutcome": "success",
-  "publicationOutcome": "success",
-  "warningCount": 1,
+  "targetVerificationOutcome": "failure",
+  "testsOutcome": "skipped",
+  "publicationOutcome": "skipped",
+  "warningCount": 0,
   "sourceErrorCount": 0,
-  "details": [
-    "memorymarket warning: DDR5 UDIMM 32GB 6000: failed to fetch https://www.memorymarket.com/price/ews/100271: The read operation timed out"
+  "details": [],
+  "blockingReasons": [
+    "target_date_missing_after_collection"
   ],
-  "blockingReasons": [],
-  "consecutiveWarningRuns": 1,
-  "consecutiveBlockingFailures": 0,
+  "consecutiveWarningRuns": 0,
+  "consecutiveBlockingFailures": 1,
   "alertThreshold": 3,
   "alertRequired": false,
   "alertReasons": [],
@@ -28,6 +28,16 @@
       "warningCount": 1,
       "sourceErrorCount": 0,
       "blockingReasons": []
+    },
+    {
+      "checkedAt": "2026-07-11T03:45:07.000661Z",
+      "targetDate": "2026-07-11",
+      "status": "blocked",
+      "warningCount": 0,
+      "sourceErrorCount": 0,
+      "blockingReasons": [
+        "target_date_missing_after_collection"
+      ]
     }
   ]
 }
