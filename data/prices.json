@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15T03:31:50Z",
+  "generated_at": "2026-07-16T03:34:58Z",
   "observations": [
     {
       "cadence": "weekly",
@@ -2488,7 +2488,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2506,7 +2506,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2524,7 +2524,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2542,7 +2542,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2560,7 +2560,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2578,7 +2578,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2596,7 +2596,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2614,7 +2614,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2632,7 +2632,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2650,7 +2650,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2668,7 +2668,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2686,7 +2686,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2704,7 +2704,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2722,7 +2722,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2740,7 +2740,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2758,7 +2758,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2776,7 +2776,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2794,7 +2794,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2812,7 +2812,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2830,7 +2830,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2848,7 +2848,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-20",
       "effective_date": "2026-01-20",
@@ -2866,7 +2866,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -2884,7 +2884,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -2902,7 +2902,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -2920,7 +2920,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -2938,7 +2938,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -2956,7 +2956,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -2974,7 +2974,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -2992,7 +2992,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3010,7 +3010,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3028,7 +3028,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3046,7 +3046,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3064,7 +3064,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3082,7 +3082,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3100,7 +3100,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3118,7 +3118,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3136,7 +3136,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3154,7 +3154,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3172,7 +3172,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3190,7 +3190,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3208,7 +3208,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3226,7 +3226,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-01-27",
       "effective_date": "2026-01-27",
@@ -3244,7 +3244,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3262,7 +3262,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3280,7 +3280,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3298,7 +3298,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3316,7 +3316,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3334,7 +3334,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3352,7 +3352,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3370,7 +3370,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3388,7 +3388,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3406,7 +3406,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3424,7 +3424,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3442,7 +3442,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3460,7 +3460,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3478,7 +3478,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3496,7 +3496,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3514,7 +3514,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3532,7 +3532,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3550,7 +3550,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3568,7 +3568,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3586,7 +3586,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3604,7 +3604,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-03",
       "effective_date": "2026-02-03",
@@ -3622,7 +3622,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3640,7 +3640,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3658,7 +3658,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3676,7 +3676,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3694,7 +3694,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3712,7 +3712,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3730,7 +3730,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3748,7 +3748,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3766,7 +3766,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3784,7 +3784,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3802,7 +3802,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3820,7 +3820,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3838,7 +3838,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3856,7 +3856,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3874,7 +3874,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3892,7 +3892,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3910,7 +3910,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3928,7 +3928,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3946,7 +3946,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3964,7 +3964,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -3982,7 +3982,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -4000,7 +4000,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -4018,7 +4018,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -4036,7 +4036,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -4054,7 +4054,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -4072,7 +4072,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -4090,7 +4090,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-10",
       "effective_date": "2026-02-10",
@@ -4108,7 +4108,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4126,7 +4126,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4144,7 +4144,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4162,7 +4162,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4180,7 +4180,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4198,7 +4198,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4216,7 +4216,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4234,7 +4234,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4252,7 +4252,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4270,7 +4270,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4288,7 +4288,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4306,7 +4306,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4324,7 +4324,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4342,7 +4342,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4360,7 +4360,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4378,7 +4378,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4396,7 +4396,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4414,7 +4414,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4432,7 +4432,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4450,7 +4450,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4468,7 +4468,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-02-24",
       "effective_date": "2026-02-24",
@@ -4486,7 +4486,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4504,7 +4504,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4522,7 +4522,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4540,7 +4540,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4558,7 +4558,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4576,7 +4576,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4594,7 +4594,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4612,7 +4612,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4630,7 +4630,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4648,7 +4648,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4666,7 +4666,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4684,7 +4684,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4702,7 +4702,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4720,7 +4720,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4738,7 +4738,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4756,7 +4756,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4774,7 +4774,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4792,7 +4792,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4810,7 +4810,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4828,7 +4828,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4846,7 +4846,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-03",
       "effective_date": "2026-03-03",
@@ -4864,7 +4864,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -4882,7 +4882,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -4900,7 +4900,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -4918,7 +4918,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -4936,7 +4936,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -4954,7 +4954,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -4972,7 +4972,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -4990,7 +4990,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5008,7 +5008,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5026,7 +5026,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5044,7 +5044,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5062,7 +5062,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5080,7 +5080,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5098,7 +5098,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5116,7 +5116,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5134,7 +5134,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5152,7 +5152,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5170,7 +5170,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5188,7 +5188,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5206,7 +5206,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5224,7 +5224,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5242,7 +5242,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5260,7 +5260,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5278,7 +5278,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5296,7 +5296,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5314,7 +5314,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5332,7 +5332,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-10",
       "effective_date": "2026-03-10",
@@ -5350,7 +5350,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5368,7 +5368,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5386,7 +5386,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5404,7 +5404,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5422,7 +5422,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5440,7 +5440,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5458,7 +5458,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5476,7 +5476,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5494,7 +5494,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5512,7 +5512,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5530,7 +5530,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5548,7 +5548,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5566,7 +5566,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5584,7 +5584,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5602,7 +5602,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5620,7 +5620,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5638,7 +5638,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5656,7 +5656,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5674,7 +5674,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5692,7 +5692,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5710,7 +5710,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-17",
       "effective_date": "2026-03-17",
@@ -5728,7 +5728,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5746,7 +5746,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5764,7 +5764,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5782,7 +5782,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5800,7 +5800,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5818,7 +5818,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5836,7 +5836,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5854,7 +5854,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5872,7 +5872,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5890,7 +5890,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5908,7 +5908,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5926,7 +5926,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5944,7 +5944,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5962,7 +5962,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5980,7 +5980,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -5998,7 +5998,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -6016,7 +6016,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -6034,7 +6034,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -6052,7 +6052,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -6070,7 +6070,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -6088,7 +6088,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-24",
       "effective_date": "2026-03-24",
@@ -6106,7 +6106,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6124,7 +6124,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6142,7 +6142,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6160,7 +6160,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6178,7 +6178,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6196,7 +6196,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6214,7 +6214,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6232,7 +6232,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6250,7 +6250,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6268,7 +6268,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6286,7 +6286,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6304,7 +6304,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6322,7 +6322,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6340,7 +6340,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6358,7 +6358,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6376,7 +6376,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6394,7 +6394,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6412,7 +6412,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6430,7 +6430,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6448,7 +6448,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6466,7 +6466,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-03-31",
       "effective_date": "2026-03-31",
@@ -6484,7 +6484,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6502,7 +6502,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6520,7 +6520,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6538,7 +6538,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6556,7 +6556,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6574,7 +6574,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6592,7 +6592,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6610,7 +6610,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6628,7 +6628,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6646,7 +6646,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6664,7 +6664,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6682,7 +6682,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6700,7 +6700,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6718,7 +6718,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6736,7 +6736,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6754,7 +6754,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6772,7 +6772,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6790,7 +6790,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6808,7 +6808,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6826,7 +6826,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6844,7 +6844,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6862,7 +6862,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6880,7 +6880,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6898,7 +6898,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6916,7 +6916,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6934,7 +6934,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6952,7 +6952,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-07",
       "effective_date": "2026-04-07",
@@ -6970,7 +6970,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -6988,7 +6988,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7006,7 +7006,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7024,7 +7024,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7042,7 +7042,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7060,7 +7060,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7078,7 +7078,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7096,7 +7096,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7114,7 +7114,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7132,7 +7132,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7150,7 +7150,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7168,7 +7168,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7186,7 +7186,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7204,7 +7204,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7222,7 +7222,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7240,7 +7240,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7258,7 +7258,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7276,7 +7276,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7294,7 +7294,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7312,7 +7312,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7330,7 +7330,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-14",
       "effective_date": "2026-04-14",
@@ -7348,7 +7348,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7366,7 +7366,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7384,7 +7384,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7402,7 +7402,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7420,7 +7420,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7438,7 +7438,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7456,7 +7456,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7474,7 +7474,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7492,7 +7492,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7510,7 +7510,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7528,7 +7528,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7546,7 +7546,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7564,7 +7564,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7582,7 +7582,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7600,7 +7600,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7618,7 +7618,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7636,7 +7636,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7654,7 +7654,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7672,7 +7672,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7690,7 +7690,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7708,7 +7708,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-21",
       "effective_date": "2026-04-21",
@@ -7726,7 +7726,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7744,7 +7744,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7762,7 +7762,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7780,7 +7780,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7798,7 +7798,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7816,7 +7816,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7834,7 +7834,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7852,7 +7852,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7870,7 +7870,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7888,7 +7888,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7906,7 +7906,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7924,7 +7924,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7942,7 +7942,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7960,7 +7960,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7978,7 +7978,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -7996,7 +7996,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -8014,7 +8014,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -8032,7 +8032,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -8050,7 +8050,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -8068,7 +8068,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -8086,7 +8086,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-04-28",
       "effective_date": "2026-04-28",
@@ -8104,7 +8104,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-06",
       "effective_date": "2026-05-06",
@@ -8122,7 +8122,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-06",
       "effective_date": "2026-05-06",
@@ -8140,7 +8140,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-06",
       "effective_date": "2026-05-06",
@@ -8158,7 +8158,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-06",
       "effective_date": "2026-05-06",
@@ -8176,7 +8176,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-06",
       "effective_date": "2026-05-06",
@@ -8194,7 +8194,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-06",
       "effective_date": "2026-05-06",
@@ -8212,7 +8212,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8230,7 +8230,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8248,7 +8248,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8266,7 +8266,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8284,7 +8284,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8302,7 +8302,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8320,7 +8320,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8338,7 +8338,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8356,7 +8356,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8374,7 +8374,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8392,7 +8392,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8410,7 +8410,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8428,7 +8428,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8446,7 +8446,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8464,7 +8464,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8482,7 +8482,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8500,7 +8500,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8518,7 +8518,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8536,7 +8536,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8554,7 +8554,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8572,7 +8572,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-12",
       "effective_date": "2026-05-12",
@@ -8590,7 +8590,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8608,7 +8608,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8626,7 +8626,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8644,7 +8644,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8662,7 +8662,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8680,7 +8680,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8698,7 +8698,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8716,7 +8716,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8734,7 +8734,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8752,7 +8752,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8770,7 +8770,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8788,7 +8788,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8806,7 +8806,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8824,7 +8824,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8842,7 +8842,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8860,7 +8860,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8878,7 +8878,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8896,7 +8896,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8914,7 +8914,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8932,7 +8932,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8950,7 +8950,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8968,7 +8968,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -8986,7 +8986,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -9004,7 +9004,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -9022,7 +9022,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -9040,7 +9040,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -9058,7 +9058,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -9076,7 +9076,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -9094,7 +9094,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -9112,7 +9112,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-19",
       "effective_date": "2026-05-19",
@@ -9130,7 +9130,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9148,7 +9148,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9166,7 +9166,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9184,7 +9184,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9202,7 +9202,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9220,7 +9220,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9238,7 +9238,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9256,7 +9256,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9274,7 +9274,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9292,7 +9292,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9310,7 +9310,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9328,7 +9328,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9346,7 +9346,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9364,7 +9364,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9382,7 +9382,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9400,7 +9400,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9418,7 +9418,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9436,7 +9436,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9454,7 +9454,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9472,7 +9472,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9490,7 +9490,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9508,7 +9508,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9526,7 +9526,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9544,7 +9544,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9562,7 +9562,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9580,7 +9580,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9598,7 +9598,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9616,7 +9616,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9634,7 +9634,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9652,7 +9652,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-05-26",
       "effective_date": "2026-05-26",
@@ -9670,7 +9670,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9688,7 +9688,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9706,7 +9706,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9724,7 +9724,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9742,7 +9742,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9760,7 +9760,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9778,7 +9778,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9796,7 +9796,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9814,7 +9814,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9832,7 +9832,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9850,7 +9850,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9868,7 +9868,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9886,7 +9886,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9904,7 +9904,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9922,7 +9922,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9940,7 +9940,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9958,7 +9958,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9976,7 +9976,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -9994,7 +9994,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -10012,7 +10012,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -10030,7 +10030,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -10048,7 +10048,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -10066,7 +10066,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -10084,7 +10084,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -10102,7 +10102,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -10120,7 +10120,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -10138,7 +10138,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -10156,7 +10156,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -10174,7 +10174,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -10192,7 +10192,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-02",
       "effective_date": "2026-06-02",
@@ -10210,7 +10210,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10228,7 +10228,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10246,7 +10246,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10264,7 +10264,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10282,7 +10282,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10300,7 +10300,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10318,7 +10318,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10336,7 +10336,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10354,7 +10354,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10372,7 +10372,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10390,7 +10390,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10408,7 +10408,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10426,7 +10426,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10444,7 +10444,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10462,7 +10462,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10480,7 +10480,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10498,7 +10498,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10516,7 +10516,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10534,7 +10534,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10552,7 +10552,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10570,7 +10570,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10588,7 +10588,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10606,7 +10606,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10624,7 +10624,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10642,7 +10642,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10660,7 +10660,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10678,7 +10678,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10696,7 +10696,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10714,7 +10714,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10732,7 +10732,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10750,7 +10750,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10768,7 +10768,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10786,7 +10786,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10804,7 +10804,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10822,7 +10822,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -10840,7 +10840,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-09",
       "effective_date": "2026-06-09",
@@ -12566,7 +12566,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12584,7 +12584,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12602,7 +12602,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12620,7 +12620,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12638,7 +12638,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12656,7 +12656,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12674,7 +12674,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12692,7 +12692,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12710,7 +12710,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12728,7 +12728,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12746,7 +12746,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12764,7 +12764,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12782,7 +12782,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12800,7 +12800,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12818,7 +12818,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12836,7 +12836,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12854,7 +12854,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12872,7 +12872,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12890,7 +12890,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12908,7 +12908,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12926,7 +12926,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12944,7 +12944,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12962,7 +12962,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12980,7 +12980,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -12998,7 +12998,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -13016,7 +13016,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -13034,7 +13034,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -13052,7 +13052,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -13070,7 +13070,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -13088,7 +13088,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-16",
       "effective_date": "2026-06-16",
@@ -14814,7 +14814,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -14832,7 +14832,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -14850,7 +14850,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -14868,7 +14868,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -14886,7 +14886,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -14904,7 +14904,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -14922,7 +14922,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -14940,7 +14940,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -14958,7 +14958,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -14976,7 +14976,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -14994,7 +14994,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15012,7 +15012,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15030,7 +15030,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15048,7 +15048,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15066,7 +15066,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15084,7 +15084,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15102,7 +15102,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15120,7 +15120,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15138,7 +15138,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15156,7 +15156,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15174,7 +15174,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15192,7 +15192,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15210,7 +15210,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15228,7 +15228,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15246,7 +15246,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15264,7 +15264,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15282,7 +15282,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15300,7 +15300,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15318,7 +15318,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -15336,7 +15336,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-23",
       "effective_date": "2026-06-23",
@@ -17489,7 +17489,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17507,7 +17507,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17525,7 +17525,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17543,7 +17543,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17561,7 +17561,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17579,7 +17579,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17597,7 +17597,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17615,7 +17615,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17633,7 +17633,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17651,7 +17651,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17669,7 +17669,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17687,7 +17687,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17705,7 +17705,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17723,7 +17723,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17741,7 +17741,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17759,7 +17759,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17777,7 +17777,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17795,7 +17795,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17813,7 +17813,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17831,7 +17831,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17849,7 +17849,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17867,7 +17867,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17885,7 +17885,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17903,7 +17903,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17921,7 +17921,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17939,7 +17939,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17957,7 +17957,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17975,7 +17975,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -17993,7 +17993,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -18011,7 +18011,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-06-30",
       "effective_date": "2026-06-30",
@@ -19737,7 +19737,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19755,7 +19755,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19773,7 +19773,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19791,7 +19791,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19809,7 +19809,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19827,7 +19827,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19845,7 +19845,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19863,7 +19863,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19881,7 +19881,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19899,7 +19899,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19917,7 +19917,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19935,7 +19935,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19953,7 +19953,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19971,7 +19971,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -19989,7 +19989,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20007,7 +20007,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20025,7 +20025,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20043,7 +20043,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20061,7 +20061,7 @@
     {
       "cadence": "weekly",
       "category": "rdimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20079,7 +20079,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20097,7 +20097,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20115,7 +20115,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20133,7 +20133,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20151,7 +20151,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20169,7 +20169,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20187,7 +20187,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20205,7 +20205,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20223,7 +20223,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20241,7 +20241,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20259,7 +20259,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20277,7 +20277,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20295,7 +20295,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20313,7 +20313,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20331,7 +20331,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20349,7 +20349,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -20367,7 +20367,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-07",
       "effective_date": "2026-07-07",
@@ -22520,7 +22520,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22538,7 +22538,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22556,7 +22556,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22574,7 +22574,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22592,7 +22592,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22610,7 +22610,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22628,7 +22628,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22646,7 +22646,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22664,7 +22664,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22682,7 +22682,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22700,7 +22700,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22718,7 +22718,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22736,7 +22736,7 @@
     {
       "cadence": "weekly",
       "category": "ddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22754,7 +22754,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22772,7 +22772,7 @@
     {
       "cadence": "weekly",
       "category": "sodimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22790,7 +22790,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22808,7 +22808,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22826,7 +22826,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22844,7 +22844,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22862,7 +22862,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22880,7 +22880,7 @@
     {
       "cadence": "weekly",
       "category": "udimm",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22898,7 +22898,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22916,7 +22916,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22934,7 +22934,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22952,7 +22952,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22970,7 +22970,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -22988,7 +22988,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -23006,7 +23006,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -23024,7 +23024,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -23042,7 +23042,7 @@
     {
       "cadence": "weekly",
       "category": "lpddr",
-      "collected_at": "2026-07-15T03:31:50Z",
+      "collected_at": "2026-07-16T03:34:58Z",
       "currency": "USD",
       "date": "2026-07-14",
       "effective_date": "2026-07-14",
@@ -23906,6 +23906,433 @@
         "daily_high": 26.0,
         "daily_low": 22.6,
         "session_average": 23.6,
+        "session_change_percent": null,
+        "session_high": 26.0,
+        "session_low": 22.6
+      }
+    },
+    {
+      "cadence": "monthly",
+      "category": "ddr3",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "contract",
+      "product_id": "trendforce-contract-ddr3-4gb-256mx16",
+      "product_name": "DDR3 4Gb 256Mx16",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
+      "values": {
+        "average_change_percent": 10.0,
+        "low_change_percent": 5.26,
+        "session_average": 11.0,
+        "session_high": 14.0,
+        "session_low": 10.0
+      }
+    },
+    {
+      "cadence": "monthly",
+      "category": "ddr4",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "contract",
+      "product_id": "trendforce-contract-ddr4-16gb-so-dimm",
+      "product_name": "DDR4 16GB SO-DIMM",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
+      "values": {
+        "average_change_percent": null,
+        "low_change_percent": null,
+        "session_average": 227.0,
+        "session_high": 256.0,
+        "session_low": 192.0
+      }
+    },
+    {
+      "cadence": "monthly",
+      "category": "ddr4",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "contract",
+      "product_id": "trendforce-contract-ddr4-16gb-2gx8",
+      "product_name": "DDR4 16Gb 2Gx8",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
+      "values": {
+        "average_change_percent": 19.4,
+        "low_change_percent": 19.36,
+        "session_average": 40.0,
+        "session_high": 49.0,
+        "session_low": 37.0
+      }
+    },
+    {
+      "cadence": "monthly",
+      "category": "ddr4",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "contract",
+      "product_id": "trendforce-contract-ddr4-4gb-256mx16",
+      "product_name": "DDR4 4Gb 256Mx16",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
+      "values": {
+        "average_change_percent": 20.0,
+        "low_change_percent": 6.25,
+        "session_average": 12.0,
+        "session_high": 14.0,
+        "session_low": 8.5
+      }
+    },
+    {
+      "cadence": "monthly",
+      "category": "ddr4",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "contract",
+      "product_id": "trendforce-contract-ddr4-8gb-so-dimm",
+      "product_name": "DDR4 8GB SO-DIMM",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
+      "values": {
+        "average_change_percent": null,
+        "low_change_percent": null,
+        "session_average": 119.0,
+        "session_high": 128.0,
+        "session_low": 96.0
+      }
+    },
+    {
+      "cadence": "monthly",
+      "category": "ddr4",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "contract",
+      "product_id": "trendforce-contract-ddr4-8gb-1gx8",
+      "product_name": "DDR4 8Gb 1Gx8",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
+      "values": {
+        "average_change_percent": 25.0,
+        "low_change_percent": 24.14,
+        "session_average": 20.0,
+        "session_high": 28.0,
+        "session_low": 18.0
+      }
+    },
+    {
+      "cadence": "monthly",
+      "category": "ddr5",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "contract",
+      "product_id": "trendforce-contract-ddr5-8gb-so-dimm",
+      "product_name": "DDR5 8GB SO-DIMM",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
+      "values": {
+        "average_change_percent": 2.75,
+        "low_change_percent": 3.13,
+        "session_average": 112.0,
+        "session_high": 123.0,
+        "session_low": 99.0
+      }
+    },
+    {
+      "cadence": "monthly",
+      "category": "dram",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "contract",
+      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
+      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
+      "values": {
+        "average_change_percent": null,
+        "low_change_percent": null,
+        "session_average": null,
+        "session_high": null,
+        "session_low": null
+      }
+    },
+    {
+      "cadence": "daily",
+      "category": "ddr3",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr3-4gb-512mx8-1600-1866",
+      "product_name": "DDR3 4Gb 512Mx8 1600/1866",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 18.0,
+        "daily_low": 8.85,
+        "session_average": 13.25,
+        "session_change_percent": 0.57,
+        "session_high": 18.0,
+        "session_low": 8.85
+      }
+    },
+    {
+      "cadence": "daily",
+      "category": "ddr4",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr4-16gb-2gx8-3200",
+      "product_name": "DDR4 16Gb (2Gx8) 3200",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 98.5,
+        "daily_low": 40.0,
+        "session_average": 80.125,
+        "session_change_percent": 0.95,
+        "session_high": 98.5,
+        "session_low": 40.0
+      }
+    },
+    {
+      "cadence": "daily",
+      "category": "ddr4",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr4-16gb-2gx8-ett",
+      "product_name": "DDR4 16Gb (2Gx8) eTT",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 12.0,
+        "daily_low": 10.25,
+        "session_average": 11.5,
+        "session_change_percent": -0.22,
+        "session_high": 12.0,
+        "session_low": 10.25
+      }
+    },
+    {
+      "cadence": "daily",
+      "category": "ddr4",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr4-8gb-1gx8-3200",
+      "product_name": "DDR4 8Gb (1Gx8) 3200",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 68.0,
+        "daily_low": 20.0,
+        "session_average": 39.9,
+        "session_change_percent": 0.25,
+        "session_high": 68.0,
+        "session_low": 20.0
+      }
+    },
+    {
+      "cadence": "daily",
+      "category": "ddr4",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr4-8gb-1gx8-ett",
+      "product_name": "DDR4 8Gb (1Gx8) eTT",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 4.4,
+        "daily_low": 3.9,
+        "session_average": 4.211,
+        "session_change_percent": -0.07,
+        "session_high": 4.4,
+        "session_low": 3.9
+      }
+    },
+    {
+      "cadence": "daily",
+      "category": "ddr5",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr5-16gb-2gx8-4800-5600",
+      "product_name": "DDR5 16Gb (2Gx8) 4800/5600",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 64.0,
+        "daily_low": 32.0,
+        "session_average": 49.233,
+        "session_change_percent": 0.68,
+        "session_high": 64.0,
+        "session_low": 32.0
+      }
+    },
+    {
+      "cadence": "daily",
+      "category": "ddr5",
+      "collected_at": "2026-07-16T03:34:58Z",
+      "currency": "USD",
+      "date": "2026-07-16",
+      "effective_date": "2026-07-16",
+      "effective_month": "2026-07",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr5-16gb-2gx8-ett",
+      "product_name": "DDR5 16Gb (2Gx8) eTT",
+      "source": "trendforce",
+      "source_last_update": {
+        "date": "2026-07-16",
+        "date_source": "last_update",
+        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
+        "time": "11:00",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 26.0,
+        "daily_low": 22.6,
+        "session_average": 23.62,
         "session_change_percent": null,
         "session_high": 26.0,
         "session_low": 22.6
