@@ -2,23 +2,21 @@
   "schemaVersion": 1,
   "contract": "dram-automation-health",
   "projectId": "dram",
-  "updatedAt": "2026-07-18T03:35:50.723994Z",
+  "updatedAt": "2026-07-18T05:07:26.339090Z",
   "targetDate": "2026-07-18",
   "status": "blocked",
   "collectionOutcome": "success",
   "targetVerificationOutcome": "failure",
   "testsOutcome": "skipped",
   "publicationOutcome": "skipped",
-  "warningCount": 1,
+  "warningCount": 0,
   "sourceErrorCount": 0,
-  "details": [
-    "memorymarket warning: DDR5 UDIMM 16GB 5600: failed to fetch https://www.memorymarket.com/price/ews/100268: The read operation timed out"
-  ],
+  "details": [],
   "blockingReasons": [
     "target_date_missing_after_collection"
   ],
-  "consecutiveWarningRuns": 2,
-  "consecutiveBlockingFailures": 1,
+  "consecutiveWarningRuns": 0,
+  "consecutiveBlockingFailures": 2,
   "alertThreshold": 3,
   "alertRequired": false,
   "alertReasons": [],
@@ -136,6 +134,16 @@
       "targetDate": "2026-07-18",
       "status": "blocked",
       "warningCount": 1,
+      "sourceErrorCount": 0,
+      "blockingReasons": [
+        "target_date_missing_after_collection"
+      ]
+    },
+    {
+      "checkedAt": "2026-07-18T05:07:26.339090Z",
+      "targetDate": "2026-07-18",
+      "status": "blocked",
+      "warningCount": 0,
       "sourceErrorCount": 0,
       "blockingReasons": [
         "target_date_missing_after_collection"
