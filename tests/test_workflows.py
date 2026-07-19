@@ -19,10 +19,11 @@ class WorkflowContractTests(unittest.TestCase):
         workflow = _read(UPDATE_WORKFLOW)
         self.assertIn("workflow_dispatch:", workflow)
         self.assertIn("schedule:", workflow)
-        self.assertIn('cron: "15 0 * * *"', workflow)
-        self.assertIn('cron: "15 2 * * *"', workflow)
-        self.assertIn("09:15 KST daily", workflow)
-        self.assertIn('cron: "15 4 * * *"', workflow)
+        self.assertIn('cron: "15 0 * * 1-5"', workflow)
+        self.assertIn('cron: "15 2 * * 1-5"', workflow)
+        self.assertIn("09:15 KST weekdays", workflow)
+        self.assertIn('cron: "15 4 * * 1-5"', workflow)
+        self.assertNotRegex(workflow, r'cron: "15 [024] \* \* \*"')
         self.assertNotIn("--require-daily-date yesterday", workflow)
         self.assertIn("args+=(--require-daily-date today)", workflow)
 
@@ -84,6 +85,9 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("git add data/automation-health.json", workflow)
         self.assertIn("Escalate repeated automation degradation", workflow)
         self.assertIn("steps.health.outputs.alert_required == 'true'", workflow)
+        self.assertIn("github.event_name == 'workflow_dispatch'", workflow)
+        self.assertIn("github.event.schedule == '15 4 * * 1-5'", workflow)
+        self.assertIn("limiting scheduled failure notifications to one per day", workflow)
         self.assertLess(workflow.index("Update persistent automation health"), workflow.index("Commit data changes"))
 
     def test_update_workflow_marks_self_deployed_commits_explicitly(self) -> None:
