@@ -21,6 +21,10 @@ const initialFilters: DashboardFilters = {
   limit: '5',
 };
 
+function SkipLink() {
+  return <a className="skip-link" href="#main-content">본문으로 건너뛰기</a>;
+}
+
 export function App() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -44,10 +48,10 @@ export function App() {
   }
 
   if (error) {
-    return <><SharedNav /><main className="load-state" id="top"><AlertTriangle aria-hidden="true" /><h1>데이터를 표시하지 못했습니다</h1><p>{error}</p><div className="load-state__actions"><Button variant="primary" onClick={() => window.location.reload()}>다시 불러오기</Button><a href="data/status.json">수집 상태 JSON 확인<ArrowUpRight aria-hidden="true" /></a></div></main></>;
+    return <><SkipLink /><SharedNav /><main className="load-state" id="main-content" tabIndex={-1}><AlertTriangle aria-hidden="true" /><h1>데이터를 표시하지 못했습니다</h1><p>{error}</p><div className="load-state__actions"><Button variant="primary" onClick={() => window.location.reload()}>다시 불러오기</Button><a href="data/status.json">수집 상태 JSON 확인<ArrowUpRight aria-hidden="true" /></a></div></main></>;
   }
   if (!data) {
-    return <><SharedNav /><main className="load-state" id="top" aria-live="polite"><LoaderCircle className="is-spinning" aria-hidden="true" /><h1>DRAM 가격을 불러오는 중</h1><p>저장된 공개 관측치와 수집 상태를 확인하고 있습니다.</p></main></>;
+    return <><SkipLink /><SharedNav /><main className="load-state" id="main-content" tabIndex={-1} aria-live="polite"><LoaderCircle className="is-spinning" aria-hidden="true" /><h1>DRAM 가격을 불러오는 중</h1><p>저장된 공개 관측치와 수집 상태를 확인하고 있습니다.</p></main></>;
   }
 
   const dateValues = rows.map((row) => row.date).filter((date): date is string => Boolean(date)).sort();
@@ -57,12 +61,13 @@ export function App() {
 
   return (
     <div id="top">
+      <SkipLink />
       <SharedNav />
       <header className="page-header">
         <div><p className="eyebrow">DRAM Price Lab</p><h1>DRAM 가격</h1><p>현물가를 먼저 보고, 제품별 흐름과 상세 관측치를 차례로 확인합니다.</p></div>
         <a className="hub-link" href="https://sonchanggi.github.io/quant-dashboard/">통합 허브<ArrowUpRight aria-hidden="true" /></a>
       </header>
-      <main className="dashboard-shell">
+      <main className="dashboard-shell" id="main-content" tabIndex={-1}>
         <StatusStrip status={data.status} automation={data.automation} dataAsOf={dataAsOf} />
         <LatestCards rows={cards} />
         <section className="panel chart-panel" aria-labelledby="chart-heading">

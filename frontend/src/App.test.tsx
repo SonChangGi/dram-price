@@ -8,7 +8,10 @@ const loadDashboardData = vi.fn();
 vi.mock('@/lib/data', () => ({ loadDashboardData: () => loadDashboardData() }));
 
 describe('DRAM dashboard', () => {
-  beforeEach(() => loadDashboardData.mockResolvedValue(dashboardFixture));
+  beforeEach(() => {
+    window.history.replaceState({}, '', '/dram-price/');
+    loadDashboardData.mockResolvedValue(dashboardFixture);
+  });
 
   it('renders a result-first view from real-contract data', async () => {
     render(<App />);
@@ -20,6 +23,19 @@ describe('DRAM dashboard', () => {
     expect(screen.getByRole('img', { name: /현물가 세션 평균 가격 추이/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '세부 조건' })).toHaveAttribute('data-state', 'closed');
     expect(screen.getByRole('button', { name: /데이터 · 출처 · 운영 상세/ })).toHaveAttribute('data-state', 'closed');
+  });
+
+  it('offers a keyboard-first skip link to the main content', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await screen.findByRole('heading', { name: 'DRAM 가격' });
+
+    const skipLink = screen.getByRole('link', { name: '본문으로 건너뛰기' });
+    expect(skipLink).toHaveAttribute('href', '#main-content');
+    expect(document.getElementById('main-content')).toHaveAttribute('tabindex', '-1');
+
+    await user.tab();
+    expect(skipLink).toHaveFocus();
   });
 
   it('shows 10 rows first and expands to at most 50', async () => {
@@ -42,13 +58,54 @@ describe('DRAM dashboard', () => {
     expect(window.localStorage.getItem('quant-research-theme')).toBe('dark');
   });
 
-  it('migrates a legacy theme immediately on initial render', async () => {
-    window.localStorage.setItem('dram-price-theme', 'dark');
+  it.each(['quant-calm-theme', 'quant-dashboard-theme', 'dram-price-theme'])('migrates the %s legacy theme immediately on initial render', async (legacyKey) => {
+    window.localStorage.setItem(legacyKey, 'dark');
     render(<App />);
     const toggle = await screen.findByRole('button', { name: '라이트 모드로 전환' });
     expect(toggle).toHaveAttribute('aria-pressed', 'true');
     expect(window.localStorage.getItem('quant-research-theme')).toBe('dark');
-    expect(window.localStorage.getItem('dram-price-theme')).toBeNull();
+    expect(window.localStorage.getItem(legacyKey)).toBeNull();
+  });
+
+  it('keeps a valid canonical preference ahead of legacy aliases', async () => {
+    window.localStorage.setItem('quant-research-theme', 'light');
+    window.localStorage.setItem('quant-dashboard-theme', 'dark');
+    render(<App />);
+
+    const toggle = await screen.findByRole('button', { name: '다크 모드로 전환' });
+    expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    expect(window.localStorage.getItem('quant-research-theme')).toBe('light');
+    expect(window.localStorage.getItem('quant-dashboard-theme')).toBeNull();
+  });
+
+  it('previews a valid query theme without overwriting the stored preference', async () => {
+    window.localStorage.setItem('quant-research-theme', 'light');
+    window.history.replaceState({}, '', '/dram-price/?theme=dark');
+    render(<App />);
+
+    const toggle = await screen.findByRole('button', { name: '라이트 모드로 전환' });
+    expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    expect(window.localStorage.getItem('quant-research-theme')).toBe('light');
+  });
+
+  it('uses the system theme after an invalid query when no preference is stored', async () => {
+    const matchMedia = vi.spyOn(window, 'matchMedia').mockImplementation((query) => ({
+      matches: query === '(prefers-color-scheme: dark)',
+      media: query,
+      onchange: null,
+      addListener: () => undefined,
+      removeListener: () => undefined,
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+      dispatchEvent: () => false,
+    }));
+    window.history.replaceState({}, '', '/dram-price/?theme=sepia');
+    render(<App />);
+
+    const toggle = await screen.findByRole('button', { name: '라이트 모드로 전환' });
+    expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    expect(window.localStorage.getItem('quant-research-theme')).toBeNull();
+    matchMedia.mockRestore();
   });
 
   it('keeps data visible but marks optional automation health as a warning when unavailable', async () => {

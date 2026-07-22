@@ -10,20 +10,27 @@
     />
     <script>
       (() => {
+        const valid = (value) => value === 'light' || value === 'dark';
+        const requested = new URLSearchParams(location.search).get('theme');
+        const key = 'quant-research-theme';
+        const legacyKeys = ['quant-calm-theme', 'quant-dashboard-theme', 'dram-price-theme'];
+        let stored = null;
         try {
-          const current = localStorage.getItem('quant-research-theme');
-          const legacy = localStorage.getItem('quant-calm-theme') || localStorage.getItem('dram-price-theme');
-          const saved = current || legacy;
-          if (!current && (legacy === 'light' || legacy === 'dark')) localStorage.setItem('quant-research-theme', legacy);
-          localStorage.removeItem('quant-calm-theme');
-          localStorage.removeItem('dram-price-theme');
-          const theme = saved === 'dark' || saved === 'light'
-            ? saved
-            : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-          document.documentElement.dataset.theme = theme;
+          const canonical = localStorage.getItem(key);
+          const legacy = legacyKeys.map((legacyKey) => localStorage.getItem(legacyKey)).find(valid);
+          stored = valid(canonical) ? canonical : legacy ?? null;
+          if (!valid(canonical) && stored) localStorage.setItem(key, stored);
+          legacyKeys.forEach((legacyKey) => localStorage.removeItem(legacyKey));
         } catch (_) {
-          document.documentElement.dataset.theme = 'light';
+          // Storage is optional; query and system preferences still apply.
         }
+        let preferred = 'light';
+        try {
+          preferred = typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        } catch (_) {
+          // Light is the fail-safe when the system preference cannot be read.
+        }
+        document.documentElement.dataset.theme = valid(requested) ? requested : (stored || preferred || 'light');
       })();
     </script>
     <title>DRAM 가격 랩</title>
