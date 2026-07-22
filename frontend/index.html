@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="TrendForce와 MemoryMarket 공개 데이터를 바탕으로 DRAM 현물가, 고정가, 주간 가격 흐름을 확인하는 대시보드"
+    />
+    <script>
+      (() => {
+        try {
+          const current = localStorage.getItem('quant-research-theme');
+          const legacy = localStorage.getItem('quant-calm-theme') || localStorage.getItem('dram-price-theme');
+          const saved = current || legacy;
+          if (!current && (legacy === 'light' || legacy === 'dark')) localStorage.setItem('quant-research-theme', legacy);
+          localStorage.removeItem('quant-calm-theme');
+          localStorage.removeItem('dram-price-theme');
+          const theme = saved === 'dark' || saved === 'light'
+            ? saved
+            : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          document.documentElement.dataset.theme = theme;
+        } catch (_) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <title>DRAM 가격 랩</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
