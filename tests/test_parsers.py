@@ -32,6 +32,25 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(rows[0]["effective_month"], "2026-06")
         self.assertEqual(rows[0]["values"]["average_change_percent"], 45.33)
 
+    def test_trendforce_parser_skips_rows_without_a_finite_average_price(self) -> None:
+        html = """
+        <p>Last Update 2026-06-30 12:00 (GMT+8)</p>
+        <table>
+          <tr><th>Item</th><th>Session High</th><th>Session Low</th><th>Session Average</th><th>Average Change</th><th>Low Change</th></tr>
+          <tr><td>Jun. Specialty DRAM price updated, click here for details.</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+          <tr><td>Invalid numeric row</td><td>4</td><td>3</td><td>NaN</td><td>0%</td><td>0%</td></tr>
+          <tr><td>DDR5 16Gb Contract</td><td>4</td><td>3</td><td>3.5</td><td>0%</td><td>0%</td></tr>
+        </table>
+        """
+        rows = trendforce.parse_price_page(
+            html,
+            kind="contract",
+            url=trendforce.CONTRACT_URL,
+            collected_at="2026-06-30T04:00:00Z",
+        )
+        self.assertEqual([row["product_name"] for row in rows], ["DDR5 16Gb Contract"])
+        self.assertEqual(rows[0]["values"]["session_average"], 3.5)
+
     def test_memorymarket_discovers_dram_product_links(self) -> None:
         html = (FIXTURES / "memorymarket_category_ddr.html").read_text(encoding="utf-8")
         products = memorymarket.discover_products(html)

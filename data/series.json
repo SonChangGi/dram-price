@@ -801,38 +801,6 @@
       "product_name": "DDR4 8Gb 1Gx8",
       "representative": false,
       "source": "trendforce"
-    },
-    {
-      "cadences": [
-        "monthly"
-      ],
-      "categories": [
-        "dram"
-      ],
-      "category": "dram",
-      "kinds": [
-        "contract"
-      ],
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "representative": false,
-      "source": "trendforce"
-    },
-    {
-      "cadences": [
-        "monthly"
-      ],
-      "categories": [
-        "dram"
-      ],
-      "category": "dram",
-      "kinds": [
-        "contract"
-      ],
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "representative": false,
-      "source": "trendforce"
     }
   ]
 }

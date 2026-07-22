@@ -11052,34 +11052,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-06-10T14:09:17Z",
-      "currency": "USD",
-      "date": "2026-06-10",
-      "effective_date": "2026-06-10",
-      "effective_month": "2026-06",
-      "kind": "contract",
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-06-10",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-06-10 18:10 (GMT+8)",
-        "time": "18:10",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-06-10T14:09:17Z",
@@ -11476,34 +11448,6 @@
         "session_average": 109.0,
         "session_high": 120.0,
         "session_low": 96.0
-      }
-    },
-    {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-06-11T12:56:12Z",
-      "currency": "USD",
-      "date": "2026-06-11",
-      "effective_date": "2026-06-11",
-      "effective_month": "2026-06",
-      "kind": "contract",
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-06-11",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-06-11 18:10 (GMT+8)",
-        "time": "18:10",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
       }
     },
     {
@@ -11906,34 +11850,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-06-15T01:32:39Z",
-      "currency": "USD",
-      "date": "2026-06-12",
-      "effective_date": "2026-06-12",
-      "effective_month": "2026-06",
-      "kind": "contract",
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-06-12",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-06-12 18:10 (GMT+8)",
-        "time": "18:10",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-06-15T01:32:39Z",
@@ -12330,34 +12246,6 @@
         "session_average": 109.0,
         "session_high": 120.0,
         "session_low": 96.0
-      }
-    },
-    {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-06-15T22:58:10Z",
-      "currency": "USD",
-      "date": "2026-06-15",
-      "effective_date": "2026-06-15",
-      "effective_month": "2026-06",
-      "kind": "contract",
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-06-15",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-06-15 18:10 (GMT+8)",
-        "time": "18:10",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
       }
     },
     {
@@ -13300,34 +13188,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-06-16T14:27:33Z",
-      "currency": "USD",
-      "date": "2026-06-16",
-      "effective_date": "2026-06-16",
-      "effective_month": "2026-06",
-      "kind": "contract",
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-06-16",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-06-16 18:10 (GMT+8)",
-        "time": "18:10",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-06-16T14:27:33Z",
@@ -13724,34 +13584,6 @@
         "session_average": 109.0,
         "session_high": 120.0,
         "session_low": 96.0
-      }
-    },
-    {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-06-17T12:58:31Z",
-      "currency": "USD",
-      "date": "2026-06-17",
-      "effective_date": "2026-06-17",
-      "effective_month": "2026-06",
-      "kind": "contract",
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-06-17",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-06-17 18:10 (GMT+8)",
-        "time": "18:10",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
       }
     },
     {
@@ -14154,34 +13986,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-06-18T12:33:07Z",
-      "currency": "USD",
-      "date": "2026-06-18",
-      "effective_date": "2026-06-18",
-      "effective_month": "2026-06",
-      "kind": "contract",
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-06-18",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-06-18 18:10 (GMT+8)",
-        "time": "18:10",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-06-18T12:33:07Z",
@@ -14578,34 +14382,6 @@
         "session_average": 109.0,
         "session_high": 120.0,
         "session_low": 96.0
-      }
-    },
-    {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-06-23T01:32:01Z",
-      "currency": "USD",
-      "date": "2026-06-22",
-      "effective_date": "2026-06-22",
-      "effective_month": "2026-06",
-      "kind": "contract",
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-06-22",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-06-22 18:10 (GMT+8)",
-        "time": "18:10",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
       }
     },
     {
@@ -15548,34 +15324,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-06-23T04:14:43Z",
-      "currency": "USD",
-      "date": "2026-06-23",
-      "effective_date": "2026-06-23",
-      "effective_month": "2026-06",
-      "kind": "contract",
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-06-23",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-06-23 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-06-23T04:14:43Z",
@@ -15972,34 +15720,6 @@
         "session_average": 109.0,
         "session_high": 120.0,
         "session_low": 96.0
-      }
-    },
-    {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-06-24T22:06:08Z",
-      "currency": "USD",
-      "date": "2026-06-24",
-      "effective_date": "2026-06-24",
-      "effective_month": "2026-06",
-      "kind": "contract",
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-06-24",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-06-24 18:10 (GMT+8)",
-        "time": "18:10",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
       }
     },
     {
@@ -16402,34 +16122,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-06-25T22:14:41Z",
-      "currency": "USD",
-      "date": "2026-06-25",
-      "effective_date": "2026-06-25",
-      "effective_month": "2026-06",
-      "kind": "contract",
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-06-25",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-06-25 18:10 (GMT+8)",
-        "time": "18:10",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-06-25T22:14:41Z",
@@ -16829,34 +16521,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-06-26T22:00:19Z",
-      "currency": "USD",
-      "date": "2026-06-26",
-      "effective_date": "2026-06-26",
-      "effective_month": "2026-06",
-      "kind": "contract",
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-06-26",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-06-26 18:10 (GMT+8)",
-        "time": "18:10",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-06-26T22:00:19Z",
@@ -17253,34 +16917,6 @@
         "session_average": 109.0,
         "session_high": 120.0,
         "session_low": 96.0
-      }
-    },
-    {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-06-29T22:02:38Z",
-      "currency": "USD",
-      "date": "2026-06-29",
-      "effective_date": "2026-06-29",
-      "effective_month": "2026-06",
-      "kind": "contract",
-      "product_id": "trendforce-contract-may-specialty-dram-price-updated-on-5-29-2026-click-here-for-details",
-      "product_name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-06-29",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-06-29 18:10 (GMT+8)",
-        "time": "18:10",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
       }
     },
     {
@@ -18223,34 +17859,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-01T04:53:05Z",
-      "currency": "USD",
-      "date": "2026-07-01",
-      "effective_date": "2026-07-01",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-01",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-01 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-07-01T04:53:05Z",
@@ -18647,34 +18255,6 @@
         "session_average": 112.0,
         "session_high": 123.0,
         "session_low": 99.0
-      }
-    },
-    {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-02T04:20:28Z",
-      "currency": "USD",
-      "date": "2026-07-02",
-      "effective_date": "2026-07-02",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-02",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-02 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
       }
     },
     {
@@ -19077,34 +18657,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-03T04:06:40Z",
-      "currency": "USD",
-      "date": "2026-07-03",
-      "effective_date": "2026-07-03",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-03",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-03 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-07-03T04:06:40Z",
@@ -19501,34 +19053,6 @@
         "session_average": 112.0,
         "session_high": 123.0,
         "session_low": 99.0
-      }
-    },
-    {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-06T04:37:40Z",
-      "currency": "USD",
-      "date": "2026-07-06",
-      "effective_date": "2026-07-06",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-06",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-06 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
       }
     },
     {
@@ -20579,34 +20103,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-07T04:15:45Z",
-      "currency": "USD",
-      "date": "2026-07-07",
-      "effective_date": "2026-07-07",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-07",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-07 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-07-07T04:15:45Z",
@@ -21003,34 +20499,6 @@
         "session_average": 112.0,
         "session_high": 123.0,
         "session_low": 99.0
-      }
-    },
-    {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-08T03:42:36Z",
-      "currency": "USD",
-      "date": "2026-07-08",
-      "effective_date": "2026-07-08",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-08",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-08 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
       }
     },
     {
@@ -21433,34 +20901,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-09T04:17:15Z",
-      "currency": "USD",
-      "date": "2026-07-09",
-      "effective_date": "2026-07-09",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-09",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-09 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-07-09T04:17:15Z",
@@ -21860,34 +21300,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-10T04:12:41Z",
-      "currency": "USD",
-      "date": "2026-07-10",
-      "effective_date": "2026-07-10",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-10",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-10 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-07-10T04:12:41Z",
@@ -22284,34 +21696,6 @@
         "session_average": 112.0,
         "session_high": 123.0,
         "session_low": 99.0
-      }
-    },
-    {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-13T03:58:03Z",
-      "currency": "USD",
-      "date": "2026-07-13",
-      "effective_date": "2026-07-13",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-13",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-13 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
       }
     },
     {
@@ -23254,34 +22638,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-14T03:31:29Z",
-      "currency": "USD",
-      "date": "2026-07-14",
-      "effective_date": "2026-07-14",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-14",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-14 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-07-14T03:31:29Z",
@@ -23678,34 +23034,6 @@
         "session_average": 112.0,
         "session_high": 123.0,
         "session_low": 99.0
-      }
-    },
-    {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-15T03:31:50Z",
-      "currency": "USD",
-      "date": "2026-07-15",
-      "effective_date": "2026-07-15",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-15",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-15 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
       }
     },
     {
@@ -24108,34 +23436,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-16T03:34:58Z",
-      "currency": "USD",
-      "date": "2026-07-16",
-      "effective_date": "2026-07-16",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-16",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-16 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-07-16T03:34:58Z",
@@ -24535,34 +23835,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-17T03:35:23Z",
-      "currency": "USD",
-      "date": "2026-07-17",
-      "effective_date": "2026-07-17",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-17",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-17 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-07-17T03:35:23Z",
@@ -24959,34 +24231,6 @@
         "session_average": 112.0,
         "session_high": 123.0,
         "session_low": 99.0
-      }
-    },
-    {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-20T04:03:17Z",
-      "currency": "USD",
-      "date": "2026-07-20",
-      "effective_date": "2026-07-20",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-20",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-20 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
       }
     },
     {
@@ -25929,34 +25173,6 @@
       }
     },
     {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-21T03:43:52Z",
-      "currency": "USD",
-      "date": "2026-07-21",
-      "effective_date": "2026-07-21",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-21",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-21 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
-      }
-    },
-    {
       "cadence": "daily",
       "category": "ddr3",
       "collected_at": "2026-07-21T03:43:52Z",
@@ -26353,34 +25569,6 @@
         "session_average": 112.0,
         "session_high": 123.0,
         "session_low": 99.0
-      }
-    },
-    {
-      "cadence": "monthly",
-      "category": "dram",
-      "collected_at": "2026-07-22T03:45:01Z",
-      "currency": "USD",
-      "date": "2026-07-22",
-      "effective_date": "2026-07-22",
-      "effective_month": "2026-07",
-      "kind": "contract",
-      "product_id": "trendforce-contract-jun-specialty-dram-price-updated-on-6-30-2026-click-here-for-details",
-      "product_name": "Jun. Specialty DRAM price updated on 6/30/2026, click here for details.",
-      "source": "trendforce",
-      "source_last_update": {
-        "date": "2026-07-22",
-        "date_source": "last_update",
-        "raw": "Last Update 2026-07-22 11:00 (GMT+8)",
-        "time": "11:00",
-        "timezone": "GMT+8"
-      },
-      "source_url": "https://www.trendforce.com/price/dram/dram_contract",
-      "values": {
-        "average_change_percent": null,
-        "low_change_percent": null,
-        "session_average": null,
-        "session_high": null,
-        "session_low": null
       }
     },
     {

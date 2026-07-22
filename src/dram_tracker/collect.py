@@ -99,26 +99,76 @@ def collect_memorymarket(*, fixture_dir: Path | None, collected_at: str, limit_p
     return observations, status
 
 
+def validate_rebuild_metadata(existing_payload: dict[str, Any], previous_status: Any) -> tuple[str, list[dict[str, Any]]]:
+    """Validate stored provenance before rebuild-only replaces any output."""
+
+    if not isinstance(previous_status, dict):
+        raise ValueError("rebuild-only requires stored status metadata")
+    generated_at = previous_status.get("generated_at")
+    if not isinstance(generated_at, str) or not generated_at.strip():
+        raise ValueError("rebuild-only requires status generated_at")
+    prices_generated_at = existing_payload.get("generated_at")
+    if prices_generated_at is not None:
+        if not isinstance(prices_generated_at, str) or not prices_generated_at.strip():
+            raise ValueError("rebuild-only requires a valid prices generated_at")
+        if prices_generated_at != generated_at:
+            raise ValueError("rebuild-only requires matching prices and status generated_at")
+
+    sources = previous_status.get("sources")
+    if not isinstance(sources, list) or not sources:
+        raise ValueError("rebuild-only requires non-empty status sources")
+    source_names: set[str] = set()
+    for index, source in enumerate(sources):
+        label = f"rebuild-only status source #{index + 1}"
+        if not isinstance(source, dict):
+            raise ValueError(f"{label} must be an object")
+        source_name = source.get("source")
+        if not isinstance(source_name, str) or not source_name.strip():
+            raise ValueError(f"{label} requires a source name")
+        if source_name in source_names:
+            raise ValueError(f"{label} duplicates source {source_name}")
+        source_names.add(source_name)
+        if not isinstance(source.get("ok"), bool):
+            raise ValueError(f"{label} requires boolean ok")
+        observation_count = source.get("observation_count")
+        if isinstance(observation_count, bool) or not isinstance(observation_count, int) or observation_count < 0:
+            raise ValueError(f"{label} requires non-negative integer observation_count")
+        for field in ("urls", "warnings", "errors"):
+            values = source.get(field)
+            if not isinstance(values, list) or not all(isinstance(value, str) for value in values):
+                raise ValueError(f"{label} requires a string list for {field}")
+    return generated_at, sources
+
+
 def run(args: argparse.Namespace) -> int:
     output = Path(args.output)
     fixture_dir = Path(args.fixture_dir) if args.fixture_dir else None
-    collected_at = utc_now_iso()
-    source_status: list[dict[str, Any]] = []
-    new_observations: list[dict[str, Any]] = []
-
-    if args.include_trendforce:
-        obs, status = collect_trendforce(fixture_dir=fixture_dir, collected_at=collected_at)
-        new_observations.extend(obs)
-        source_status.append(status)
-    if args.include_memorymarket:
-        obs, status = collect_memorymarket(fixture_dir=fixture_dir, collected_at=collected_at, limit_products=args.limit_products, delay=args.delay)
-        new_observations.extend(obs)
-        source_status.append(status)
-
     prices_path = output / "prices.json"
     existing_payload = read_json(prices_path, {"observations": []})
     existing_observations = existing_payload.get("observations", []) if isinstance(existing_payload, dict) else []
+
+    if args.rebuild_only:
+        if not existing_observations:
+            raise ValueError("rebuild-only requires stored observations")
+        previous_status = read_json(output / "status.json", {})
+        collected_at, source_status = validate_rebuild_metadata(existing_payload, previous_status)
+        new_observations: list[dict[str, Any]] = []
+    else:
+        collected_at = utc_now_iso()
+        source_status = []
+        new_observations = []
+        if args.include_trendforce:
+            obs, status = collect_trendforce(fixture_dir=fixture_dir, collected_at=collected_at)
+            new_observations.extend(obs)
+            source_status.append(status)
+        if args.include_memorymarket:
+            obs, status = collect_memorymarket(fixture_dir=fixture_dir, collected_at=collected_at, limit_products=args.limit_products, delay=args.delay)
+            new_observations.extend(obs)
+            source_status.append(status)
+
     observations = merge_observations(existing_observations, new_observations)
+    if args.rebuild_only and not observations:
+        raise ValueError("rebuild-only found no valid stored price observations")
 
     series = build_series(observations)
     status = summarize_status(observations, source_status, collected_at)
@@ -128,7 +178,8 @@ def run(args: argparse.Namespace) -> int:
     summary = build_public_summary(observations, series, status, collected_at)
     write_json(output / "summary.json", summary)
 
-    print(f"collected {len(new_observations)} new observations; stored {len(observations)} total observations in {output}")
+    action = "rebuilt from stored data" if args.rebuild_only else f"collected {len(new_observations)} new observations"
+    print(f"{action}; stored {len(observations)} total observations in {output}")
     failed = [source for source in source_status if not source.get("ok")]
     return 2 if failed and not observations else 0
 
@@ -139,6 +190,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--fixture-dir", help="Use local fixture HTML instead of live network sources")
     parser.add_argument("--limit-products", type=int, default=None, help="Limit MemoryMarket product pages for smoke runs")
     parser.add_argument("--delay", type=float, default=0.5, help="Polite delay between MemoryMarket requests")
+    parser.add_argument("--rebuild-only", action="store_true", help="Rebuild generated outputs from stored observations without fetching sources")
     parser.add_argument("--include-trendforce", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--include-memorymarket", action=argparse.BooleanOptionalAction, default=True)
     return parser
