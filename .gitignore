@@ -9,3 +9,6 @@ site/
 .DS_Store
 
 test-results/
+frontend/node_modules/
+frontend/dist/
+frontend/coverage/
