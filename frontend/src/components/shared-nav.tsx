@@ -1,0 +1,86 @@
+import { ExternalLink, Menu, Moon, Sun, X } from 'lucide-react';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { LEGACY_THEME_KEYS, migrateStoredTheme, THEME_KEY } from '@/lib/theme';
+import { cn } from '@/lib/utils';
+
+const projects = [
+  { id: 'hub', label: 'Hub', href: 'https://sonchanggi.github.io/quant-dashboard/' },
+  { id: 'fear', label: 'Fear & Greed', href: 'https://sonchanggi.github.io/fearNgreed/' },
+  { id: 'momentum', label: 'Momentum', href: 'https://sonchanggi.github.io/momentum-factor-lab/' },
+  { id: 'dram', label: 'DRAM', href: 'https://sonchanggi.github.io/dram-price/' },
+  { id: 'best', label: 'Best Factor', href: 'https://sonchanggi.github.io/best-factor/' },
+  { id: 'etf', label: 'ETF', href: 'https://sonchanggi.github.io/etf-tracking/' },
+  { id: 'sox', label: 'SOX', href: 'https://sonchanggi.github.io/sox/' },
+  { id: 'risk', label: 'Risk Score', href: 'https://sonchanggi.github.io/quant-dashboard/risk-score/' },
+  { id: 'port', label: 'Port', href: 'https://sonchanggi.github.io/port/' },
+  { id: 'valuation', label: 'Valuation', href: 'https://sonchanggi.github.io/valuation/' },
+  { id: 'kelly', label: 'Kelly', href: 'https://sonchanggi.github.io/kelly/' },
+] as const;
+
+function initialTheme(): 'light' | 'dark' {
+  try {
+    const migrated = migrateStoredTheme(window.localStorage);
+    if (migrated) {
+      document.documentElement.dataset.theme = migrated;
+      return migrated;
+    }
+  } catch {
+    // Storage is optional; use the theme already applied by the document.
+  }
+  const existing = document.documentElement.dataset.theme;
+  return existing === 'dark' ? 'dark' : 'light';
+}
+
+export function SharedNav() {
+  const [theme, setTheme] = useState(initialTheme);
+  const [open, setOpen] = useState(false);
+
+  function toggleTheme() {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    document.documentElement.dataset.theme = next;
+    try {
+      window.localStorage.setItem(THEME_KEY, next);
+      LEGACY_THEME_KEYS.forEach((key) => window.localStorage.removeItem(key));
+    } catch {
+      // Persistence is optional; the current page theme still changes.
+    }
+  }
+
+  return (
+    <nav className="shared-nav" aria-label="11개 퀀트 리서치 프로젝트">
+      <a className="shared-nav__brand" href={projects[0].href}>Quant Research</a>
+      <Button
+        className="shared-nav__menu"
+        size="icon"
+        variant="ghost"
+        aria-expanded={open}
+        aria-controls="project-links"
+        aria-label={open ? '프로젝트 메뉴 닫기' : '프로젝트 메뉴 열기'}
+        onClick={() => setOpen((value) => !value)}
+      >
+        {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+      </Button>
+      <div id="project-links" className={cn('shared-nav__links', open && 'is-open')}>
+        {projects.map((project) => (
+          <a
+            key={project.id}
+            className={cn(project.id === 'dram' && 'is-active')}
+            href={project.href}
+            aria-current={project.id === 'dram' ? 'page' : undefined}
+            onClick={() => setOpen(false)}
+          >
+            {project.label}
+          </a>
+        ))}
+      </div>
+      <Button size="icon" variant="ghost" onClick={toggleTheme} aria-pressed={theme === 'dark'} aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}>
+        {theme === 'dark' ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
+      </Button>
+      <a className="shared-nav__external" href={projects[0].href} aria-label="통합 허브 열기">
+        <ExternalLink aria-hidden="true" />
+      </a>
+    </nav>
+  );
+}

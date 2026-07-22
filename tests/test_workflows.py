@@ -76,6 +76,23 @@ class WorkflowContractTests(unittest.TestCase):
             rf"- id: deployment\n        if: {re.escape(required_gate)}\n        uses: actions/deploy-pages@[0-9a-f]{{40}} # v4",
         )
 
+    def test_pages_workflows_build_the_locked_frontend_and_include_public_contracts(self) -> None:
+        update = _read(UPDATE_WORKFLOW)
+        deploy = _read(DEPLOY_WORKFLOW)
+        for workflow in (update, deploy):
+            self.assertRegex(workflow, r"actions/setup-node@[0-9a-f]{40} # v4")
+            self.assertIn("cache-dependency-path: frontend/package-lock.json", workflow)
+            self.assertIn("npm ci --prefix frontend", workflow)
+            self.assertIn("npm run verify --prefix frontend", workflow)
+            self.assertIn("cp -R data/. frontend/dist/data/", workflow)
+            self.assertIn("path: frontend/dist", workflow)
+            self.assertNotIn("cp -R web/. site/", workflow)
+        self.assertIn("- 'frontend/**'", deploy)
+        self.assertRegex(deploy, r"actions/setup-python@[0-9a-f]{40} # v5")
+        self.assertIn("python -m unittest discover -s tests -v", deploy)
+        self.assertIn("python scripts/validate_publication.py", deploy)
+        self.assertLess(deploy.index("Validate backend and public data"), deploy.index("Verify and build frontend"))
+
     def test_update_workflow_persists_and_escalates_repeated_degradation(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
         self.assertIn("Update persistent automation health", workflow)
@@ -92,7 +109,14 @@ class WorkflowContractTests(unittest.TestCase):
 
     def test_update_workflow_marks_self_deployed_commits_explicitly(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
-        self.assertIn(SKIP_MARKER, workflow)
+        data_commit = workflow.split("- name: Commit data changes", 1)[1].split(
+            "- name: Commit automation health without partial market data", 1
+        )[0]
+        health_commit = workflow.split("- name: Commit automation health without partial market data", 1)[1].split(
+            "- name: Prepare static site", 1
+        )[0]
+        self.assertIn(SKIP_MARKER, data_commit)
+        self.assertNotIn(SKIP_MARKER, health_commit)
         self.assertIn("git config user.email", workflow)
 
     def test_deploy_workflow_uses_explicit_skip_marker_not_bot_identity(self) -> None:
@@ -101,6 +125,12 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("github.event.head_commit.message", workflow)
         self.assertNotIn("github-actions[bot]", workflow)
         self.assertNotIn("41898282+github-actions[bot]@users.noreply.github.com", workflow)
+
+    def test_pages_workflows_share_a_non_cancelling_deployment_queue(self) -> None:
+        for workflow in (_read(UPDATE_WORKFLOW), _read(DEPLOY_WORKFLOW)):
+            self.assertIn("group: dram-price-pages", workflow)
+            self.assertIn("cancel-in-progress: false", workflow)
+        self.assertNotIn("cancel-in-progress: true", _read(DEPLOY_WORKFLOW))
 
 
 if __name__ == "__main__":

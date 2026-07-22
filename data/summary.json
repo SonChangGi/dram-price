@@ -7,16 +7,16 @@
   "contract": "quant-research-summary",
   "coverage": {
     "countsByKind": {
-      "contract": 232,
+      "contract": 203,
       "spot": 203,
       "spot_proxy": 789
     },
     "countsBySource": {
       "memorymarket": 789,
-      "trendforce": 435
+      "trendforce": 406
     },
-    "observationCount": 1224,
-    "seriesCount": 52
+    "observationCount": 1195,
+    "seriesCount": 50
   },
   "dataAsOf": "2026-07-22",
   "detailDataUrl": "https://sonchanggi.github.io/dram-price/data/prices.json",
@@ -26,12 +26,12 @@
     {
       "description": "source/kind/product/date 병합 후 저장",
       "label": "관측치",
-      "value": 1224
+      "value": 1195
     },
     {
       "description": "대표 DRAM 시리즈 포함",
       "label": "제품군",
-      "value": 52
+      "value": 50
     },
     {
       "description": "관측별 effective date 우선",
@@ -55,9 +55,9 @@
         "cadence": "weekly",
         "date": "2026-07-21",
         "kind": "spot_proxy",
-        "price": null,
+        "price": 50.0,
         "source": "memorymarket",
-        "unit": null
+        "unit": "USD"
       },
       "name": "DDR4 16Gb 3200",
       "sector": "Semiconductors",
@@ -82,9 +82,9 @@
         "cadence": "weekly",
         "date": "2026-07-21",
         "kind": "spot_proxy",
-        "price": null,
+        "price": 19.5,
         "source": "memorymarket",
-        "unit": null
+        "unit": "USD"
       },
       "name": "DDR4 8Gb 3200",
       "sector": "Semiconductors",
@@ -109,9 +109,9 @@
         "cadence": "weekly",
         "date": "2026-07-21",
         "kind": "spot_proxy",
-        "price": null,
+        "price": 35.0,
         "source": "memorymarket",
-        "unit": null
+        "unit": "USD"
       },
       "name": "DDR5 16Gb Major",
       "sector": "Semiconductors",
@@ -136,9 +136,9 @@
         "cadence": "weekly",
         "date": "2026-07-21",
         "kind": "spot_proxy",
-        "price": null,
+        "price": 22.6,
         "source": "memorymarket",
-        "unit": null
+        "unit": "USD"
       },
       "name": "DDR5 16Gb eTT",
       "sector": "Semiconductors",
@@ -163,9 +163,9 @@
         "cadence": "monthly",
         "date": "2026-07-22",
         "kind": "contract",
-        "price": null,
+        "price": 227.0,
         "source": "trendforce",
-        "unit": null
+        "unit": "USD"
       },
       "name": "DDR4 16GB SO-DIMM",
       "sector": "Semiconductors",
@@ -190,9 +190,9 @@
         "cadence": "daily",
         "date": "2026-07-22",
         "kind": "spot",
-        "price": null,
+        "price": 81.7,
         "source": "trendforce",
-        "unit": null
+        "unit": "USD"
       },
       "name": "DDR4 16Gb (2Gx8) 3200",
       "sector": "Semiconductors",
@@ -217,9 +217,9 @@
         "cadence": "daily",
         "date": "2026-07-22",
         "kind": "spot",
-        "price": null,
+        "price": 41.5,
         "source": "trendforce",
-        "unit": null
+        "unit": "USD"
       },
       "name": "DDR4 8Gb (1Gx8) 3200",
       "sector": "Semiconductors",
@@ -244,9 +244,9 @@
         "cadence": "daily",
         "date": "2026-07-22",
         "kind": "spot",
-        "price": null,
+        "price": 50.233,
         "source": "trendforce",
-        "unit": null
+        "unit": "USD"
       },
       "name": "DDR5 16Gb (2Gx8) 4800/5600",
       "sector": "Semiconductors",
@@ -271,9 +271,9 @@
         "cadence": "daily",
         "date": "2026-07-22",
         "kind": "spot",
-        "price": null,
+        "price": 23.62,
         "source": "trendforce",
-        "unit": null
+        "unit": "USD"
       },
       "name": "DDR5 16Gb (2Gx8) eTT",
       "sector": "Semiconductors",
@@ -298,9 +298,9 @@
         "cadence": "monthly",
         "date": "2026-07-22",
         "kind": "contract",
-        "price": null,
+        "price": 112.0,
         "source": "trendforce",
-        "unit": null
+        "unit": "USD"
       },
       "name": "DDR5 8GB SO-DIMM",
       "sector": "Semiconductors",
@@ -320,16 +320,16 @@
       ]
     },
     {
-      "label": "May Specialty DRAM price updated on 5/29/2026, click here for details. · contract",
+      "label": "DDR4 RDIMM 16GB 3200 · spot_proxy",
       "metrics": {
-        "cadence": "monthly",
-        "date": "2026-06-29",
-        "kind": "contract",
-        "price": null,
-        "source": "trendforce",
-        "unit": null
+        "cadence": "weekly",
+        "date": "2026-07-07",
+        "kind": "spot_proxy",
+        "price": 325.0,
+        "source": "memorymarket",
+        "unit": "USD"
       },
-      "name": "May Specialty DRAM price updated on 5/29/2026, click here for details.",
+      "name": "DDR4 RDIMM 16GB 3200",
       "sector": "Semiconductors",
       "sectorLabel": "반도체",
       "signals": [
@@ -340,23 +340,23 @@
         "DRAM",
         "Memory",
         "Semiconductors",
-        "dram"
+        "rdimm"
       ],
       "warnings": [
         "공개 원천별 업데이트 주기와 품목 커버리지가 다릅니다."
       ]
     },
     {
-      "label": "DDR4 RDIMM 16GB 3200 · spot_proxy",
+      "label": "DDR4 RDIMM 32GB 3200 · spot_proxy",
       "metrics": {
         "cadence": "weekly",
         "date": "2026-07-07",
         "kind": "spot_proxy",
-        "price": null,
+        "price": 485.0,
         "source": "memorymarket",
-        "unit": null
+        "unit": "USD"
       },
-      "name": "DDR4 RDIMM 16GB 3200",
+      "name": "DDR4 RDIMM 32GB 3200",
       "sector": "Semiconductors",
       "sectorLabel": "반도체",
       "signals": [
@@ -391,7 +391,7 @@
     "cadence": "TrendForce current tables + MemoryMarket weekly public history",
     "degradedReasons": [],
     "expectedFreshnessDays": 14,
-    "label": "1224개 가격 관측치",
+    "label": "1195개 가격 관측치",
     "state": "ok"
   },
   "timezone": "UTC"

@@ -12,7 +12,7 @@ from tempfile import TemporaryDirectory
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from dram_tracker.freshness import decide_collection_need
-from dram_tracker.model import merge_observations
+from dram_tracker.model import build_public_summary, build_series, merge_observations, observation_price, summarize_status
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -176,6 +176,86 @@ class ModelAndCollectTests(unittest.TestCase):
         self.assertEqual(len(merged), 1)
         self.assertEqual(merged[0]["values"]["average"], 2)
 
+    def test_merge_observations_prunes_invalid_prices_without_overwriting_valid_history(self) -> None:
+        valid_existing = {
+            "source": "s",
+            "kind": "spot",
+            "product_id": "p",
+            "cadence": "daily",
+            "date": "2026-06-10",
+            "values": {"average": 1.0},
+        }
+        invalid_existing = {
+            "source": "s",
+            "kind": "spot",
+            "product_id": "invalid-old",
+            "cadence": "daily",
+            "date": "2026-06-09",
+            "values": {"average": None},
+        }
+        invalid_replacement = {**valid_existing, "values": {"session_average": float("nan")}}
+        valid_new = {
+            "source": "s",
+            "kind": "spot",
+            "product_id": "new",
+            "cadence": "daily",
+            "date": "2026-06-11",
+            "values": {"session_average": 2.0},
+        }
+
+        merged = merge_observations([valid_existing, invalid_existing], [invalid_replacement, valid_new])
+
+        self.assertEqual([row["product_id"] for row in merged], ["p", "new"])
+        self.assertEqual(merged[0]["values"]["average"], 1.0)
+        self.assertEqual(merged[1]["values"]["session_average"], 2.0)
+
+    def test_public_summary_uses_only_valid_prices_and_currency_units(self) -> None:
+        valid_session = {
+            "source": "trendforce",
+            "kind": "spot",
+            "product_id": "session-product",
+            "product_name": "Session Product",
+            "category": "ddr5",
+            "cadence": "daily",
+            "date": "2026-06-10",
+            "currency": "USD",
+            "values": {"session_average": 3.5, "average": 99.0},
+        }
+        valid_average = {
+            "source": "memorymarket",
+            "kind": "spot_proxy",
+            "product_id": "average-product",
+            "product_name": "Average Product",
+            "category": "ddr4",
+            "cadence": "weekly",
+            "date": "2026-06-09",
+            "currency": "USD",
+            "values": {"average": 2.25},
+        }
+        invalid_newer = {
+            **valid_session,
+            "date": "2026-06-11",
+            "values": {"session_average": None},
+        }
+        invalid_only = {
+            **valid_session,
+            "product_id": "invalid-only",
+            "product_name": "Invalid Only",
+            "values": {"session_average": None},
+        }
+        observations = [valid_session, valid_average, invalid_newer, invalid_only]
+        series = build_series(observations)
+        status = summarize_status(observations, [], "2026-06-11T00:00:00Z")
+
+        summary = build_public_summary(observations, series, status, "2026-06-11T00:00:00Z")
+
+        entities = {entity["name"]: entity for entity in summary["primaryEntities"]}
+        self.assertEqual(set(entities), {"Session Product", "Average Product"})
+        self.assertEqual(entities["Session Product"]["metrics"]["price"], 3.5)
+        self.assertEqual(entities["Session Product"]["metrics"]["unit"], "USD")
+        self.assertEqual(entities["Average Product"]["metrics"]["price"], 2.25)
+        self.assertEqual(entities["Average Product"]["metrics"]["unit"], "USD")
+
     def test_fixture_collector_writes_valid_json_outputs(self) -> None:
         with TemporaryDirectory() as tmp:
             output = Path(tmp) / "data"
@@ -210,6 +290,9 @@ class ModelAndCollectTests(unittest.TestCase):
             self.assertEqual(summary["contract"], "quant-research-summary")
             self.assertEqual(summary["projectId"], "dram")
             self.assertTrue(summary["primaryEntities"])
+            self.assertTrue(all(observation_price(obs) is not None for obs in prices["observations"]))
+            self.assertTrue(all(isinstance(entity["metrics"]["price"], (int, float)) for entity in summary["primaryEntities"]))
+            self.assertTrue(all(entity["metrics"]["unit"] == "USD" for entity in summary["primaryEntities"]))
             self.assertTrue(any("공개" in item or "source" in item.lower() for item in summary["limitations"]))
 
     def test_fixture_collector_preserves_prior_dates_and_updates_current_date(self) -> None:
@@ -269,6 +352,171 @@ class ModelAndCollectTests(unittest.TestCase):
             self.assertEqual(prior[0]["values"]["session_average"], 40.0)
             self.assertEqual(len(current), 1)
             self.assertEqual(current[0]["values"]["session_average"], 44.5)
+
+    def test_rebuild_only_prunes_invalid_rows_and_preserves_stored_metadata(self) -> None:
+        with TemporaryDirectory() as tmp:
+            output = Path(tmp) / "data"
+            output.mkdir()
+            valid = {
+                "source": "trendforce",
+                "source_url": "https://example.test/source",
+                "kind": "spot",
+                "product_id": "valid-product",
+                "product_name": "Valid Product",
+                "category": "ddr5",
+                "cadence": "daily",
+                "date": "2026-06-10",
+                "effective_date": "2026-06-10",
+                "collected_at": "2026-06-10T02:00:00Z",
+                "currency": "USD",
+                "values": {"session_average": 3.5},
+            }
+            invalid = {
+                **valid,
+                "product_id": "announcement",
+                "product_name": "Price announcement",
+                "values": {"session_average": None},
+            }
+            generated_at = "2026-06-10T03:00:00Z"
+            sources = [
+                {
+                    "source": "trendforce",
+                    "ok": True,
+                    "observation_count": 2,
+                    "urls": ["https://example.test/source"],
+                    "warnings": [],
+                    "errors": [],
+                }
+            ]
+            (output / "prices.json").write_text(
+                json.dumps({"schema_version": 1, "generated_at": generated_at, "observations": [valid, invalid]}),
+                encoding="utf-8",
+            )
+            (output / "status.json").write_text(json.dumps({"generated_at": generated_at, "sources": sources}), encoding="utf-8")
+
+            result = subprocess.run(
+                [sys.executable, "-m", "dram_tracker.collect", "--output", str(output), "--rebuild-only"],
+                cwd=ROOT,
+                env={**os.environ, "PYTHONPATH": str(ROOT / "src")},
+                text=True,
+                capture_output=True,
+                check=True,
+            )
+
+            prices = json.loads((output / "prices.json").read_text(encoding="utf-8"))
+            status = json.loads((output / "status.json").read_text(encoding="utf-8"))
+            summary = json.loads((output / "summary.json").read_text(encoding="utf-8"))
+            self.assertIn("rebuilt from stored data", result.stdout)
+            self.assertEqual(prices["generated_at"], generated_at)
+            self.assertEqual(prices["observations"], [valid])
+            self.assertEqual(status["generated_at"], generated_at)
+            self.assertEqual(status["sources"], sources)
+            self.assertEqual(summary["generatedAt"], generated_at)
+            self.assertEqual(summary["primaryEntities"][0]["metrics"]["price"], 3.5)
+            self.assertEqual(summary["primaryEntities"][0]["metrics"]["unit"], "USD")
+
+    def test_rebuild_only_fails_closed_when_status_metadata_is_incomplete(self) -> None:
+        generated_at = "2026-06-10T03:00:00Z"
+        valid_source = {
+            "source": "trendforce",
+            "ok": True,
+            "observation_count": 1,
+            "urls": ["https://example.test/source"],
+            "warnings": [],
+            "errors": [],
+        }
+        status_cases = {
+            "missing-status": None,
+            "missing-generated-at": {"sources": [valid_source]},
+            "empty-sources": {"generated_at": generated_at, "sources": []},
+            "incomplete-source": {"generated_at": generated_at, "sources": [{"source": "trendforce", "ok": True}]},
+            "mismatched-generated-at": {"generated_at": "2026-06-11T03:00:00Z", "sources": [valid_source]},
+        }
+        for label, status_payload in status_cases.items():
+            with self.subTest(label=label), TemporaryDirectory() as tmp:
+                output = Path(tmp) / "data"
+                output.mkdir()
+                valid = {
+                    "source": "trendforce",
+                    "kind": "spot",
+                    "product_id": "valid-product",
+                    "product_name": "Valid Product",
+                    "cadence": "daily",
+                    "date": "2026-06-10",
+                    "currency": "USD",
+                    "values": {"session_average": 3.5},
+                }
+                artifacts = {
+                    "prices.json": {"schema_version": 1, "generated_at": generated_at, "observations": [valid]},
+                    "series.json": {"sentinel": "series"},
+                    "summary.json": {"sentinel": "summary"},
+                }
+                for name, payload in artifacts.items():
+                    (output / name).write_text(json.dumps(payload), encoding="utf-8")
+                if status_payload is not None:
+                    (output / "status.json").write_text(json.dumps(status_payload), encoding="utf-8")
+                paths = [output / name for name in ("prices.json", "series.json", "status.json", "summary.json")]
+                before = {path.name: path.read_bytes() if path.exists() else None for path in paths}
+
+                result = subprocess.run(
+                    [sys.executable, "-m", "dram_tracker.collect", "--output", str(output), "--rebuild-only"],
+                    cwd=ROOT,
+                    env={**os.environ, "PYTHONPATH": str(ROOT / "src")},
+                    text=True,
+                    capture_output=True,
+                    check=False,
+                )
+
+                after = {path.name: path.read_bytes() if path.exists() else None for path in paths}
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn("rebuild-only", result.stderr)
+                self.assertEqual(after, before)
+
+    def test_rebuild_only_fails_closed_before_replacing_all_invalid_history(self) -> None:
+        with TemporaryDirectory() as tmp:
+            output = Path(tmp) / "data"
+            output.mkdir()
+            invalid = {
+                "source": "trendforce",
+                "kind": "spot",
+                "product_id": "announcement",
+                "product_name": "Price announcement",
+                "cadence": "daily",
+                "date": "2026-06-10",
+                "values": {"session_average": None},
+            }
+            original_payload = {"schema_version": 1, "generated_at": "2026-06-10T03:00:00Z", "observations": [invalid]}
+            prices_path = output / "prices.json"
+            prices_path.write_text(json.dumps(original_payload), encoding="utf-8")
+            status = {
+                "generated_at": "2026-06-10T03:00:00Z",
+                "sources": [
+                    {
+                        "source": "trendforce",
+                        "ok": True,
+                        "observation_count": 1,
+                        "urls": ["https://example.test/source"],
+                        "warnings": [],
+                        "errors": [],
+                    }
+                ],
+            }
+            (output / "status.json").write_text(json.dumps(status), encoding="utf-8")
+
+            result = subprocess.run(
+                [sys.executable, "-m", "dram_tracker.collect", "--output", str(output), "--rebuild-only"],
+                cwd=ROOT,
+                env={**os.environ, "PYTHONPATH": str(ROOT / "src")},
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("no valid stored price observations", result.stderr)
+            self.assertEqual(json.loads(prices_path.read_text(encoding="utf-8")), original_payload)
+            self.assertFalse((output / "series.json").exists())
+            self.assertFalse((output / "summary.json").exists())
 
     def test_failed_source_preserves_existing_data_and_records_status(self) -> None:
         with TemporaryDirectory() as tmp:

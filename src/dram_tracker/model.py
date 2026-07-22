@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 from collections import Counter
 from datetime import datetime, timezone
@@ -35,6 +36,29 @@ def write_json(path: Path, payload: Any) -> None:
         handle.write("\n")
 
 
+def is_finite_number(value: Any) -> bool:
+    """Return whether value is a usable JSON price number."""
+
+    if isinstance(value, bool):
+        return False
+    if isinstance(value, int):
+        return True
+    return isinstance(value, float) and math.isfinite(value)
+
+
+def observation_price(obs: dict[str, Any]) -> int | float | None:
+    """Return the normalized price used by public DRAM outputs."""
+
+    values = obs.get("values")
+    if not isinstance(values, dict):
+        return None
+    for key in ("session_average", "average"):
+        value = values.get(key)
+        if is_finite_number(value):
+            return value
+    return None
+
+
 def observation_key(obs: dict[str, Any]) -> tuple[str, str, str, str, str]:
     return (
         str(obs.get("source", "")),
@@ -48,9 +72,11 @@ def observation_key(obs: dict[str, Any]) -> tuple[str, str, str, str, str]:
 def merge_observations(existing: list[dict[str, Any]], new: list[dict[str, Any]]) -> list[dict[str, Any]]:
     merged: dict[tuple[str, str, str, str, str], dict[str, Any]] = {}
     for obs in existing:
-        merged[observation_key(obs)] = obs
+        if observation_price(obs) is not None:
+            merged[observation_key(obs)] = obs
     for obs in new:
-        merged[observation_key(obs)] = obs
+        if observation_price(obs) is not None:
+            merged[observation_key(obs)] = obs
     return sorted(merged.values(), key=lambda item: (item.get("date", ""), item.get("source", ""), item.get("kind", ""), item.get("product_name", "")))
 
 
@@ -130,6 +156,8 @@ def build_public_summary(
 
     latest_by_product: dict[str, dict[str, Any]] = {}
     for obs in observations:
+        if observation_price(obs) is None:
+            continue
         key = str(obs.get("product_id") or obs.get("product_name") or "unknown")
         current = latest_by_product.get(key)
         if current is None or str(obs.get("date") or "") >= str(current.get("date") or ""):
@@ -185,8 +213,8 @@ def build_public_summary(
                 "sectorLabel": "반도체",
                 "themes": ["DRAM", "Memory", "Semiconductors", str(row.get("category") or "")],
                 "metrics": {
-                    "price": row.get("price"),
-                    "unit": row.get("unit"),
+                    "price": observation_price(row),
+                    "unit": row.get("currency"),
                     "date": row.get("date"),
                     "source": row.get("source"),
                     "kind": row.get("kind"),

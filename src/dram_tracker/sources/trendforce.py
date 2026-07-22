@@ -6,7 +6,7 @@ import re
 from typing import Any
 
 from dram_tracker.html_tables import extract_tables, rows_as_dicts
-from dram_tracker.model import slugify, utc_now_iso
+from dram_tracker.model import is_finite_number, observation_price, slugify, utc_now_iso
 
 SPOT_URL = "https://www.trendforce.com/price/dram/dram_spot"
 CONTRACT_URL = "https://www.trendforce.com/price/dram/dram_contract"
@@ -17,7 +17,8 @@ def parse_number(value: str) -> float | None:
     if not cleaned or cleaned in {"-", "N/A"}:
         return None
     try:
-        return float(cleaned)
+        number = float(cleaned)
+        return number if is_finite_number(number) else None
     except ValueError:
         return None
 
@@ -112,5 +113,6 @@ def parse_price_page(html: str, *, kind: str, url: str, collected_at: str | None
             "currency": "USD",
             "values": values,
         }
-        observations.append(observation)
+        if observation_price(observation) is not None:
+            observations.append(observation)
     return observations
