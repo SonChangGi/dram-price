@@ -1,7 +1,7 @@
 import { ExternalLink, Menu, Moon, Sun, X } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { LEGACY_THEME_KEYS, migrateStoredTheme, THEME_KEY } from '@/lib/theme';
+import { LEGACY_THEME_KEYS, migrateStoredTheme, THEME_KEY, themeFromSearch, type Theme } from '@/lib/theme';
 import { cn } from '@/lib/utils';
 
 const projects = [
@@ -18,18 +18,23 @@ const projects = [
   { id: 'kelly', label: 'Kelly', href: 'https://sonchanggi.github.io/kelly/' },
 ] as const;
 
-function initialTheme(): 'light' | 'dark' {
+function initialTheme(): Theme {
+  let stored: Theme | null = null;
   try {
-    const migrated = migrateStoredTheme(window.localStorage);
-    if (migrated) {
-      document.documentElement.dataset.theme = migrated;
-      return migrated;
-    }
+    stored = migrateStoredTheme(window.localStorage);
   } catch {
-    // Storage is optional; use the theme already applied by the document.
+    // Storage is optional; query and system preferences still apply.
   }
-  const existing = document.documentElement.dataset.theme;
-  return existing === 'dark' ? 'dark' : 'light';
+  const requested = themeFromSearch(window.location.search);
+  let preferred: Theme = 'light';
+  try {
+    preferred = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  } catch {
+    // Light is the fail-safe when the system preference cannot be read.
+  }
+  const theme = requested ?? stored ?? preferred;
+  document.documentElement.dataset.theme = theme;
+  return theme;
 }
 
 export function SharedNav() {
