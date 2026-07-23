@@ -5,21 +5,21 @@
     "Contract prices are monthly/update-date observations; collected_at is not the effective price date."
   ],
   "counts_by_kind": {
-    "contract": 203,
-    "spot": 203,
+    "contract": 210,
+    "spot": 210,
     "spot_proxy": 789
   },
   "counts_by_source": {
     "memorymarket": 789,
-    "trendforce": 406
+    "trendforce": 420
   },
-  "generated_at": "2026-07-22T03:45:01Z",
-  "observation_count": 1195,
+  "generated_at": "2026-07-23T03:43:59Z",
+  "observation_count": 1209,
   "schema_version": 1,
   "sources": [
     {
       "errors": [],
-      "observation_count": 15,
+      "observation_count": 14,
       "ok": true,
       "source": "trendforce",
       "urls": [
@@ -30,7 +30,7 @@
     },
     {
       "errors": [],
-      "observation_count": 606,
+      "observation_count": 630,
       "ok": true,
       "source": "memorymarket",
       "urls": [
@@ -76,9 +76,7 @@
         "https://www.memorymarket.com/price/ews/100326",
         "https://www.memorymarket.com/price/ews/100325"
       ],
-      "warnings": [
-        "DDR4 16Gb 3200: failed to fetch https://www.memorymarket.com/price/ews/100222: The read operation timed out"
-      ]
+      "warnings": []
     }
   ]
 }
