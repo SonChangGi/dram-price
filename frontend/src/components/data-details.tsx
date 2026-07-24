@@ -13,7 +13,7 @@ export function DataDetails({ status, automation }: { status: StatusPayload; aut
   return (
     <Collapsible.Root className="data-details">
       <Collapsible.Trigger className="data-details__trigger">
-        <span><Database aria-hidden="true" /><span><strong>데이터 · 출처 · 운영 상세</strong><small>필요할 때만 펼쳐 확인하세요.</small></span></span>
+        <span><Database aria-hidden="true" /><strong>데이터 · 출처 · 운영 상세</strong></span>
         <ChevronDown aria-hidden="true" className="data-details__chevron" />
       </Collapsible.Trigger>
       <Collapsible.Content className="data-details__content">

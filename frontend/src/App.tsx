@@ -10,6 +10,7 @@ import { SharedNav } from '@/components/shared-nav';
 import { StatusStrip } from '@/components/status-strip';
 import { loadDashboardData } from '@/lib/data';
 import { baseFilteredRows, filteredRows, formatCount, latestRepresentativeCards, normalizeFilters } from '@/lib/market';
+import { assertDisplayFilterPatch } from '@/shared-platform';
 import type { DashboardData, DashboardFilters } from '@/types';
 
 const initialFilters: DashboardFilters = {
@@ -41,6 +42,7 @@ export function App() {
   const cards = useMemo(() => data ? latestRepresentativeCards(data.observations, data.series, 6) : [], [data]);
 
   function updateFilters(patch: Partial<DashboardFilters>) {
+    assertDisplayFilterPatch(patch);
     setFilters((current) => {
       const next = { ...current, ...patch };
       return data ? normalizeFilters(data.observations, data.series, next) : next;
@@ -48,10 +50,10 @@ export function App() {
   }
 
   if (error) {
-    return <><SkipLink /><SharedNav /><main className="load-state" id="main-content" tabIndex={-1}><AlertTriangle aria-hidden="true" /><h1>데이터를 표시하지 못했습니다</h1><p>{error}</p><div className="load-state__actions"><Button variant="primary" onClick={() => window.location.reload()}>다시 불러오기</Button><a href="data/status.json">수집 상태 JSON 확인<ArrowUpRight aria-hidden="true" /></a></div></main></>;
+    return <><SkipLink /><SharedNav /><main className="load-state" id="main-content" tabIndex={-1}><AlertTriangle aria-hidden="true" /><h1>데이터를 표시하지 못했습니다</h1><p>{error}</p><div className="load-state__actions"><Button variant="primary" onClick={() => window.location.reload()}>다시 불러오기</Button><a href="data/status.json">수집 상태 보기<ArrowUpRight aria-hidden="true" /></a></div></main></>;
   }
   if (!data) {
-    return <><SkipLink /><SharedNav /><main className="load-state" id="main-content" tabIndex={-1} aria-live="polite"><LoaderCircle className="is-spinning" aria-hidden="true" /><h1>DRAM 가격을 불러오는 중</h1><p>저장된 공개 관측치와 수집 상태를 확인하고 있습니다.</p></main></>;
+    return <><SkipLink /><SharedNav /><main className="load-state" id="main-content" tabIndex={-1} aria-live="polite"><LoaderCircle className="is-spinning" aria-hidden="true" /><h1>DRAM 가격을 불러오는 중</h1></main></>;
   }
 
   const dateValues = rows.map((row) => row.date).filter((date): date is string => Boolean(date)).sort();
@@ -64,7 +66,7 @@ export function App() {
       <SkipLink />
       <SharedNav />
       <header className="page-header">
-        <div><p className="eyebrow">DRAM Price Lab</p><h1>DRAM 가격</h1><p>현물가를 먼저 보고, 제품별 흐름과 상세 관측치를 차례로 확인합니다.</p></div>
+        <div><p className="eyebrow">DRAM Price Lab</p><h1>DRAM 가격</h1></div>
         <a className="hub-link" href="https://sonchanggi.github.io/quant-dashboard/">통합 허브<ArrowUpRight aria-hidden="true" /></a>
       </header>
       <main className="dashboard-shell" id="main-content" tabIndex={-1}>

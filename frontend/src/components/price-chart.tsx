@@ -96,6 +96,17 @@ function pointAtDate(group: ChartGroup, date: string) {
   return group.points.find((point) => point.date === date) ?? null;
 }
 
+function nearestAvailableDate(candidates: string[], target: string, timeline: string[]) {
+  if (!candidates.length) return target;
+  if (candidates.includes(target)) return target;
+  const targetIndex = Math.max(0, timeline.indexOf(target));
+  return candidates.reduce((nearest, candidate) => {
+    const candidateDistance = Math.abs(timeline.indexOf(candidate) - targetIndex);
+    const nearestDistance = Math.abs(timeline.indexOf(nearest) - targetIndex);
+    return candidateDistance < nearestDistance ? candidate : nearest;
+  }, candidates[0]!);
+}
+
 function ChartFacet({ facet }: { facet: FacetDefinition }) {
   const titleId = useId();
   const descId = useId();
@@ -118,11 +129,16 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
   const selectedId = groups.some((group) => group.id === selected) ? selected : null;
   const hoveredId = groups.some((group) => group.id === hovered) ? hovered : null;
   const activeId = hoveredId ?? selectedId;
+  const selectedGroup = groups.find((group) => group.id === selectedId) ?? null;
   const activeGroup = groups.find((group) => group.id === activeId) ?? null;
   const dates = [...new Set(groups.flatMap((group) => group.points.map((point) => point.date)))].sort();
   const values = groups.flatMap((group) => group.points.map((point) => point.value));
   const latestAvailableDate = dates.at(-1) ?? null;
-  const persistentDateForScroll = selectedDate && dates.includes(selectedDate) ? selectedDate : latestAvailableDate;
+  const persistentCandidate = selectedDate && dates.includes(selectedDate) ? selectedDate : latestAvailableDate;
+  const selectedDates = selectedGroup?.points.map((point) => point.date) ?? dates;
+  const persistentDateForScroll = persistentCandidate
+    ? nearestAvailableDate(selectedDates, persistentCandidate, dates)
+    : null;
   const persistentDateIndex = persistentDateForScroll ? dates.indexOf(persistentDateForScroll) : -1;
 
   useEffect(() => {
@@ -155,8 +171,10 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
   const yTicks = Array.from({ length: 5 }, (_, index) => (max * 1.08 * index) / 4);
   const range = `${formatDate(dates[0])}–${formatDate(dates.at(-1))}`;
   const latestDate = latestAvailableDate!;
-  const persistentDate = selectedDate && dates.includes(selectedDate) ? selectedDate : latestDate;
-  const activeDate = hoveredDate && dates.includes(hoveredDate) ? hoveredDate : persistentDate;
+  const persistentDate = persistentDateForScroll ?? latestDate;
+  const activeCandidateDate = hoveredDate && dates.includes(hoveredDate) ? hoveredDate : persistentDate;
+  const activeDates = activeGroup?.points.map((point) => point.date) ?? dates;
+  const activeDate = nearestAvailableDate(activeDates, activeCandidateDate, dates);
   const displayGroup = activeGroup ?? groups.find((group) => pointAtDate(group, activeDate)) ?? groups[0]!;
   const displayPoint = pointAtDate(displayGroup, activeDate);
   const displayGroupIndex = Math.max(0, groups.findIndex((group) => group.id === displayGroup.id));
@@ -176,14 +194,15 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
   function moveSelectedDate(event: KeyboardEvent<HTMLDivElement>) {
     if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
     event.preventDefault();
-    const currentIndex = Math.max(0, dates.indexOf(activeDate));
+    const keyboardDates = activeGroup?.points.map((point) => point.date) ?? dates;
+    const currentIndex = Math.max(0, keyboardDates.indexOf(activeDate));
     const nextIndex = event.key === 'Home'
       ? 0
       : event.key === 'End'
-        ? dates.length - 1
-        : Math.max(0, Math.min(dates.length - 1, currentIndex + (event.key === 'ArrowLeft' ? -1 : 1)));
+        ? keyboardDates.length - 1
+        : Math.max(0, Math.min(keyboardDates.length - 1, currentIndex + (event.key === 'ArrowLeft' ? -1 : 1)));
     setHoveredDate(null);
-    const nextDate = dates[nextIndex];
+    const nextDate = keyboardDates[nextIndex];
     if (nextDate) setSelectedDate(nextDate);
   }
 
@@ -191,7 +210,12 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
     if (!bounds.width) return null;
     const viewX = ((clientX - bounds.left) / bounds.width) * WIDTH;
     const ratio = Math.max(0, Math.min(1, (viewX - MARGIN.left) / plotWidth));
-    return dates[Math.round(ratio * (dates.length - 1))] ?? null;
+    const selectableDates = activeGroup?.points.map((point) => point.date) ?? dates;
+    if (!selectableDates.length) return null;
+    const targetX = MARGIN.left + ratio * plotWidth;
+    return selectableDates.reduce((nearest, candidate) => (
+      Math.abs(x(candidate) - targetX) < Math.abs(x(nearest) - targetX) ? candidate : nearest
+    ), selectableDates[0]!);
   }
 
   function exploreDate(event: PointerEvent<SVGSVGElement>) {
@@ -229,6 +253,7 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
           aria-roledescription="대화형 가격 차트"
           aria-label={`${kindLabel(facet.kind)} ${facet.metricLabel} 가격 차트 가로 스크롤 영역`}
           aria-describedby={helpId}
+          aria-keyshortcuts="ArrowLeft ArrowRight Home End"
           data-selected-date={activeDate}
           onKeyDown={moveSelectedDate}
         >
@@ -308,8 +333,8 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
         })}
       </div>
       <div className="chart-date-controls">
-        <label><span>고정 선택일</span><select aria-label={`${kindLabel(facet.kind)} 차트 고정 선택일`} value={persistentDate} onChange={(event) => { setHoveredDate(null); setSelectedDate(event.target.value); }}>{dates.slice().reverse().map((date) => <option key={date} value={date}>{formatDate(date)}</option>)}</select></label>
-        <span id={helpId}>차트 위 이동 · 클릭으로 고정 · 키보드 ← → Home End</span>
+        <label><span>고정 선택일</span><select aria-label={`${kindLabel(facet.kind)} 차트 고정 선택일`} value={persistentDate} onChange={(event) => { setHoveredDate(null); setSelectedDate(event.target.value); }}>{selectedDates.slice().reverse().map((date) => <option key={date} value={date}>{formatDate(date)}</option>)}</select></label>
+        <span className="sr-only" id={helpId}>차트 위 이동 · 클릭으로 고정 · 키보드 ← → Home End</span>
         <span className="sr-only" aria-live="polite">{interactionText}</span>
       </div>
       <ul className="sr-only">{groups.map((group) => { const last = group.points.at(-1)!; return <li key={group.id}>{group.displayLabel}: {formatDate(last.date)} {formatPrice(last.value, group.currency)}</li>; })}</ul>

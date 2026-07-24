@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "sharedVersion": "quant-platform-frontend/0.1.0",
+  "snapshotDate": "2026-07-24",
+  "source": {
+    "repository": "SonChangGi/quant-dashboard",
+    "foundationBaseRevision": "20a5604a5e9386253fc983ab10d6f018cdb108cd",
+    "note": "The shared packages were an unpublished foundation snapshot; this repository vendors only the compatible contract seam.",
+    "compatibilitySourceHashes": {
+      "platform/packages/contracts/src/schemas.ts": "4d0e53ec03173461710debd24204abf97b1345d5031e31a349d87c83d80767a0",
+      "platform/packages/project-registry/src/index.ts": "e30fbcbd2513b8689435c6a3660fd4ed912dc2e3738ee2fe266d3338252bb466",
+      "platform/packages/ui/src/styles.css": "e277f29caa54841d3442a366718618b364b688ccd5cd38460dece5e31a57cbbf"
+    }
+  },
+  "aggregateFingerprint": "02d87322f75dde66217c83f12eba465869397d685c76462f79cb548afe76d274",
+  "files": {
+    "src/shared-platform/contracts.ts": "c0d4dcf0230caaf0b049d946b9b24a03dd588c7e602c13f43bc23906596dd3a8",
+    "src/shared-platform/control-manifest.ts": "16870e71cd025bb3a4b5ee1a9f1bfa153cc91e3d460040911beb23a4ea152f05",
+    "src/shared-platform/project-registry.ts": "2330206953a756cc4323b4969c2893138b0c724165f9f6831617d95efa1b8eb4",
+    "src/shared-platform/static-result-adapter.ts": "5bc1d3e372a69e50519d963aea0a20fcc3ea695516a072101dd977ceb2277890",
+    "src/shared-platform/index.ts": "deab962ae9dd45559fbf0f0aa6f362b0f2b6c62067a22daedd9dd6a2979f2e2f"
+  }
+}

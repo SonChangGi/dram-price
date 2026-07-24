@@ -1,4 +1,5 @@
 import { access, readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 
 const required = [
   'dist/index.html',
@@ -17,4 +18,20 @@ if (!index.includes('/dram-price/assets/')) {
 if (/https?:\/\/[^"']+\.(?:js|css)/.test(index)) {
   throw new Error('Production HTML unexpectedly depends on a remote JS/CSS asset.');
 }
-console.log(`Verified ${required.length} production artifacts and the /dram-price/ base path.`);
+
+const dataFiles = required.filter((file) => file.startsWith('dist/data/'));
+for (const distPath of dataFiles) {
+  const repositoryPath = `../${distPath.replace(/^dist\//, '')}`;
+  const [repositoryBytes, distBytes] = await Promise.all([
+    readFile(repositoryPath),
+    readFile(distPath),
+  ]);
+  const digest = (bytes) => createHash('sha256').update(bytes).digest('hex');
+  if (digest(repositoryBytes) !== digest(distBytes)) {
+    throw new Error(`${distPath} is not byte-identical to ${repositoryPath}.`);
+  }
+}
+
+console.log(
+  `Verified ${required.length} production artifacts, ${dataFiles.length} byte-identical JSON files, and the /dram-price/ base path.`,
+);
