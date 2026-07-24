@@ -49,7 +49,6 @@ export function FilterControls({ filters, onChange, baseRows, allRows, series }:
           <FilterSelect label="차트 지표" value={filters.metric} onChange={(metric) => onChange({ metric })}>
             {metrics.map((metric) => <SelectItem key={metric} value={metric}>{METRIC_LABELS[metric] ?? metric}</SelectItem>)}
           </FilterSelect>
-          <p className="series-limit-note">차트는 읽기 편하도록 조건별 최대 5개 시리즈만 표시합니다. 전체 관측치는 아래 목록에서 확인할 수 있습니다.</p>
         </Collapsible.Content>
       </Collapsible.Root>
     </div>

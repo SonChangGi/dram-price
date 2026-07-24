@@ -2,21 +2,10 @@ import { ExternalLink, Menu, Moon, Sun, X } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { LEGACY_THEME_KEYS, migrateStoredTheme, THEME_KEY, themeFromSearch, type Theme } from '@/lib/theme';
+import { getCanonicalNavigation } from '@/shared-platform';
 import { cn } from '@/lib/utils';
 
-const projects = [
-  { id: 'hub', label: 'Hub', href: 'https://sonchanggi.github.io/quant-dashboard/' },
-  { id: 'fear', label: 'Fear & Greed', href: 'https://sonchanggi.github.io/fearNgreed/' },
-  { id: 'momentum', label: 'Momentum', href: 'https://sonchanggi.github.io/momentum-factor-lab/' },
-  { id: 'dram', label: 'DRAM', href: 'https://sonchanggi.github.io/dram-price/' },
-  { id: 'best', label: 'Best Factor', href: 'https://sonchanggi.github.io/best-factor/' },
-  { id: 'etf', label: 'ETF', href: 'https://sonchanggi.github.io/etf-tracking/' },
-  { id: 'sox', label: 'SOX', href: 'https://sonchanggi.github.io/sox/' },
-  { id: 'risk', label: 'Risk Score', href: 'https://sonchanggi.github.io/quant-dashboard/risk-score/' },
-  { id: 'port', label: 'Port', href: 'https://sonchanggi.github.io/port/' },
-  { id: 'valuation', label: 'Valuation', href: 'https://sonchanggi.github.io/valuation/' },
-  { id: 'kelly', label: 'Kelly', href: 'https://sonchanggi.github.io/kelly/' },
-] as const;
+const projects = getCanonicalNavigation('dram');
 
 function initialTheme(): Theme {
   let stored: Theme | null = null;
@@ -55,7 +44,7 @@ export function SharedNav() {
 
   return (
     <nav className="shared-nav" aria-label="11개 퀀트 리서치 프로젝트">
-      <a className="shared-nav__brand" href={projects[0].href}>Quant Research</a>
+      <a className="shared-nav__brand" href={projects[0]!.url}>Quant Research</a>
       <Button
         className="shared-nav__menu"
         size="icon"
@@ -71,9 +60,9 @@ export function SharedNav() {
         {projects.map((project) => (
           <a
             key={project.id}
-            className={cn(project.id === 'dram' && 'is-active')}
-            href={project.href}
-            aria-current={project.id === 'dram' ? 'page' : undefined}
+            className={cn(project.current && 'is-active')}
+            href={project.url}
+            aria-current={project.current ? 'page' : undefined}
             onClick={() => setOpen(false)}
           >
             {project.label}
@@ -83,7 +72,7 @@ export function SharedNav() {
       <Button size="icon" variant="ghost" onClick={toggleTheme} aria-pressed={theme === 'dark'} aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}>
         {theme === 'dark' ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
       </Button>
-      <a className="shared-nav__external" href={projects[0].href} aria-label="통합 허브 열기">
+      <a className="shared-nav__external" href={projects[0]!.url} aria-label="통합 허브 열기">
         <ExternalLink aria-hidden="true" />
       </a>
     </nav>

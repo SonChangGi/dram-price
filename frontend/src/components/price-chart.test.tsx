@@ -57,6 +57,9 @@ describe('PriceChart', () => {
     const chart = container.querySelector('.chart-scroll') as HTMLElement;
     expect(chart).toHaveAttribute('role', 'group');
     expect(chart).toHaveAttribute('aria-roledescription', '대화형 가격 차트');
+    expect(chart).toHaveAttribute('aria-keyshortcuts', 'ArrowLeft ArrowRight Home End');
+    const interactionHelp = document.getElementById(chart.getAttribute('aria-describedby')!);
+    expect(interactionHelp).toHaveClass('sr-only');
     chart.focus();
     await user.keyboard('{End}');
     expect(callout).toHaveAttribute('data-date', '2026-07-21');
@@ -110,6 +113,58 @@ describe('PriceChart', () => {
     expect(within(container.querySelector('.chart-value-callout') as HTMLElement).getByText('테스트 제품 1')).toBeInTheDocument();
     expect(series[0]).toHaveClass('is-active');
     expect(series[1]).toHaveClass('is-muted');
+  });
+
+  it('keeps pointer, keyboard, marker and readout on actual dates of the active sparse series', async () => {
+    const user = userEvent.setup();
+    const sparse = [20, 22, 24].map((day) => spotObservation(1, day));
+    const offset = [21, 23, 25].map((day) => spotObservation(2, day));
+    const { container } = render(<PriceChart rows={[...sparse, ...offset]} metric="auto" />);
+    const controls = screen.getByRole('group', { name: '현물가 정확값을 확인할 시리즈 선택' });
+    await user.click(within(controls).getByRole('button', { name: '테스트 제품 1' }));
+
+    const chart = container.querySelector('.chart-scroll') as HTMLElement;
+    const svg = chart.querySelector('svg') as SVGSVGElement;
+    const callout = container.querySelector('.chart-value-callout') as HTMLElement;
+    const dateSelect = screen.getByRole('combobox', { name: '현물가 차트 고정 선택일' });
+    Object.defineProperties(chart, {
+      scrollWidth: { configurable: true, value: 980 },
+      clientWidth: { configurable: true, value: 320 }
+    });
+    Object.defineProperty(chart, 'scrollLeft', { configurable: true, writable: true, value: 0 });
+    Object.defineProperty(svg, 'getBoundingClientRect', {
+      configurable: true,
+      value: () => ({ x: 0, y: 0, top: 0, left: 0, right: 980, bottom: 460, width: 980, height: 460, toJSON: () => ({}) }),
+    });
+
+    expect(dateSelect.querySelectorAll('option')).toHaveLength(3);
+    expect(dateSelect).toHaveValue('2026-07-24');
+    expect(callout).toHaveAttribute('data-date', '2026-07-24');
+
+    fireEvent.pointerMove(svg, { clientX: 64, pointerType: 'mouse' });
+    expect(callout).toHaveAttribute('data-date', '2026-07-20');
+    expect(container.querySelector('.chart-selection-guide')).toHaveAttribute('data-date', '2026-07-20');
+    expect(container.querySelector('.chart-selected-point.is-active')).toHaveAttribute('data-date', '2026-07-20');
+    expect(callout).not.toHaveTextContent('관측 없음');
+
+    fireEvent.pointerMove(svg, { clientX: 64 + (2 / 5) * 726, pointerType: 'mouse' });
+    expect(callout).toHaveAttribute('data-date', '2026-07-22');
+    expect(container.querySelector('.chart-selected-point.is-active')).toHaveAttribute('data-date', '2026-07-22');
+
+    fireEvent.click(svg, { clientX: 790 });
+    fireEvent.pointerLeave(svg);
+    expect(callout).toHaveAttribute('data-date', '2026-07-24');
+    expect(dateSelect).toHaveValue('2026-07-24');
+    expect(container.querySelector('.chart-selected-point.is-active')).toHaveAttribute('data-date', '2026-07-24');
+
+    chart.focus();
+    await user.keyboard('{Home}');
+    expect(callout).toHaveAttribute('data-date', '2026-07-20');
+    await user.keyboard('{ArrowRight}');
+    expect(callout).toHaveAttribute('data-date', '2026-07-22');
+    await user.keyboard('{End}');
+    expect(callout).toHaveAttribute('data-date', '2026-07-24');
+    expect(chart.scrollLeft).toBeGreaterThan(0);
   });
 
   it('does not draw a misleading line for a one-point series', () => {

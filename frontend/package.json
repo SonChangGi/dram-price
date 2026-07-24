@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "test:watch": "vitest",
     "build": "tsc -b && vite build",
-    "verify": "npm run typecheck && npm run lint && npm run test && npm run build && node scripts/verify-build.mjs",
+    "verify:platform": "node scripts/verify-platform-snapshot.mjs",
+    "verify": "npm run verify:platform && npm run typecheck && npm run lint && npm run test && npm run build && node scripts/verify-build.mjs",
     "preview": "vite preview"
   },
   "type": "module",

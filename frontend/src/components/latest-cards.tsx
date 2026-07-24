@@ -7,7 +7,6 @@ export function LatestCards({ rows }: { rows: Observation[] }) {
     <section className="latest-section" aria-labelledby="latest-heading">
       <div className="section-heading section-heading--compact">
         <div><p className="eyebrow">Latest prices</p><h2 id="latest-heading">대표 6개 최신 가격</h2></div>
-        <p>각 대표 시리즈의 최신 공개 관측치입니다.</p>
       </div>
       <div className="latest-grid">
         {rows.map((row) => {

@@ -10,6 +10,13 @@ A personal static dashboard for tracking DRAM prices from public pages.
 
 The project stores normalized JSON in `data/` and builds the GitHub Pages dashboard from `frontend/` with React, strict TypeScript, Vite, Tailwind CSS v4, and shadcn-style Radix primitives. It remains a static site and does not require an application server.
 
+The frontend also includes a pinned, independently buildable compatibility seam
+for the shared Quant Research control contract, canonical 11-project navigation,
+and semantic design tokens. DRAM has no analysis-input controls: all
+result-affecting controls are registered as saved-result selectors or
+display-only filters, so they can never submit a Python analysis run. See
+[`docs/shared-frontend-integration.md`](docs/shared-frontend-integration.md).
+
 The result-first screen shows collection status, the true latest observation date, six balanced representative prices, and the primary price chart before detail. Spot prices, representative products, and automatic metric selection are the defaults. Price kind and product stay visible; source, category, and metric live in the advanced disclosure. The chart facets incompatible price kinds, currencies, and actual metrics, requires at least two dates for a trend, and caps each facet at five readable series. All matching observations remain available in the latest list, which starts at 10 rows and can expand to 50, using table rows on desktop and cards on mobile.
 
 ## Local setup
