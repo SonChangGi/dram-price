@@ -35,19 +35,9 @@ export const canonicalProjectRegistry = [
     url: 'https://sonchanggi.github.io/sox/',
   },
   {
-    id: 'risk-score',
-    label: 'Risk Score',
-    url: 'https://sonchanggi.github.io/quant-dashboard/risk-score/',
-  },
-  {
     id: 'port',
     label: 'Port',
     url: 'https://sonchanggi.github.io/port/',
-  },
-  {
-    id: 'valuation',
-    label: 'Valuation',
-    url: 'https://sonchanggi.github.io/valuation/',
   },
   {
     id: 'kelly',

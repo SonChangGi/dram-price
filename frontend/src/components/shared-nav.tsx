@@ -43,7 +43,7 @@ export function SharedNav() {
   }
 
   return (
-    <nav className="shared-nav" aria-label="11개 퀀트 리서치 프로젝트">
+    <nav className="shared-nav" aria-label="9개 퀀트 리서치 프로젝트">
       <a className="shared-nav__brand" href={projects[0]!.url}>Quant Research</a>
       <Button
         className="shared-nav__menu"
