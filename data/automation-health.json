@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "contract": "dram-automation-health",
   "projectId": "dram",
-  "updatedAt": "2026-07-24T03:50:43.237012Z",
-  "targetDate": "2026-07-24",
+  "updatedAt": "2026-07-27T04:08:20.720607Z",
+  "targetDate": "2026-07-27",
   "status": "warning",
   "collectionOutcome": "success",
   "targetVerificationOutcome": "success",
@@ -12,25 +12,15 @@
   "warningCount": 1,
   "sourceErrorCount": 0,
   "details": [
-    "memorymarket warning: LPDDR4X 32Gb: failed to fetch https://www.memorymarket.com/price/ews/100183: The read operation timed out"
+    "memorymarket warning: DDR5 SODIMM 16GB 5600: failed to fetch https://www.memorymarket.com/price/ews/100321: The read operation timed out"
   ],
   "blockingReasons": [],
-  "consecutiveWarningRuns": 1,
+  "consecutiveWarningRuns": 2,
   "consecutiveBlockingFailures": 0,
   "alertThreshold": 3,
   "alertRequired": false,
   "alertReasons": [],
   "history": [
-    {
-      "checkedAt": "2026-07-11T06:33:05.523343Z",
-      "targetDate": "2026-07-11",
-      "status": "blocked",
-      "warningCount": 1,
-      "sourceErrorCount": 0,
-      "blockingReasons": [
-        "target_date_missing_after_collection"
-      ]
-    },
     {
       "checkedAt": "2026-07-12T04:02:05.626293Z",
       "targetDate": "2026-07-12",
@@ -196,6 +186,14 @@
     {
       "checkedAt": "2026-07-24T03:50:43.237012Z",
       "targetDate": "2026-07-24",
+      "status": "warning",
+      "warningCount": 1,
+      "sourceErrorCount": 0,
+      "blockingReasons": []
+    },
+    {
+      "checkedAt": "2026-07-27T04:08:20.720607Z",
+      "targetDate": "2026-07-27",
       "status": "warning",
       "warningCount": 1,
       "sourceErrorCount": 0,
