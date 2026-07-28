@@ -43,6 +43,23 @@ describe('DRAM dashboard', () => {
     expect(skipLink).toHaveFocus();
   });
 
+  it('renders the canonical fixed navigation with one current project', async () => {
+    render(<App />);
+    await screen.findByRole('heading', { name: 'DRAM 가격' });
+
+    const nav = screen.getByRole('navigation', { name: '연결 프로젝트 바로가기' });
+    expect(nav).toHaveClass('quant-shared-nav');
+    expect(within(nav).getByRole('link', { name: 'Quant Research Hub' })).toHaveAttribute(
+      'href',
+      'https://sonchanggi.github.io/quant-dashboard/',
+    );
+    expect(within(nav).getAllByRole('link')).toHaveLength(9);
+    expect(within(nav).getByRole('link', { name: 'DRAM' })).toHaveAttribute('aria-current', 'page');
+    expect(nav.querySelectorAll('[aria-current="page"]')).toHaveLength(1);
+    expect(within(nav).queryByRole('button', { name: /프로젝트 메뉴/ })).not.toBeInTheDocument();
+    expect(document.body).toHaveClass('has-quant-shared-nav');
+  });
+
   it('shows 10 rows first and expands to at most 50', async () => {
     const user = userEvent.setup();
     render(<App />);
@@ -63,7 +80,14 @@ describe('DRAM dashboard', () => {
     expect(window.localStorage.getItem('quant-research-theme')).toBe('dark');
   });
 
-  it.each(['quant-calm-theme', 'quant-dashboard-theme', 'dram-price-theme'])('migrates the %s legacy theme immediately on initial render', async (legacyKey) => {
+  it.each([
+    'quant-dashboard-theme',
+    'quant-calm-theme',
+    'dram-price-theme',
+    'etf-tracking-theme',
+    'momentum-factor-theme',
+    'sox-theme',
+  ])('migrates the %s legacy theme immediately on initial render', async (legacyKey) => {
     window.localStorage.setItem(legacyKey, 'dark');
     render(<App />);
     const toggle = await screen.findByRole('button', { name: '라이트 모드로 전환' });

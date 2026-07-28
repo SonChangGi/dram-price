@@ -1,11 +1,11 @@
-import { ExternalLink, Menu, Moon, Sun, X } from 'lucide-react';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { useEffect, useRef, useState } from 'react';
 import { LEGACY_THEME_KEYS, migrateStoredTheme, THEME_KEY, themeFromSearch, type Theme } from '@/lib/theme';
 import { getCanonicalNavigation } from '@/shared-platform';
 import { cn } from '@/lib/utils';
 
 const projects = getCanonicalNavigation('dram');
+const hub = projects[0]!;
+const projectLinks = projects.slice(1);
 
 function initialTheme(): Theme {
   let stored: Theme | null = null;
@@ -23,17 +23,27 @@ function initialTheme(): Theme {
   }
   const theme = requested ?? stored ?? preferred;
   document.documentElement.dataset.theme = theme;
+  document.documentElement.style.colorScheme = theme;
   return theme;
 }
 
 export function SharedNav() {
   const [theme, setTheme] = useState(initialTheme);
-  const [open, setOpen] = useState(false);
+  const linksRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    document.body.classList.add('has-quant-shared-nav');
+    const rail = linksRef.current;
+    const active = rail?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (!rail || !active || rail.scrollWidth <= rail.clientWidth) return;
+    rail.scrollLeft = Math.max(0, active.offsetLeft - (rail.clientWidth - active.offsetWidth) / 2);
+  }, []);
 
   function toggleTheme() {
     const next = theme === 'dark' ? 'light' : 'dark';
     setTheme(next);
     document.documentElement.dataset.theme = next;
+    document.documentElement.style.colorScheme = next;
     try {
       window.localStorage.setItem(THEME_KEY, next);
       LEGACY_THEME_KEYS.forEach((key) => window.localStorage.removeItem(key));
@@ -43,38 +53,32 @@ export function SharedNav() {
   }
 
   return (
-    <nav className="shared-nav" aria-label="9개 퀀트 리서치 프로젝트">
-      <a className="shared-nav__brand" href={projects[0]!.url}>Quant Research</a>
-      <Button
-        className="shared-nav__menu"
-        size="icon"
-        variant="ghost"
-        aria-expanded={open}
-        aria-controls="project-links"
-        aria-label={open ? '프로젝트 메뉴 닫기' : '프로젝트 메뉴 열기'}
-        onClick={() => setOpen((value) => !value)}
-      >
-        {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
-      </Button>
-      <div id="project-links" className={cn('shared-nav__links', open && 'is-open')}>
-        {projects.map((project) => (
-          <a
-            key={project.id}
-            className={cn(project.current && 'is-active')}
-            href={project.url}
-            aria-current={project.current ? 'page' : undefined}
-            onClick={() => setOpen(false)}
-          >
-            {project.label}
-          </a>
-        ))}
+    <nav className="quant-shared-nav" aria-label="연결 프로젝트 바로가기">
+      <div className="quant-shared-nav__inner">
+        <a className="quant-shared-nav__brand" href={hub.url}>Quant Research Hub</a>
+        <div ref={linksRef} id="project-links" className="quant-shared-nav__links" aria-label="프로젝트 목록">
+          {projectLinks.map((project) => (
+            <a
+              key={project.id}
+              className={cn('quant-shared-nav__link', project.current && 'is-active')}
+              href={project.url}
+              aria-current={project.current ? 'page' : undefined}
+            >
+              {project.label}
+            </a>
+          ))}
+        </div>
+        <button
+          className="quant-shared-nav__theme"
+          type="button"
+          onClick={toggleTheme}
+          aria-pressed={theme === 'dark'}
+          aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
+        >
+          <span className="quant-shared-nav__theme-icon" aria-hidden="true" />
+          <span className="quant-shared-nav__theme-text">{theme === 'dark' ? '라이트 모드' : '다크 모드'}</span>
+        </button>
       </div>
-      <Button size="icon" variant="ghost" onClick={toggleTheme} aria-pressed={theme === 'dark'} aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}>
-        {theme === 'dark' ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
-      </Button>
-      <a className="shared-nav__external" href={projects[0]!.url} aria-label="통합 허브 열기">
-        <ExternalLink aria-hidden="true" />
-      </a>
     </nav>
   );
 }

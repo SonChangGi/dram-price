@@ -1,5 +1,12 @@
 export const THEME_KEY = 'quant-research-theme';
-export const LEGACY_THEME_KEYS = ['quant-calm-theme', 'quant-dashboard-theme', 'dram-price-theme'] as const;
+export const LEGACY_THEME_KEYS = [
+  'quant-dashboard-theme',
+  'quant-calm-theme',
+  'dram-price-theme',
+  'etf-tracking-theme',
+  'momentum-factor-theme',
+  'sox-theme',
+] as const;
 export type Theme = 'light' | 'dark';
 
 export function themeFromSearch(search: string): Theme | null {

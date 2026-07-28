@@ -13,7 +13,14 @@
         const valid = (value) => value === 'light' || value === 'dark';
         const requested = new URLSearchParams(location.search).get('theme');
         const key = 'quant-research-theme';
-        const legacyKeys = ['quant-calm-theme', 'quant-dashboard-theme', 'dram-price-theme'];
+        const legacyKeys = [
+          'quant-dashboard-theme',
+          'quant-calm-theme',
+          'dram-price-theme',
+          'etf-tracking-theme',
+          'momentum-factor-theme',
+          'sox-theme',
+        ];
         let stored = null;
         try {
           const canonical = localStorage.getItem(key);
@@ -35,7 +42,7 @@
     </script>
     <title>DRAM 가격 랩</title>
   </head>
-  <body>
+  <body class="has-quant-shared-nav">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./shared-nav.css";
 
 :root {
   color-scheme: light;
