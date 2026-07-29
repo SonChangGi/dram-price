@@ -21,7 +21,7 @@
   "dataAsOf": "2026-07-29",
   "detailDataUrl": "https://sonchanggi.github.io/dram-price/data/prices.json",
   "detailUrl": "https://sonchanggi.github.io/dram-price/",
-  "generatedAt": "2026-07-29T03:37:51Z",
+  "generatedAt": "2026-07-29T23:17:58Z",
   "highlights": [
     {
       "description": "source/kind/product/date 병합 후 저장",
@@ -190,7 +190,7 @@
         "cadence": "daily",
         "date": "2026-07-29",
         "kind": "spot",
-        "price": 84.732,
+        "price": 84.976,
         "source": "trendforce",
         "unit": "USD"
       },
@@ -217,7 +217,7 @@
         "cadence": "daily",
         "date": "2026-07-29",
         "kind": "spot",
-        "price": 42.077,
+        "price": 42.041,
         "source": "trendforce",
         "unit": "USD"
       },
