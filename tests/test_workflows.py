@@ -132,6 +132,17 @@ class WorkflowContractTests(unittest.TestCase):
             self.assertIn("cancel-in-progress: false", workflow)
         self.assertNotIn("cancel-in-progress: true", _read(DEPLOY_WORKFLOW))
 
+    def test_pages_workflows_verify_live_public_data_bytes_after_deploy(self) -> None:
+        for workflow in (_read(UPDATE_WORKFLOW), _read(DEPLOY_WORKFLOW)):
+            self.assertIn("Verify live public data bytes", workflow)
+            self.assertIn("steps.deployment.outputs.page_url", workflow)
+            self.assertIn(
+                "for relative_path in data/prices.json data/series.json data/status.json data/summary.json data/automation-health.json",
+                workflow,
+            )
+            self.assertIn('cmp --silent "frontend/dist/${relative_path}" "$readback"', workflow)
+            self.assertLess(workflow.index("actions/deploy-pages@"), workflow.index("Verify live public data bytes"))
+
 
 if __name__ == "__main__":
     unittest.main()
