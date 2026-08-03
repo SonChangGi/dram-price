@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "contract": "dram-automation-health",
   "projectId": "dram",
-  "updatedAt": "2026-07-31T03:56:27.454908Z",
-  "targetDate": "2026-07-31",
+  "updatedAt": "2026-08-03T04:01:36.487784Z",
+  "targetDate": "2026-08-03",
   "status": "warning",
   "collectionOutcome": "success",
   "targetVerificationOutcome": "success",
@@ -12,26 +12,18 @@
   "warningCount": 2,
   "sourceErrorCount": 0,
   "details": [
-    "memorymarket warning: DDR4 8Gb eTT: failed to fetch https://www.memorymarket.com/price/ews/100247: The read operation timed out",
-    "memorymarket warning: LPDDR5X 32Gb: failed to fetch https://www.memorymarket.com/price/ews/100328: The read operation timed out"
+    "memorymarket warning: DDR4 UDIMM 8GB 3200: failed to fetch https://www.memorymarket.com/price/ews/100223: The read operation timed out",
+    "memorymarket warning: DDR5 UDIMM 8GB 5600: failed to fetch https://www.memorymarket.com/price/ews/100322: The read operation timed out"
   ],
   "blockingReasons": [],
-  "consecutiveWarningRuns": 4,
+  "consecutiveWarningRuns": 5,
   "consecutiveBlockingFailures": 0,
   "alertThreshold": 3,
   "alertRequired": true,
   "alertReasons": [
-    "source warnings persisted for 4 collection runs"
+    "source warnings persisted for 5 collection runs"
   ],
   "history": [
-    {
-      "checkedAt": "2026-07-15T03:38:19.179879Z",
-      "targetDate": "2026-07-15",
-      "status": "ok",
-      "warningCount": 0,
-      "sourceErrorCount": 0,
-      "blockingReasons": []
-    },
     {
       "checkedAt": "2026-07-16T03:40:04.618797Z",
       "targetDate": "2026-07-16",
@@ -191,6 +183,14 @@
     {
       "checkedAt": "2026-07-31T03:56:27.454908Z",
       "targetDate": "2026-07-31",
+      "status": "warning",
+      "warningCount": 2,
+      "sourceErrorCount": 0,
+      "blockingReasons": []
+    },
+    {
+      "checkedAt": "2026-08-03T04:01:36.487784Z",
+      "targetDate": "2026-08-03",
       "status": "warning",
       "warningCount": 2,
       "sourceErrorCount": 0,
