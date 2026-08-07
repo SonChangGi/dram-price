@@ -39,11 +39,6 @@ export const canonicalProjectRegistry = [
     label: 'Port',
     url: 'https://sonchanggi.github.io/port/',
   },
-  {
-    id: 'kelly',
-    label: 'Kelly',
-    url: 'https://sonchanggi.github.io/kelly/',
-  },
 ] as const;
 
 export type ProjectId = (typeof canonicalProjectRegistry)[number]['id'];
