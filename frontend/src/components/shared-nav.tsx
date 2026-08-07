@@ -15,7 +15,6 @@ const projects = [
   { id: 'risk', label: 'Risk Score', href: 'https://sonchanggi.github.io/quant-dashboard/risk-score/' },
   { id: 'port', label: 'Port', href: 'https://sonchanggi.github.io/port/' },
   { id: 'valuation', label: 'Valuation', href: 'https://sonchanggi.github.io/valuation/' },
-  { id: 'kelly', label: 'Kelly', href: 'https://sonchanggi.github.io/kelly/' },
 ] as const;
 
 function initialTheme(): Theme {
