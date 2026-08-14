@@ -21,7 +21,7 @@ cross-origin runtime import:
 - `contracts.ts` mirrors the shared control-kind and manifest surface.
 - `control-manifest.ts` classifies every result-affecting DRAM control as
   `display` or `result_selector`; `analysis` and `operation` are rejected.
-- `project-registry.ts` pins the canonical 9-project order, labels, and URLs.
+- `project-registry.ts` pins the canonical 8-destination order, labels, and URLs.
 - `static-result-adapter.ts` defines `dram-static-result/v1` and validates the
   existing `prices.json`, `series.json`, and `status.json` as one snapshot.
 - `platform-snapshot.json` records the shared version, upstream source hashes,
