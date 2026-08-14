@@ -66,21 +66,21 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("run: python scripts/validate_publication.py", workflow)
         for step_name in ("Commit data changes", "Prepare static site"):
             self.assertIn(f"- name: {step_name}\n        if: {required_gate}", workflow)
-        for action, tag in (("actions/configure-pages", "v5"), ("actions/upload-pages-artifact", "v3")):
+        for action, tag in (("actions/configure-pages", "v6"), ("actions/upload-pages-artifact", "v5")):
             self.assertRegex(
                 workflow,
                 rf"- uses: {re.escape(action)}@[0-9a-f]{{40}} # {tag}\n        if: {re.escape(required_gate)}",
             )
         self.assertRegex(
             workflow,
-            rf"- id: deployment\n        if: {re.escape(required_gate)}\n        uses: actions/deploy-pages@[0-9a-f]{{40}} # v4",
+            rf"- id: deployment\n        if: {re.escape(required_gate)}\n        uses: actions/deploy-pages@[0-9a-f]{{40}} # v5",
         )
 
     def test_pages_workflows_build_the_locked_frontend_and_include_public_contracts(self) -> None:
         update = _read(UPDATE_WORKFLOW)
         deploy = _read(DEPLOY_WORKFLOW)
         for workflow in (update, deploy):
-            self.assertRegex(workflow, r"actions/setup-node@[0-9a-f]{40} # v4")
+            self.assertRegex(workflow, r"actions/setup-node@[0-9a-f]{40} # v6")
             self.assertIn("cache-dependency-path: frontend/package-lock.json", workflow)
             self.assertIn("npm ci --prefix frontend", workflow)
             self.assertIn("npm run verify --prefix frontend", workflow)
@@ -88,7 +88,7 @@ class WorkflowContractTests(unittest.TestCase):
             self.assertIn("path: frontend/dist", workflow)
             self.assertNotIn("cp -R web/. site/", workflow)
         self.assertIn("- 'frontend/**'", deploy)
-        self.assertRegex(deploy, r"actions/setup-python@[0-9a-f]{40} # v5")
+        self.assertRegex(deploy, r"actions/setup-python@[0-9a-f]{40} # v6")
         self.assertIn("python -m unittest discover -s tests -v", deploy)
         self.assertIn("python scripts/validate_publication.py", deploy)
         self.assertLess(deploy.index("Validate backend and public data"), deploy.index("Verify and build frontend"))
