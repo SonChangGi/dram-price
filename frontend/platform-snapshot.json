@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "sharedVersion": "quant-platform-frontend/0.1.0",
-  "snapshotDate": "2026-08-07",
+  "snapshotDate": "2026-08-14",
   "source": {
     "repository": "SonChangGi/quant-dashboard",
     "foundationBaseRevision": "fb27943b44735f02715d051f663889ed741eff4c",
@@ -12,11 +12,11 @@
       "platform/packages/ui/src/styles.css": "e277f29caa54841d3442a366718618b364b688ccd5cd38460dece5e31a57cbbf"
     }
   },
-  "aggregateFingerprint": "72407619de88c2dfb3cdc8d98cf84293a0a1bbb5d390714cc29915ea97475401",
+  "aggregateFingerprint": "85498036eb36e5cc2e24b7bf2a8f99e9ddc044d0207a233aa4aad817eefb8d0a",
   "files": {
     "src/shared-platform/contracts.ts": "c0d4dcf0230caaf0b049d946b9b24a03dd588c7e602c13f43bc23906596dd3a8",
     "src/shared-platform/control-manifest.ts": "16870e71cd025bb3a4b5ee1a9f1bfa153cc91e3d460040911beb23a4ea152f05",
-    "src/shared-platform/project-registry.ts": "b6d16fa5e9386a195374faf5af417723a0af5e47469ff14e16f2830c7f76cca5",
+    "src/shared-platform/project-registry.ts": "1e1b18a21741cdd61e10fe6228c4b9a935a0830b0b19227ba95a94ca221e9745",
     "src/shared-platform/static-result-adapter.ts": "5bc1d3e372a69e50519d963aea0a20fcc3ea695516a072101dd977ceb2277890",
     "src/shared-platform/index.ts": "deab962ae9dd45559fbf0f0aa6f362b0f2b6c62067a22daedd9dd6a2979f2e2f"
   }
