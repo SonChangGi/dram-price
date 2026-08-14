@@ -11,7 +11,7 @@ A personal static dashboard for tracking DRAM prices from public pages.
 The project stores normalized JSON in `data/` and builds the GitHub Pages dashboard from `frontend/` with React, strict TypeScript, Vite, Tailwind CSS v4, and shadcn-style Radix primitives. It remains a static site and does not require an application server.
 
 The frontend also includes a pinned, independently buildable compatibility seam
-for the shared Quant Research control contract, canonical 9-project navigation,
+for the shared Quant Research control contract, canonical 8-destination navigation,
 and semantic design tokens. DRAM has no analysis-input controls: all
 result-affecting controls are registered as saved-result selectors or
 display-only filters, so they can never submit a Python analysis run. See

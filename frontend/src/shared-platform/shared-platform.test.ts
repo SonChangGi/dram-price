@@ -53,8 +53,8 @@ describe('shared platform DRAM seam', () => {
     ).not.toThrow();
   });
 
-  it('keeps the canonical 9-project order and current DRAM identity', () => {
-    expect(canonicalProjectRegistry).toHaveLength(9);
+  it('keeps the canonical 8-destination order and current DRAM identity', () => {
+    expect(canonicalProjectRegistry).toHaveLength(8);
     expect(canonicalProjectRegistry.map((project) => project.id)).toEqual([
       'hub',
       'fear-greed',
@@ -63,7 +63,6 @@ describe('shared platform DRAM seam', () => {
       'best-factor',
       'etf',
       'sox',
-      'port',
       'regime',
     ]);
     expect(
