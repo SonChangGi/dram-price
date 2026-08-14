@@ -53,7 +53,7 @@ describe('DRAM dashboard', () => {
       'href',
       'https://sonchanggi.github.io/quant-dashboard/',
     );
-    expect(within(nav).getAllByRole('link')).toHaveLength(8);
+    expect(within(nav).getAllByRole('link')).toHaveLength(9);
     expect(within(nav).getByRole('link', { name: 'DRAM' })).toHaveAttribute('aria-current', 'page');
     expect(nav.querySelectorAll('[aria-current="page"]')).toHaveLength(1);
     expect(within(nav).queryByRole('button', { name: /프로젝트 메뉴/ })).not.toBeInTheDocument();
