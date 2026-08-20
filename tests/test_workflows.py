@@ -41,8 +41,9 @@ class WorkflowContractTests(unittest.TestCase):
     def test_manual_runs_stay_fail_fast_while_schedules_soft_fail_provider_outages(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
         scheduled_guard = "continue-on-error: ${{ github.event_name == 'schedule' }}"
-        self.assertEqual(4, workflow.count(scheduled_guard))
+        self.assertEqual(5, workflow.count(scheduled_guard))
         self.assertIn("Scheduled-source guards keep provider outages visible", workflow)
+        self.assertIn("A separate public-site health job is the only", workflow)
         self.assertIn("Report scheduled collection failure", workflow)
         self.assertIn("Report scheduled target-date miss", workflow)
         self.assertIn("Report scheduled test failure", workflow)
@@ -100,11 +101,16 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("data/automation-health.json", workflow)
         self.assertIn("Commit automation health without partial market data", workflow)
         self.assertIn("git add data/automation-health.json", workflow)
-        self.assertIn("Escalate repeated automation degradation", workflow)
+        self.assertIn("Record repeated automation degradation", workflow)
         self.assertIn("steps.health.outputs.alert_required == 'true'", workflow)
         self.assertIn("github.event_name == 'workflow_dispatch'", workflow)
         self.assertIn("github.event.schedule == '15 4 * * 1-5'", workflow)
-        self.assertIn("limiting scheduled failure notifications to one per day", workflow)
+        degradation_block = workflow.split("Record repeated automation degradation", 1)[1].split(
+            "public-site-health:", 1
+        )[0]
+        self.assertIn("exit 1", degradation_block)
+        self.assertIn("public-site-health:", workflow)
+        self.assertIn("Fail only when the existing DRAM page is unusable", workflow)
         self.assertLess(workflow.index("Update persistent automation health"), workflow.index("Commit data changes"))
 
     def test_update_workflow_marks_self_deployed_commits_explicitly(self) -> None:
@@ -142,6 +148,15 @@ class WorkflowContractTests(unittest.TestCase):
             )
             self.assertIn('cmp --silent "frontend/dist/${relative_path}" "$readback"', workflow)
             self.assertLess(workflow.index("actions/deploy-pages@"), workflow.index("Verify live public data bytes"))
+
+    def test_automatic_failure_mail_is_gated_by_live_page_usability(self) -> None:
+        update = _read(UPDATE_WORKFLOW)
+        deploy = _read(DEPLOY_WORKFLOW)
+        self.assertIn("continue-on-error: ${{ github.event_name == 'schedule' }}", update)
+        self.assertIn("continue-on-error: ${{ github.event_name == 'push' }}", deploy)
+        for workflow in (update, deploy):
+            self.assertIn("public-site-health:", workflow)
+            self.assertIn("required_paths=(index.html data/summary.json data/prices.json)", workflow)
 
 
 if __name__ == "__main__":
