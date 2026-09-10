@@ -5,16 +5,16 @@
     "Contract prices are monthly/update-date observations; collected_at is not the effective price date."
   ],
   "counts_by_kind": {
-    "contract": 448,
-    "spot": 448,
+    "contract": 455,
+    "spot": 455,
     "spot_proxy": 1011
   },
   "counts_by_source": {
     "memorymarket": 1011,
-    "trendforce": 896
+    "trendforce": 910
   },
-  "generated_at": "2026-09-09T04:40:06Z",
-  "observation_count": 1907,
+  "generated_at": "2026-09-10T04:40:50Z",
+  "observation_count": 1921,
   "schema_version": 1,
   "sources": [
     {
@@ -30,7 +30,7 @@
     },
     {
       "errors": [],
-      "observation_count": 741,
+      "observation_count": 724,
       "ok": true,
       "source": "memorymarket",
       "urls": [
@@ -76,7 +76,9 @@
         "https://www.memorymarket.com/price/ews/100326",
         "https://www.memorymarket.com/price/ews/100325"
       ],
-      "warnings": []
+      "warnings": [
+        "LPDDR5X 96Gb: failed to fetch https://www.memorymarket.com/price/ews/100325: The read operation timed out"
+      ]
     }
   ]
 }

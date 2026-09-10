@@ -7,26 +7,26 @@
   "contract": "quant-research-summary",
   "coverage": {
     "countsByKind": {
-      "contract": 448,
-      "spot": 448,
+      "contract": 455,
+      "spot": 455,
       "spot_proxy": 1011
     },
     "countsBySource": {
       "memorymarket": 1011,
-      "trendforce": 896
+      "trendforce": 910
     },
-    "observationCount": 1907,
+    "observationCount": 1921,
     "seriesCount": 50
   },
-  "dataAsOf": "2026-09-09",
+  "dataAsOf": "2026-09-10",
   "detailDataUrl": "https://sonchanggi.github.io/dram-price/data/prices.json",
   "detailUrl": "https://sonchanggi.github.io/dram-price/",
-  "generatedAt": "2026-09-09T04:40:06Z",
+  "generatedAt": "2026-09-10T04:40:50Z",
   "highlights": [
     {
       "description": "source/kind/product/date 병합 후 저장",
       "label": "관측치",
-      "value": 1907
+      "value": 1921
     },
     {
       "description": "대표 DRAM 시리즈 포함",
@@ -36,7 +36,7 @@
     {
       "description": "관측별 effective date 우선",
       "label": "최근 관측일",
-      "value": "2026-09-09"
+      "value": "2026-09-10"
     }
   ],
   "limitations": [
@@ -161,7 +161,7 @@
       "label": "DDR4 16GB SO-DIMM · contract",
       "metrics": {
         "cadence": "monthly",
-        "date": "2026-09-09",
+        "date": "2026-09-10",
         "kind": "contract",
         "price": 265.0,
         "source": "trendforce",
@@ -188,9 +188,9 @@
       "label": "DDR4 16Gb (2Gx8) 3200 · spot",
       "metrics": {
         "cadence": "daily",
-        "date": "2026-09-09",
+        "date": "2026-09-10",
         "kind": "spot",
-        "price": 91.0,
+        "price": 90.5,
         "source": "trendforce",
         "unit": "USD"
       },
@@ -215,9 +215,9 @@
       "label": "DDR4 8Gb (1Gx8) 3200 · spot",
       "metrics": {
         "cadence": "daily",
-        "date": "2026-09-09",
+        "date": "2026-09-10",
         "kind": "spot",
-        "price": 45.321,
+        "price": 45.279,
         "source": "trendforce",
         "unit": "USD"
       },
@@ -242,7 +242,7 @@
       "label": "DDR5 16Gb (2Gx8) 4800/5600 · spot",
       "metrics": {
         "cadence": "daily",
-        "date": "2026-09-09",
+        "date": "2026-09-10",
         "kind": "spot",
         "price": 54.5,
         "source": "trendforce",
@@ -269,9 +269,9 @@
       "label": "DDR5 16Gb (2Gx8) eTT · spot",
       "metrics": {
         "cadence": "daily",
-        "date": "2026-09-09",
+        "date": "2026-09-10",
         "kind": "spot",
-        "price": 24.0,
+        "price": 24.2,
         "source": "trendforce",
         "unit": "USD"
       },
@@ -296,7 +296,7 @@
       "label": "DDR5 8GB SO-DIMM · contract",
       "metrics": {
         "cadence": "monthly",
-        "date": "2026-09-09",
+        "date": "2026-09-10",
         "kind": "contract",
         "price": 130.0,
         "source": "trendforce",
@@ -391,7 +391,7 @@
     "cadence": "TrendForce current tables + MemoryMarket weekly public history",
     "degradedReasons": [],
     "expectedFreshnessDays": 14,
-    "label": "1907개 가격 관측치",
+    "label": "1921개 가격 관측치",
     "state": "ok"
   },
   "timezone": "UTC"
