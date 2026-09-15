@@ -2,31 +2,25 @@
   "schemaVersion": 1,
   "contract": "dram-automation-health",
   "projectId": "dram",
-  "updatedAt": "2026-09-14T04:57:18.448070Z",
-  "targetDate": "2026-09-14",
-  "status": "ok",
+  "updatedAt": "2026-09-15T05:00:12.227965Z",
+  "targetDate": "2026-09-15",
+  "status": "warning",
   "collectionOutcome": "success",
   "targetVerificationOutcome": "success",
   "testsOutcome": "success",
   "publicationOutcome": "success",
-  "warningCount": 0,
+  "warningCount": 1,
   "sourceErrorCount": 0,
-  "details": [],
+  "details": [
+    "memorymarket warning: DDR5 RDIMM 64GB: failed to fetch https://www.memorymarket.com/price/ems/100263: The read operation timed out"
+  ],
   "blockingReasons": [],
-  "consecutiveWarningRuns": 0,
+  "consecutiveWarningRuns": 1,
   "consecutiveBlockingFailures": 0,
   "alertThreshold": 3,
   "alertRequired": false,
   "alertReasons": [],
   "history": [
-    {
-      "checkedAt": "2026-08-24T03:20:47.447122Z",
-      "targetDate": "2026-08-24",
-      "status": "ok",
-      "warningCount": 0,
-      "sourceErrorCount": 0,
-      "blockingReasons": []
-    },
     {
       "checkedAt": "2026-08-25T01:56:57.628785Z",
       "targetDate": "2026-08-25",
@@ -184,6 +178,14 @@
       "targetDate": "2026-09-14",
       "status": "ok",
       "warningCount": 0,
+      "sourceErrorCount": 0,
+      "blockingReasons": []
+    },
+    {
+      "checkedAt": "2026-09-15T05:00:12.227965Z",
+      "targetDate": "2026-09-15",
+      "status": "warning",
+      "warningCount": 1,
       "sourceErrorCount": 0,
       "blockingReasons": []
     }
