@@ -14,7 +14,7 @@
     "memorymarket": 1041,
     "trendforce": 511
   },
-  "generated_at": "2026-09-21T03:31:14Z",
+  "generated_at": "2026-09-21T04:12:20Z",
   "history_repair": {
     "corrected_cadence_count": 60,
     "policy": "Exclude contract dates without table provenance; preserve original records; never infer historical dates.",
