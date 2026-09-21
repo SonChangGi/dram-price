@@ -1,5 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
-import { formatDate, formatPrice, kindLabel, metricFor, sourceLabel } from '@/lib/market';
+import { formatDate, formatPrice, kindLabel, metricFor, priceUnitFor, priceUnitLabel, sourceLabel } from '@/lib/market';
 import type { Observation } from '@/types';
 import { cn } from '@/lib/utils';
 
@@ -25,6 +25,7 @@ interface FacetDefinition {
   id: string;
   kind: string;
   currency: string;
+  unit: ReturnType<typeof priceUnitFor>;
   metricKey: string;
   metricLabel: string;
   rows: Observation[];
@@ -71,8 +72,9 @@ function facetDefinitions(rows: Observation[], requestedMetric: string): FacetDe
     const point = metricFor(row, requestedMetric);
     if (!point) return;
     const currency = row.currency || 'USD';
-    const id = `${row.kind}|${currency}|${point.key}`;
-    const facet = facets.get(id) ?? { id, kind: row.kind, currency, metricKey: point.key, metricLabel: point.label, rows: [] };
+    const unit = priceUnitFor(row);
+    const id = `${row.kind}|${currency}|${point.key}|${unit}`;
+    const facet = facets.get(id) ?? { id, kind: row.kind, currency, unit, metricKey: point.key, metricLabel: point.label, rows: [] };
     facet.rows.push(row);
     facets.set(id, facet);
   });
@@ -157,7 +159,7 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
   if (!groups.length || !dates.length || !values.length) {
     return (
       <figure className="chart-facet chart-facet--sparse">
-        <figcaption><strong>{kindLabel(facet.kind)} · {facet.metricLabel}</strong><span>{facet.currency}</span></figcaption>
+        <figcaption><strong>{kindLabel(facet.kind)} · {facet.metricLabel}</strong><span>{priceUnitLabel(facet.unit)} · {facet.currency}</span></figcaption>
         <div className="empty-state">가격 추이를 그리려면 같은 제품에 날짜가 다른 관측치가 2개 이상 필요합니다.</div>
       </figure>
     );
@@ -241,7 +243,7 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
   return (
     <figure className="chart-facet">
       <figcaption>
-        <div><strong>{kindLabel(facet.kind)} · {facet.metricLabel}</strong><span>{range} · {groups.length}/{trendGroups.length}개 시리즈 · {facet.currency}</span></div>
+        <div><strong>{kindLabel(facet.kind)} · {facet.metricLabel}</strong><span>{range} · {groups.length}/{trendGroups.length}개 시리즈 · {priceUnitLabel(facet.unit)} · {facet.currency}</span></div>
         <button type="button" className="chart-latest-button" onClick={selectLatest}>차트 최신일</button>
       </figcaption>
       <div className="chart-viewport">
@@ -266,7 +268,7 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
             onClick={pinDate}
           >
             <title id={titleId}>{kindLabel(facet.kind)} {facet.metricLabel} 가격 추이</title>
-            <desc id={descId}>{range} 동안의 {groups.length}개 제품 가격을 선으로 비교합니다. 통화는 {facet.currency}이며 세로축은 0에서 시작합니다. 선택일은 {formatDate(activeDate)}입니다.</desc>
+            <desc id={descId}>{range} 동안의 {groups.length}개 제품 가격을 선으로 비교합니다. {priceUnitLabel(facet.unit)} {facet.currency}이며 세로축은 0에서 시작합니다. 선택일은 {formatDate(activeDate)}입니다.</desc>
             <g className="chart-grid" aria-hidden="true">
               {yTicks.map((tick) => {
                 const position = y(tick);
@@ -314,7 +316,7 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
                 );
               })}
             </g>
-            <text className="chart-unit" x={MARGIN.left} y={15}>{facet.currency} · 0 기준</text>
+            <text className="chart-unit" x={MARGIN.left} y={15}>{priceUnitLabel(facet.unit)} {facet.currency} · 0 기준</text>
           </svg>
         </div>
         <div className={cn('chart-value-callout', activeId && 'is-active')} data-date={activeDate}>

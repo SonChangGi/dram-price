@@ -14,6 +14,7 @@ def clean_text(value: str) -> str:
 @dataclass
 class Table:
     rows: list[list[str]]
+    preceding_text: str = ""
 
     @property
     def headers(self) -> list[str]:
@@ -32,12 +33,19 @@ class TableParser(HTMLParser):
         self._current_table: list[list[str]] = []
         self._current_row: list[str] | None = None
         self._current_cell: list[str] | None = None
+        self._between_tables: list[str] = []
+        self._preceding_text = ""
+        self._ignored_depth = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag in {"script", "style"}:
+            self._ignored_depth += 1
         if tag == "table":
             self._table_depth += 1
             if self._table_depth == 1:
                 self._current_table = []
+                self._preceding_text = clean_text(" ".join(self._between_tables))
+                self._between_tables = []
         elif self._table_depth and tag == "tr":
             self._current_row = []
         elif self._table_depth and tag in {"td", "th"}:
@@ -46,10 +54,16 @@ class TableParser(HTMLParser):
             self._current_cell.append(" ")
 
     def handle_data(self, data: str) -> None:
+        if self._ignored_depth:
+            return
         if self._current_cell is not None:
             self._current_cell.append(data)
+        elif not self._table_depth:
+            self._between_tables.append(data)
 
     def handle_endtag(self, tag: str) -> None:
+        if tag in {"script", "style"} and self._ignored_depth:
+            self._ignored_depth -= 1
         if tag in {"td", "th"} and self._current_cell is not None:
             if self._current_row is not None:
                 self._current_row.append(clean_text("".join(self._current_cell)))
@@ -62,7 +76,7 @@ class TableParser(HTMLParser):
             self._current_row = None
         elif tag == "table" and self._table_depth:
             if self._table_depth == 1 and self._current_table:
-                self.tables.append(Table(self._current_table))
+                self.tables.append(Table(self._current_table, self._preceding_text))
             self._table_depth -= 1
 
 

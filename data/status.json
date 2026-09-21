@@ -1,20 +1,28 @@
 {
   "caveats": [
     "TrendForce/DRAMeXchange public pages expose current tables but not free historical data.",
-    "MemoryMarket publicly discloses six-month weekly history; respect source terms and attribution.",
-    "Contract prices are monthly/update-date observations; collected_at is not the effective price date."
+    "MemoryMarket publicly discloses six-month weekly/monthly history; respect source terms and attribution.",
+    "Contract prices are monthly/update-date observations; collected_at is not the effective price date.",
+    "과거 고정가 497건은 기준일을 확인할 수 없어 원본 보존 후 표시에서 제외했습니다. 고정가는 원문 표의 갱신일을 확인한 관측만 표시합니다."
   ],
   "counts_by_kind": {
-    "contract": 497,
-    "spot": 497,
+    "contract": 7,
+    "spot": 504,
     "spot_proxy": 1041
   },
   "counts_by_source": {
     "memorymarket": 1041,
-    "trendforce": 994
+    "trendforce": 511
   },
-  "generated_at": "2026-09-18T04:41:56Z",
-  "observation_count": 2035,
+  "generated_at": "2026-09-21T03:31:14Z",
+  "history_repair": {
+    "corrected_cadence_count": 60,
+    "policy": "Exclude contract dates without table provenance; preserve original records; never infer historical dates.",
+    "quarantined_contract_count": 497,
+    "repaired_at": "2026-09-21T03:21:23Z",
+    "version": 1
+  },
+  "observation_count": 1552,
   "schema_version": 1,
   "sources": [
     {
@@ -30,7 +38,7 @@
     },
     {
       "errors": [],
-      "observation_count": 724,
+      "observation_count": 750,
       "ok": true,
       "source": "memorymarket",
       "urls": [
@@ -76,9 +84,7 @@
         "https://www.memorymarket.com/price/ews/100326",
         "https://www.memorymarket.com/price/ews/100325"
       ],
-      "warnings": [
-        "DDR4 SODIMM 16GB 3200: failed to fetch https://www.memorymarket.com/price/ews/100228: The read operation timed out"
-      ]
+      "warnings": []
     }
   ]
 }

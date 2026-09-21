@@ -52,6 +52,18 @@ class AutomationHealthTests(unittest.TestCase):
         self.assertEqual(state["consecutiveBlockingFailures"], 3)
         self.assertTrue(state["alertRequired"])
 
+    def test_failed_attempt_preserves_source_error_details(self) -> None:
+        status = {"sources": [{"source": "trendforce", "ok": False, "warnings": [], "errors": ["contract date missing"]}]}
+        state = self.assess(status=status, collection="failure", target="skipped", tests="skipped", publication="skipped")
+        self.assertEqual(state["sourceErrorCount"], 1)
+        self.assertIn("trendforce error: contract date missing", state["details"])
+
+    def test_cancelled_or_skipped_gates_are_not_reported_as_healthy(self) -> None:
+        for outcomes in ({"collection": "cancelled"}, {"target": "skipped"}, {"tests": "skipped"}, {"publication": "skipped"}):
+            with self.subTest(outcomes=outcomes):
+                state = self.assess(status={"sources": []}, **outcomes)
+                self.assertEqual(state["status"], "blocked")
+
     def test_source_errors_are_blocking(self) -> None:
         status = {"sources": [{"source": "trendforce", "ok": False, "warnings": [], "errors": ["parse failed"]}]}
         state = self.assess(status=status)

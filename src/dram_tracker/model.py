@@ -128,10 +128,10 @@ def is_representative(product_name: str) -> bool:
     return any(pattern in name for pattern in patterns)
 
 
-def summarize_status(observations: list[dict[str, Any]], source_status: list[dict[str, Any]], generated_at: str) -> dict[str, Any]:
+def summarize_status(observations: list[dict[str, Any]], source_status: list[dict[str, Any]], generated_at: str, *, history_repair: dict[str, Any] | None = None) -> dict[str, Any]:
     counts_by_source = Counter(obs.get("source", "unknown") for obs in observations)
     counts_by_kind = Counter(obs.get("kind", "unknown") for obs in observations)
-    return {
+    status = {
         "schema_version": SCHEMA_VERSION,
         "generated_at": generated_at,
         "observation_count": len(observations),
@@ -140,10 +140,16 @@ def summarize_status(observations: list[dict[str, Any]], source_status: list[dic
         "sources": source_status,
         "caveats": [
             "TrendForce/DRAMeXchange public pages expose current tables but not free historical data.",
-            "MemoryMarket publicly discloses six-month weekly history; respect source terms and attribution.",
+            "MemoryMarket publicly discloses six-month weekly/monthly history; respect source terms and attribution.",
             "Contract prices are monthly/update-date observations; collected_at is not the effective price date.",
         ],
     }
+    if history_repair:
+        status["history_repair"] = history_repair
+        status["caveats"].append(
+            f"과거 고정가 {history_repair['quarantined_contract_count']}건은 기준일을 확인할 수 없어 원본 보존 후 표시에서 제외했습니다. 고정가는 원문 표의 갱신일을 확인한 관측만 표시합니다."
+        )
+    return status
 
 
 def build_public_summary(
@@ -174,7 +180,7 @@ def build_public_summary(
     )[:12]
     latest_date = max((str(obs.get("date")) for obs in observations if obs.get("date")), default=None)
     source_states = status.get("sources") if isinstance(status.get("sources"), list) else []
-    failed_sources = [str(source.get("source")) for source in source_states if isinstance(source, dict) and not source.get("ok", True)]
+    failed_sources = [str(source.get("source")) for source in source_states if isinstance(source, dict) and (not source.get("ok", True) or source.get("warnings") or source.get("errors"))]
     state = "degraded" if failed_sources else ("ok" if observations else "degraded")
     return {
         "schemaVersion": 1,
@@ -189,7 +195,7 @@ def build_public_summary(
         "status": {
             "state": state,
             "label": "source degraded" if failed_sources else f"{len(observations)}개 가격 관측치",
-            "cadence": "TrendForce current tables + MemoryMarket weekly public history",
+            "cadence": "TrendForce current tables + MemoryMarket weekly/monthly public history",
             "expectedFreshnessDays": 14,
             "degradedReasons": failed_sources,
         },

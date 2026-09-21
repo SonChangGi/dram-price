@@ -9,6 +9,21 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
+from dram_tracker.model import observation_price
+
+
+# The tracked public TrendForce spot table. Additional products do not compensate
+# for a missing tracked product when the workflow assesses daily completeness.
+REQUIRED_TRENDFORCE_SPOT_PRODUCT_IDS = frozenset({
+    "trendforce-spot-ddr3-4gb-512mx8-1600-1866",
+    "trendforce-spot-ddr4-16gb-2gx8-3200",
+    "trendforce-spot-ddr4-16gb-2gx8-ett",
+    "trendforce-spot-ddr4-8gb-1gx8-3200",
+    "trendforce-spot-ddr4-8gb-1gx8-ett",
+    "trendforce-spot-ddr5-16gb-2gx8-4800-5600",
+    "trendforce-spot-ddr5-16gb-2gx8-ett",
+})
+
 
 @dataclass(frozen=True)
 class FreshnessDecision:
@@ -54,20 +69,37 @@ def _target_date(value: str, today: date) -> str:
         raise ValueError("--require-daily-date must be 'today', 'yesterday', or YYYY-MM-DD") from exc
 
 
-def _daily_observation_count(prices_path: Path, target_date: str) -> int:
+def _daily_observation_count(prices_path: Path, target_date: str, *, require_known_products: bool = False) -> int:
     if not prices_path.exists():
         return 0
     payload = json.loads(prices_path.read_text(encoding="utf-8"))
     observations = payload.get("observations", []) if isinstance(payload, dict) else []
-    return sum(
-        1
-        for obs in observations
-        if isinstance(obs, dict)
-        and obs.get("source") == "trendforce"
-        and obs.get("kind") == "spot"
-        and obs.get("cadence") == "daily"
-        and obs.get("date") == target_date
-    )
+    products: set[str] = set()
+    for obs in observations:
+        if not isinstance(obs, dict):
+            continue
+        update = obs.get("source_last_update")
+        if not isinstance(update, dict):
+            continue
+        price = observation_price(obs)
+        product_id = obs.get("product_id")
+        if (
+            obs.get("source") == "trendforce"
+            and obs.get("kind") == "spot"
+            and obs.get("cadence") == "daily"
+            and obs.get("date") == target_date
+            and obs.get("effective_date") == target_date
+            and update.get("date") == target_date
+            and update.get("date_source") in {"last_update", "table_last_update"}
+            and (update.get("date_source") != "table_last_update" or update.get("table_kind") == "spot")
+            and isinstance(product_id, str) and bool(product_id.strip())
+            and obs.get("currency") == "USD"
+            and price is not None and price > 0
+        ):
+            products.add(product_id)
+    if require_known_products:
+        products.intersection_update(REQUIRED_TRENDFORCE_SPOT_PRODUCT_IDS)
+    return len(products)
 
 
 def decide_collection_need(
@@ -79,6 +111,7 @@ def decide_collection_need(
     prices_path: Path | None = None,
     require_daily_date: str | None = None,
     minimum_daily_spot_rows: int = 1,
+    require_known_spot_products: bool = False,
 ) -> FreshnessDecision:
     """Return whether a collection should run for the requested local calendar day."""
     try:
@@ -94,7 +127,8 @@ def decide_collection_need(
     generated_at, generated_date, status_problem = _status_dates(status_path, local_tz)
 
     if force:
-        return FreshnessDecision(True, "forced", local_today, generated_at, generated_date)
+        target = _target_date(require_daily_date, today) if require_daily_date else ""
+        return FreshnessDecision(True, "forced", local_today, generated_at, generated_date, target)
 
     if require_daily_date:
         if minimum_daily_spot_rows < 1:
@@ -105,10 +139,11 @@ def decide_collection_need(
         if status_problem:
             return FreshnessDecision(True, status_problem, local_today, generated_at, generated_date, target, 0)
         try:
-            count = _daily_observation_count(prices_path, target)
+            count = _daily_observation_count(prices_path, target, require_known_products=require_known_spot_products)
         except Exception as exc:  # noqa: BLE001 - corrupt price data should trigger a safe refresh.
             return FreshnessDecision(True, f"invalid-prices:{type(exc).__name__}", local_today, generated_at, generated_date, target, 0)
-        if count >= minimum_daily_spot_rows:
+        required_count = max(minimum_daily_spot_rows, len(REQUIRED_TRENDFORCE_SPOT_PRODUCT_IDS)) if require_known_spot_products else minimum_daily_spot_rows
+        if count >= required_count:
             return FreshnessDecision(False, "fresh-daily-date", local_today, generated_at, generated_date, target, count)
         reason = "missing-daily-date" if count == 0 else "insufficient-daily-date"
         return FreshnessDecision(True, reason, local_today, generated_at, generated_date, target, count)
@@ -136,6 +171,8 @@ def build_parser() -> argparse.ArgumentParser:
         default=1,
         help="Minimum TrendForce daily spot rows required before a date is treated as collected",
     )
+    parser.add_argument("--require-known-spot-products", action="store_true",
+                        help="Require every tracked TrendForce spot product; extra products cannot fill missing coverage")
     parser.add_argument(
         "--require-daily-date",
         help="Collect unless TrendForce daily spot observations already include this local date: today, yesterday, or YYYY-MM-DD",
@@ -157,6 +194,7 @@ def main(argv: list[str] | None = None) -> int:
         prices_path=Path(args.prices),
         require_daily_date=args.require_daily_date,
         minimum_daily_spot_rows=args.minimum_daily_spot_rows,
+        require_known_spot_products=args.require_known_spot_products,
     )
     print(f"should_collect={_bool_output(decision.should_collect)}")
     print(f"reason={decision.reason}")

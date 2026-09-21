@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T04:41:56Z",
+  "generated_at": "2026-09-21T03:31:14Z",
   "schema_version": 1,
   "series": [
     {
@@ -212,7 +212,7 @@
     },
     {
       "cadences": [
-        "weekly"
+        "monthly"
       ],
       "categories": [
         "rdimm"
@@ -228,7 +228,7 @@
     },
     {
       "cadences": [
-        "weekly"
+        "monthly"
       ],
       "categories": [
         "rdimm"
@@ -244,7 +244,7 @@
     },
     {
       "cadences": [
-        "weekly"
+        "monthly"
       ],
       "categories": [
         "rdimm"
@@ -356,7 +356,7 @@
     },
     {
       "cadences": [
-        "weekly"
+        "monthly"
       ],
       "categories": [
         "rdimm"
@@ -372,7 +372,7 @@
     },
     {
       "cadences": [
-        "weekly"
+        "monthly"
       ],
       "categories": [
         "rdimm"
@@ -388,7 +388,7 @@
     },
     {
       "cadences": [
-        "weekly"
+        "monthly"
       ],
       "categories": [
         "rdimm"

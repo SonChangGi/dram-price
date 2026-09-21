@@ -51,9 +51,12 @@ jobs:
       - name: Verify and build frontend
         run: npm run verify --prefix frontend
       - name: Combine frontend build and public data
+        env:
+          PYTHONPATH: src
         run: |
           mkdir -p frontend/dist/data
           cp -R data/. frontend/dist/data/
+          python scripts/validate_publication.py --data-dir frontend/dist/data
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
         with:
           enablement: true

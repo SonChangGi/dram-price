@@ -12,3 +12,6 @@ test-results/
 frontend/node_modules/
 frontend/dist/
 frontend/coverage/
+
+# Preserved private recovery snapshots and source HTML (never deploy).
+artifacts/price-repair-20260921/

@@ -19,17 +19,19 @@ class WorkflowContractTests(unittest.TestCase):
         workflow = _read(UPDATE_WORKFLOW)
         self.assertIn("workflow_dispatch:", workflow)
         self.assertIn("schedule:", workflow)
-        self.assertIn('cron: "15 0 * * 1-5"', workflow)
-        self.assertIn('cron: "15 2 * * 1-5"', workflow)
-        self.assertIn("09:15 KST weekdays", workflow)
         self.assertIn('cron: "15 4 * * 1-5"', workflow)
-        self.assertNotRegex(workflow, r'cron: "15 [024] \* \* \*"')
+        self.assertIn('cron: "15 6 * * 1-5"', workflow)
+        self.assertIn("13:15 KST weekdays", workflow)
+        self.assertIn('cron: "30 10 * * 1-5"', workflow)
+        self.assertNotRegex(workflow, r'cron: "15 [468] \* \* \*"')
         self.assertNotIn("--require-daily-date yesterday", workflow)
         self.assertIn("args+=(--require-daily-date today)", workflow)
+        self.assertIn('args+=(--force)\n          fi\n          args+=(--require-daily-date today)', workflow)
 
     def test_update_workflow_has_explicit_completeness_post_check(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
-        self.assertIn("--minimum-daily-spot-rows 2", workflow)
+        self.assertIn("--minimum-daily-spot-rows 7", workflow)
+        self.assertEqual(workflow.count("--require-known-spot-products"), 2)
         self.assertIn("id: collect", workflow)
         self.assertIn("id: verify_target_date", workflow)
         self.assertIn("Verify requested daily data after collection", workflow)
@@ -59,7 +61,7 @@ class WorkflowContractTests(unittest.TestCase):
             "(steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && "
             "steps.tests.outcome == 'success'"
         )
-        required_gate = pre_publication_gate + " && steps.publication.outcome == 'success' && steps.health.outcome == 'success'"
+        required_gate = pre_publication_gate + " && steps.publication.outcome == 'success' && steps.health.outcome == 'success' && steps.promote.outcome == 'success'"
         self.assertIn(
             f"- name: Validate public data publication floor\n        id: publication\n        if: {pre_publication_gate}",
             workflow,
@@ -77,6 +79,22 @@ class WorkflowContractTests(unittest.TestCase):
             rf"- id: deployment\n        if: {re.escape(required_gate)}\n        uses: actions/deploy-pages@[0-9a-f]{{40}} # v5",
         )
 
+    def test_failed_collection_cannot_replace_published_market_data(self) -> None:
+        workflow = _read(UPDATE_WORKFLOW)
+        self.assertNotIn("collect --output data", workflow)
+        self.assertIn('collect --output "$RUNNER_TEMP/dram-candidate" --attempt-status "$RUNNER_TEMP/dram-attempt-status.json"', workflow)
+        self.assertIn('validate_publication.py --data-dir "$RUNNER_TEMP/dram-candidate"', workflow)
+        self.assertIn('--status "$RUNNER_TEMP/dram-candidate/status.json"', workflow)
+        self.assertIn('--prices "$RUNNER_TEMP/dram-candidate/prices.json"', workflow)
+        self.assertIn('--status "$RUNNER_TEMP/dram-attempt-status.json"', workflow)
+        self.assertLess(workflow.index("Validate public data publication floor"), workflow.index("Promote verified candidate"))
+        self.assertLess(workflow.index("Promote verified candidate"), workflow.index("Commit data changes"))
+        promote = workflow.split("- name: Promote verified candidate", 1)[1].split("- name: Commit data changes", 1)[0]
+        self.assertIn("steps.publication.outcome == 'success'", promote)
+        self.assertIn("steps.health.outcome == 'success'", promote)
+        self.assertIn("for artifact in prices.json series.json status.json summary.json", promote)
+        self.assertNotIn("automation-health.json", promote)
+
     def test_pages_workflows_build_the_locked_frontend_and_include_public_contracts(self) -> None:
         update = _read(UPDATE_WORKFLOW)
         deploy = _read(DEPLOY_WORKFLOW)
@@ -86,6 +104,9 @@ class WorkflowContractTests(unittest.TestCase):
             self.assertIn("npm ci --prefix frontend", workflow)
             self.assertIn("npm run verify --prefix frontend", workflow)
             self.assertIn("cp -R data/. frontend/dist/data/", workflow)
+            self.assertIn("validate_publication.py --data-dir frontend/dist/data", workflow)
+            self.assertLess(workflow.index("cp -R data/. frontend/dist/data/"),
+                            workflow.index("validate_publication.py --data-dir frontend/dist/data"))
             self.assertIn("path: frontend/dist", workflow)
             self.assertNotIn("cp -R web/. site/", workflow)
         self.assertIn("- 'frontend/**'", deploy)
@@ -104,7 +125,7 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("Record repeated automation degradation", workflow)
         self.assertIn("steps.health.outputs.alert_required == 'true'", workflow)
         self.assertIn("github.event_name == 'workflow_dispatch'", workflow)
-        self.assertIn("github.event.schedule == '15 4 * * 1-5'", workflow)
+        self.assertIn("github.event.schedule == '30 10 * * 1-5'", workflow)
         degradation_block = workflow.split("Record repeated automation degradation", 1)[1].split(
             "public-site-health:", 1
         )[0]

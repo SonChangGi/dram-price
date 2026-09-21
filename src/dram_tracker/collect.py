@@ -45,6 +45,7 @@ def collect_trendforce(*, fixture_dir: Path | None, collected_at: str) -> tuple[
     except Exception as exc:  # noqa: BLE001 - source failures should be recorded, not fatal to other sources.
         status["ok"] = False
         status["errors"].append(str(exc))
+        observations = []
     status["observation_count"] = len(observations)
     return observations, status
 
@@ -58,18 +59,26 @@ def collect_memorymarket(*, fixture_dir: Path | None, collected_at: str, limit_p
             for category in memorymarket.CATEGORIES:
                 path = fixture_dir / f"memorymarket_category_{category}.html"
                 if path.exists():
-                    products.extend(memorymarket.discover_products(path.read_text(encoding="utf-8"), category=category))
+                    category_products = memorymarket.discover_products(path.read_text(encoding="utf-8"), category=category)
+                    if not category_products:
+                        raise ValueError(f"MemoryMarket {category} category returned no products")
+                    products.extend(category_products)
         else:
             for category in memorymarket.CATEGORIES:
                 url = f"{memorymarket.BASE_URL}/price/{category}"
                 status["urls"].append(url)
-                products.extend(memorymarket.discover_products(fetch_text(url), category=category))
+                category_products = memorymarket.discover_products(fetch_text(url), category=category)
+                if not category_products:
+                    raise ValueError(f"MemoryMarket category returned no products: {url}")
+                products.extend(category_products)
                 time.sleep(delay)
         # Deduplicate by URL.
         deduped = {product["url"]: product for product in products}
         products = sorted(deduped.values(), key=lambda product: product["product_name"])
         if limit_products is not None:
             products = products[: max(0, limit_products)]
+        if not products:
+            raise ValueError("MemoryMarket product discovery returned no products")
         for product in products:
             url = product["url"]
             status["urls"].append(url)
@@ -96,6 +105,8 @@ def collect_memorymarket(*, fixture_dir: Path | None, collected_at: str, limit_p
         status["ok"] = False
         status["errors"].append(str(exc))
     status["observation_count"] = len(observations)
+    if status["warnings"] or not observations:
+        status["ok"] = False
     return observations, status
 
 
@@ -140,17 +151,28 @@ def validate_rebuild_metadata(existing_payload: dict[str, Any], previous_status:
     return generated_at, sources
 
 
+def validate_source_coverage(existing: list[dict], current: list[dict], sources: list[dict]) -> None:
+    """A vanished known product is a collection failure, not a fresh old price."""
+    for source in sources:
+        expected = {(r.get("kind"), r.get("product_id")) for r in existing if r.get("source") == source["source"]}
+        found = {(r.get("kind"), r.get("product_id")) for r in current if r.get("source") == source["source"]}
+        missing = expected - found
+        if missing:
+            source["ok"] = False
+            source["errors"].append(f"previously tracked products missing from collection: {sorted(missing)}")
+
+
 def run(args: argparse.Namespace) -> int:
     output = Path(args.output)
     fixture_dir = Path(args.fixture_dir) if args.fixture_dir else None
     prices_path = output / "prices.json"
     existing_payload = read_json(prices_path, {"observations": []})
     existing_observations = existing_payload.get("observations", []) if isinstance(existing_payload, dict) else []
+    previous_status = read_json(output / "status.json", {})
 
     if args.rebuild_only:
         if not existing_observations:
             raise ValueError("rebuild-only requires stored observations")
-        previous_status = read_json(output / "status.json", {})
         collected_at, source_status = validate_rebuild_metadata(existing_payload, previous_status)
         new_observations: list[dict[str, Any]] = []
     else:
@@ -166,12 +188,28 @@ def run(args: argparse.Namespace) -> int:
             new_observations.extend(obs)
             source_status.append(status)
 
+        validate_source_coverage(existing_observations, new_observations, source_status)
+        attempt_status = summarize_status(new_observations, source_status, collected_at)
+        if getattr(args, "attempt_status", None):
+            write_json(Path(args.attempt_status), attempt_status)
+        if not source_status or any(not source.get("ok") or source.get("warnings") or source.get("errors")
+                                    or not source.get("observation_count") for source in source_status):
+            print("collection incomplete; existing output preserved", file=sys.stderr)
+            for source in source_status:
+                for message in [*source.get("errors", []), *source.get("warnings", [])]:
+                    print(f"{source['source']}: {message}", file=sys.stderr)
+            return 2
+
     observations = merge_observations(existing_observations, new_observations)
     if args.rebuild_only and not observations:
         raise ValueError("rebuild-only found no valid stored price observations")
 
+    unverified_contracts = [obs for obs in observations if obs.get("source") == "trendforce" and obs.get("kind") == "contract"
+                           and (obs.get("source_last_update") or {}).get("date_source") != "table_last_update"]
+    if unverified_contracts:
+        raise ValueError("unverified historical contract dates; run scripts/repair_price_history.py before collecting")
     series = build_series(observations)
-    status = summarize_status(observations, source_status, collected_at)
+    status = summarize_status(observations, source_status, collected_at, history_repair=previous_status.get("history_repair"))
     write_json(prices_path, {"schema_version": SCHEMA_VERSION, "generated_at": collected_at, "observations": observations})
     write_json(output / "series.json", {"schema_version": SCHEMA_VERSION, "generated_at": collected_at, "series": series})
     write_json(output / "status.json", status)
@@ -191,6 +229,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--limit-products", type=int, default=None, help="Limit MemoryMarket product pages for smoke runs")
     parser.add_argument("--delay", type=float, default=0.5, help="Polite delay between MemoryMarket requests")
     parser.add_argument("--rebuild-only", action="store_true", help="Rebuild generated outputs from stored observations without fetching sources")
+    parser.add_argument("--attempt-status", help="Record collection-attempt diagnostics separately; failures never overwrite stored outputs")
     parser.add_argument("--include-trendforce", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--include-memorymarket", action=argparse.BooleanOptionalAction, default=True)
     return parser

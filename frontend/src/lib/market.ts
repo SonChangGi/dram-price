@@ -22,12 +22,25 @@ export const METRIC_LABELS: Record<string, string> = {
 };
 
 const metricAliases: Record<string, string[]> = {
-  auto: ['session_average', 'average', 'daily_high', 'high', 'session_high', 'daily_low', 'low', 'session_low'],
+  auto: ['session_average', 'average'],
   session_average: ['session_average'],
   average: ['average'],
   daily_high: ['daily_high', 'high', 'session_high'],
   daily_low: ['daily_low', 'low', 'session_low'],
 };
+
+export function priceUnitFor(observation: Pick<Observation, 'product_name'>): 'chip' | 'module' | 'unknown' {
+  // Preserve the source's case: Gb is gigabits; GB is gigabytes.
+  const name = observation.product_name;
+  const isDimm = /\b(?:SO-?DIMM|[RUL]?DIMM)\b/i.test(name);
+  if (/\d+(?:\.\d+)?\s*GB\b/.test(name) && isDimm) return 'module';
+  if (/\d+(?:\.\d+)?\s*Gb\b/.test(name) && !isDimm) return 'chip';
+  return 'unknown';
+}
+
+export function priceUnitLabel(unit: ReturnType<typeof priceUnitFor>): string {
+  return { chip: '칩당', module: '모듈당', unknown: '가격 단위 미확인' }[unit];
+}
 
 export function finiteNumber(value: unknown): number | null {
   return typeof value === 'number' && Number.isFinite(value) ? value : null;

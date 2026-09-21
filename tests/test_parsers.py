@@ -29,8 +29,31 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(len(rows), 2)
         self.assertEqual(rows[0]["kind"], "contract")
         self.assertEqual(rows[0]["cadence"], "monthly")
-        self.assertEqual(rows[0]["effective_month"], "2026-06")
+        self.assertEqual(rows[0]["date"], "2026-05-29")
+        self.assertEqual(rows[0]["effective_month"], "2026-05")
+        self.assertEqual(rows[0]["source_last_update"]["date_source"], "table_last_update")
+        self.assertEqual(rows[0]["source_last_update"]["table_kind"], "contract")
         self.assertEqual(rows[0]["values"]["average_change_percent"], 45.33)
+
+    def test_contract_never_borrows_spot_date_or_page_metadata(self) -> None:
+        html = (FIXTURES / "trendforce_contract.html").read_text(encoding="utf-8")
+        html = html.replace("Last Update 2026-05-29 15:00 (GMT+8)", "")
+        with self.assertRaisesRegex(ValueError, "table source update timestamp"):
+            trendforce.parse_price_page(html, kind="contract", url=trendforce.CONTRACT_URL)
+
+    def test_contract_date_is_stable_when_spot_date_changes(self) -> None:
+        html = (FIXTURES / "trendforce_contract.html").read_text(encoding="utf-8")
+        original = trendforce.parse_price_page(html, kind="contract", url=trendforce.CONTRACT_URL)
+        later = trendforce.parse_price_page(html.replace("2026-06-10", "2026-06-11"), kind="contract", url=trendforce.CONTRACT_URL)
+        self.assertEqual(original[0]["date"], later[0]["date"])
+        self.assertEqual(original[0]["values"], later[0]["values"])
+
+    def test_ambiguous_or_invalid_table_date_is_rejected(self) -> None:
+        html = (FIXTURES / "trendforce_contract.html").read_text(encoding="utf-8")
+        for replacement in ["Last Update 2026-02-30 15:00 (GMT+8)",
+                            "Last Update 2026-05-29 15:00 (GMT+8) Last Update 2026-05-30 15:00 (GMT+8)"]:
+            with self.subTest(replacement=replacement), self.assertRaises(ValueError):
+                trendforce.parse_price_page(html.replace("Last Update 2026-05-29 15:00 (GMT+8)", replacement), kind="contract", url=trendforce.CONTRACT_URL)
 
     def test_trendforce_parser_skips_rows_without_a_finite_average_price(self) -> None:
         html = """
@@ -38,7 +61,6 @@ class ParserTests(unittest.TestCase):
         <table>
           <tr><th>Item</th><th>Session High</th><th>Session Low</th><th>Session Average</th><th>Average Change</th><th>Low Change</th></tr>
           <tr><td>Jun. Specialty DRAM price updated, click here for details.</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-          <tr><td>Invalid numeric row</td><td>4</td><td>3</td><td>NaN</td><td>0%</td><td>0%</td></tr>
           <tr><td>DDR5 16Gb Contract</td><td>4</td><td>3</td><td>3.5</td><td>0%</td><td>0%</td></tr>
         </table>
         """
@@ -50,6 +72,12 @@ class ParserTests(unittest.TestCase):
         )
         self.assertEqual([row["product_name"] for row in rows], ["DDR5 16Gb Contract"])
         self.assertEqual(rows[0]["values"]["session_average"], 3.5)
+
+    def test_trendforce_product_with_missing_average_fails_instead_of_disappearing(self) -> None:
+        html = (FIXTURES / "trendforce_contract.html").read_text(encoding="utf-8")
+        for missing in ("N/A", "NaN", "0"):
+            with self.subTest(missing=missing), self.assertRaises(ValueError):
+                trendforce.parse_price_page(html.replace("<td>227.00</td>", f"<td>{missing}</td>"), kind="contract", url=trendforce.CONTRACT_URL)
 
     def test_memorymarket_discovers_dram_product_links(self) -> None:
         html = (FIXTURES / "memorymarket_category_ddr.html").read_text(encoding="utf-8")

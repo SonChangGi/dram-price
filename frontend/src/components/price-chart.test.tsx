@@ -21,6 +21,22 @@ function spotObservation(productIndex: number, day: number): Observation {
 }
 
 describe('PriceChart', () => {
+  it('separates chip and module USD prices even when kind and metric match', () => {
+    const rows = ['DDR4 8Gb (1Gx8)', 'DDR4 8GB SO-DIMM'].flatMap((product_name, index) =>
+      [20, 21].map((day) => ({ ...spotObservation(index + 1, day), product_name, kind: 'contract' })));
+    const { container } = render(<PriceChart rows={rows} metric="auto" />);
+    const facets = container.querySelectorAll('.chart-facet');
+    expect(facets).toHaveLength(2);
+    expect([...facets].map((facet) => facet.querySelectorAll('.chart-series').length)).toEqual([1, 1]);
+    expect([...facets].map((facet) => facet.querySelector('.chart-unit')?.textContent)).toEqual(['칩당 USD · 0 기준', '모듈당 USD · 0 기준']);
+  });
+
+  it('does not chart high-only prices as an automatic average', () => {
+    render(<PriceChart rows={[20, 21].map((day) => ({ ...spotObservation(1, day), values: { daily_high: 99 } }))} metric="auto" />);
+    expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    expect(screen.getByText('선택 조건에서 표시할 유효 평균 가격이 없습니다.')).toBeInTheDocument();
+  });
+
   it('caps each comparable facet at five series and exposes exact values inside the chart', async () => {
     const user = userEvent.setup();
     const rows = Array.from({ length: 6 }, (_, productIndex) => [

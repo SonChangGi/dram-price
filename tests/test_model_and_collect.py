@@ -30,6 +30,10 @@ class ModelAndCollectTests(unittest.TestCase):
             "cadence": "daily",
             "date": date,
             "product_id": product_id,
+            "currency": "USD",
+            "effective_date": date,
+            "source_last_update": {"date": date, "date_source": "last_update"},
+            "values": {"session_average": 3.5},
         }
 
     @staticmethod
@@ -550,6 +554,8 @@ class ModelAndCollectTests(unittest.TestCase):
                 str(fixture_dir),
                 "--output",
                 str(output),
+                "--attempt-status",
+                str(root / "attempt-status.json"),
             ]
             result = subprocess.run(
                 cmd,
@@ -557,16 +563,18 @@ class ModelAndCollectTests(unittest.TestCase):
                 env={**os.environ, "PYTHONPATH": str(ROOT / "src")},
                 text=True,
                 capture_output=True,
-                check=True,
+                check=False,
             )
-            self.assertIn("stored 1 total", result.stdout)
+            self.assertEqual(result.returncode, 2)
+            self.assertIn("existing output preserved", result.stderr)
             prices = json.loads((output / "prices.json").read_text(encoding="utf-8"))
-            status = json.loads((output / "status.json").read_text(encoding="utf-8"))
+            status = json.loads((root / "attempt-status.json").read_text(encoding="utf-8"))
             self.assertEqual(prices["observations"][0]["product_id"], "seed-product")
             trendforce_status = next(source for source in status["sources"] if source["source"] == "trendforce")
             self.assertFalse(trendforce_status["ok"])
             self.assertTrue(trendforce_status["errors"])
-            self.assertEqual(status["observation_count"], 1)
+            self.assertEqual(status["observation_count"], 0)
+            self.assertFalse((output / "status.json").exists())
 
 
 if __name__ == "__main__":

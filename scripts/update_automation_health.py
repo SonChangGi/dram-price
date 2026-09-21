@@ -54,18 +54,17 @@ def update_health(
     if current.tzinfo is None:
         current = current.replace(tzinfo=timezone.utc)
     current = current.astimezone(timezone.utc)
-    collection_succeeded = collection_outcome == "success"
-    warning_count, source_error_count, source_details = status_problem_counts(source_status) if collection_succeeded else (0, 0, [])
+    warning_count, source_error_count, source_details = status_problem_counts(source_status)
 
     blocking_reasons = []
-    if collection_outcome == "failure":
-        blocking_reasons.append("collection_failed")
-    if target_outcome == "failure":
+    if collection_outcome != "success":
+        blocking_reasons.append("collection_failed" if collection_outcome == "failure" else "collection_incomplete")
+    if target_outcome == "failure" or (target_date and target_outcome != "success"):
         blocking_reasons.append("target_date_missing_after_collection")
-    if tests_outcome == "failure":
-        blocking_reasons.append("tests_failed")
-    if publication_outcome == "failure":
-        blocking_reasons.append("publication_gate_failed")
+    if tests_outcome != "success":
+        blocking_reasons.append("tests_failed" if tests_outcome == "failure" else "tests_incomplete")
+    if publication_outcome != "success":
+        blocking_reasons.append("publication_gate_failed" if publication_outcome == "failure" else "publication_gate_incomplete")
     if source_error_count:
         blocking_reasons.append(f"source_errors:{source_error_count}")
 

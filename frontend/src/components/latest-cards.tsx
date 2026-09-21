@@ -1,5 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
-import { formatDate, formatPrice, kindLabel, metricFor, sourceLabel } from '@/lib/market';
+import { formatDate, formatPrice, kindLabel, metricFor, priceUnitFor, priceUnitLabel, sourceLabel } from '@/lib/market';
 import type { Observation } from '@/types';
 
 export function LatestCards({ rows }: { rows: Observation[] }) {
@@ -16,7 +16,7 @@ export function LatestCards({ rows }: { rows: Observation[] }) {
               <div className="latest-card__meta"><span className={`kind-badge is-${row.kind}`}>{kindLabel(row.kind)}</span><span>{formatDate(row.date)}</span></div>
               <h3>{row.product_name}</h3>
               <strong>{metric ? formatPrice(metric.value, row.currency) : '값 없음'}</strong>
-              <footer><span>{metric?.label ?? '지표 없음'} · {sourceLabel(row.source)}</span>{row.source_url ? <a href={row.source_url} target="_blank" rel="noreferrer" aria-label={`${row.product_name} 원문 열기`}><ArrowUpRight aria-hidden="true" /></a> : null}</footer>
+              <footer><span>{priceUnitLabel(priceUnitFor(row))} · {metric?.label ?? '지표 없음'} · {sourceLabel(row.source)}</span>{row.source_url ? <a href={row.source_url} target="_blank" rel="noreferrer" aria-label={`${row.product_name} 원문 열기`}><ArrowUpRight aria-hidden="true" /></a> : null}</footer>
             </article>
           );
         })}

@@ -6,6 +6,7 @@ import type { AutomationHealth, StatusPayload } from '@/types';
 const caveatLabels: Record<string, string> = {
   'TrendForce/DRAMeXchange public pages expose current tables but not free historical data.': 'TrendForce 공개 페이지는 현재 표 중심이며 무료 과거 데이터는 제한적입니다.',
   'MemoryMarket publicly discloses six-month weekly history; respect source terms and attribution.': 'MemoryMarket은 최근 약 6개월 주간 이력을 공개합니다.',
+  'MemoryMarket publicly discloses six-month weekly/monthly history; respect source terms and attribution.': 'MemoryMarket은 최근 약 6개월의 주간 가격과 RDIMM 월간 가격 이력을 공개합니다.',
   'Contract prices are monthly/update-date observations; collected_at is not the effective price date.': '고정가는 월간 또는 업데이트일 기준이며 수집 시각과 가격 적용일이 다를 수 있습니다.',
 };
 
