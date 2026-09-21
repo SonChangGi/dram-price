@@ -79,6 +79,14 @@ def collect_memorymarket(*, fixture_dir: Path | None, collected_at: str, limit_p
             products = products[: max(0, limit_products)]
         if not products:
             raise ValueError("MemoryMarket product discovery returned no products")
+        def add_product_observations(product: dict[str, str], html: str) -> None:
+            observations.extend(memorymarket.parse_product_history(
+                html, url=product["url"], product_name=product["product_name"],
+                product_id=product["product_id"], category=product.get("category"),
+                collected_at=collected_at,
+            ))
+
+        deferred_products: list[dict[str, str]] = []
         for product in products:
             url = product["url"]
             status["urls"].append(url)
@@ -87,20 +95,27 @@ def collect_memorymarket(*, fixture_dir: Path | None, collected_at: str, limit_p
                     numeric = product["product_id"].split("-")[-1]
                     html = _load_fixture(fixture_dir, f"memorymarket_product_{numeric}.html", "memorymarket_product.html")
                 else:
-                    html = fetch_text(url)
+                    try:
+                        html = fetch_text(url)
+                    except (OSError, RuntimeError) as exc:
+                        # fetch_text exhausts its transport retries before raising.
+                        # Parse/identity failures below never enter this retry queue.
+                        deferred_products.append(product)
+                        print(f"memorymarket: deferring one fetch retry for {url}: {exc}", file=sys.stderr)
+                        continue
                     time.sleep(delay)
-                observations.extend(
-                    memorymarket.parse_product_history(
-                        html,
-                        url=url,
-                        product_name=product["product_name"],
-                        product_id=product["product_id"],
-                        category=product.get("category"),
-                        collected_at=collected_at,
-                    )
-                )
+                add_product_observations(product, html)
             except Exception as exc:  # noqa: BLE001
                 status["warnings"].append(f"{product['product_name']}: {exc}")
+        # Retry only failed fetches after visiting every other product. Successful
+        # pages remain in this attempt; no stored price substitutes for a failure.
+        for product in deferred_products:
+            try:
+                html = fetch_text(product["url"], timeout=60, retries=0)
+                time.sleep(delay)
+                add_product_observations(product, html)
+            except Exception as exc:  # noqa: BLE001
+                status["warnings"].append(f"{product['product_name']}: {exc} (after deferred fetch retry)")
     except Exception as exc:  # noqa: BLE001
         status["ok"] = False
         status["errors"].append(str(exc))

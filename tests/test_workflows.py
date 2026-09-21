@@ -2,6 +2,10 @@ from __future__ import annotations
 
 from pathlib import Path
 import re
+import subprocess
+import tempfile
+import textwrap
+import json
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,6 +31,23 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertNotIn("--require-daily-date yesterday", workflow)
         self.assertIn("args+=(--require-daily-date today)", workflow)
         self.assertIn('args+=(--force)\n          fi\n          args+=(--require-daily-date today)', workflow)
+
+    def test_failed_automation_is_retried_even_with_current_prices(self) -> None:
+        workflow = _read(UPDATE_WORKFLOW)
+        self.assertIn('[ "$needs_recovery" = "true" ]; then', workflow)
+        script = textwrap.dedent(workflow.split("<<'PYHEALTH'\n", 1)[1].split("          PYHEALTH", 1)[0])
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "data" / "automation-health.json"
+            path.parent.mkdir()
+            for payload, expected in (({"status": "ok"}, "false"), ({"status": "blocked"}, "true"),
+                                      ({"status": "warning"}, "true"), ({}, "true"), ([], "true")):
+                path.write_text(json.dumps(payload))
+                actual = subprocess.check_output(["python3", "-c", script], cwd=directory, text=True).strip()
+                self.assertEqual(actual, expected)
+            path.write_text("invalid json")
+            self.assertEqual(subprocess.check_output(["python3", "-c", script], cwd=directory, text=True).strip(), "true")
+            path.unlink()
+            self.assertEqual(subprocess.check_output(["python3", "-c", script], cwd=directory, text=True).strip(), "true")
 
     def test_update_workflow_has_explicit_completeness_post_check(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
@@ -67,17 +88,38 @@ class WorkflowContractTests(unittest.TestCase):
             workflow,
         )
         self.assertIn("run: python scripts/validate_publication.py", workflow)
-        for step_name in ("Commit data changes", "Prepare static site"):
-            self.assertIn(f"- name: {step_name}\n        if: {required_gate}", workflow)
-        for action, tag in (("actions/configure-pages", "v6"), ("actions/upload-pages-artifact", "v5")):
-            self.assertRegex(
-                workflow,
-                rf"- uses: {re.escape(action)}@[0-9a-f]{{40}} # {tag}\n        if: {re.escape(required_gate)}",
-            )
-        self.assertRegex(
-            workflow,
-            rf"- id: deployment\n        if: {re.escape(required_gate)}\n        uses: actions/deploy-pages@[0-9a-f]{{40}} # v5",
-        )
+        self.assertIn(f"- name: Commit data changes\n        id: data_commit\n        if: {required_gate}", workflow)
+        self.assertIn(f"(({required_gate} && steps.data_commit.outcome == 'success') || steps.health_frontend.outcome == 'success')", workflow)
+        self.assertIn("id: site", workflow)
+        for action, dependency in (("actions/configure-pages", "steps.site.outcome == 'success'"),
+                                   ("actions/upload-pages-artifact", "steps.pages_configure.outcome == 'success'")):
+            action_block = workflow.split(f"- uses: {action}@", 1)[1].split("      - ", 1)[0]
+            self.assertIn(dependency, action_block)
+            self.assertIn("!cancelled()", action_block)
+        deployment = workflow.split("- id: deployment", 1)[1].split("      - ", 1)[0]
+        self.assertIn("steps.pages_upload.outcome == 'success'", deployment)
+        readback = workflow.split("- name: Verify live public data bytes", 1)[1].split("      - ", 1)[0]
+        self.assertIn("steps.deployment.outcome == 'success'", readback)
+
+    def test_failed_collection_publishes_health_only_after_verifying_last_good_data(self) -> None:
+        workflow = _read(UPDATE_WORKFLOW)
+        health = workflow.split("- name: Verify last-good data for health-only publication", 1)[1].split(
+            "- name: Prepare static site", 1)[0]
+        self.assertIn("steps.health_commit.outcome == 'success'", health)
+        self.assertIn("steps.promote.outcome == 'skipped'", health)
+        self.assertIn("steps.tests.outcome == 'skipped' || steps.tests.outcome == 'success'", health)
+        self.assertIn("git diff --exit-code -- data/prices.json data/series.json data/status.json data/summary.json", health)
+        self.assertIn("python scripts/validate_publication.py", health)
+        self.assertIn('if [ "$TESTS_OUTCOME" != "success" ]; then', health)
+        self.assertIn("python -m unittest discover -s tests -v", health)
+        self.assertIn("npm ci --prefix frontend", health)
+        self.assertIn("npm run verify --prefix frontend", health)
+        self.assertNotIn("dram-candidate", health)
+        self.assertNotIn("continue-on-error", health)
+        self.assertLess(workflow.index("Commit automation health without partial market data"),
+                        workflow.index("Verify last-good data for health-only publication"))
+        self.assertLess(workflow.index("Verify last-good data for health-only publication"),
+                        workflow.index("actions/configure-pages@"))
 
     def test_failed_collection_cannot_replace_published_market_data(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)

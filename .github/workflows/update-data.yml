@@ -47,7 +47,19 @@ jobs:
           SCHEDULE: ${{ github.event.schedule }}
         run: |
           args=(--status data/status.json --prices data/prices.json --timezone Asia/Seoul --minimum-daily-spot-rows 7 --require-known-spot-products)
-          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+          # A failed attempt still needs recovery even when last-good prices are current.
+          needs_recovery="$(python - <<'PYHEALTH'
+          import json
+          from pathlib import Path
+          try:
+              health = json.loads(Path("data/automation-health.json").read_text())
+              healthy = isinstance(health, dict) and health.get("status") == "ok"
+          except (OSError, ValueError):
+              healthy = False
+          print("false" if healthy else "true")
+          PYHEALTH
+          )"
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] || [ "$needs_recovery" = "true" ]; then
             args+=(--force)
           fi
           args+=(--require-daily-date today)
@@ -141,6 +153,7 @@ jobs:
             cp "$RUNNER_TEMP/dram-candidate/$artifact" "data/$artifact"
           done
       - name: Commit data changes
+        id: data_commit
         if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success' && steps.promote.outcome == 'success'
         run: |
           if git diff --quiet -- data; then
@@ -160,7 +173,8 @@ jobs:
             -m "Skip-Pages-Deploy: update-data-workflow"
           git push
       - name: Commit automation health without partial market data
-        if: always() && steps.freshness.outputs.should_collect == 'true' && (steps.collect.outcome != 'success' || (steps.freshness.outputs.target_date != '' && steps.verify_target_date.outcome != 'success') || steps.tests.outcome != 'success' || steps.publication.outcome != 'success')
+        id: health_commit
+        if: always() && steps.health.outcome == 'success' && steps.freshness.outputs.should_collect == 'true' && (steps.collect.outcome != 'success' || (steps.freshness.outputs.target_date != '' && steps.verify_target_date.outcome != 'success') || steps.tests.outcome != 'success' || steps.publication.outcome != 'success')
         run: |
           if git diff --quiet -- data/automation-health.json; then
             echo "No automation health change to commit."
@@ -174,8 +188,24 @@ jobs:
             -m "Constraint: Preserve the last verified market data while tracking repeated provider or validation failures." \
             -m "Directive: Escalate only after the persisted alert threshold is reached."
           git push
+      - name: Verify last-good data for health-only publication
+        id: health_frontend
+        if: ${{ !cancelled() && steps.health_commit.outcome == 'success' && steps.promote.outcome == 'skipped' && (steps.tests.outcome == 'skipped' || steps.tests.outcome == 'success') }}
+        env:
+          PYTHONPATH: src
+          TESTS_OUTCOME: ${{ steps.tests.outcome }}
+        run: |
+          # Only automation health changed; no failed candidate can enter this artifact.
+          git diff --exit-code -- data/prices.json data/series.json data/status.json data/summary.json
+          python scripts/validate_publication.py
+          if [ "$TESTS_OUTCOME" != "success" ]; then
+            python -m unittest discover -s tests -v
+            npm ci --prefix frontend
+            npm run verify --prefix frontend
+          fi
       - name: Prepare static site
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success' && steps.promote.outcome == 'success'
+        id: site
+        if: ${{ !cancelled() && ((steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success' && steps.promote.outcome == 'success' && steps.data_commit.outcome == 'success') || steps.health_frontend.outcome == 'success') }}
         env:
           PYTHONPATH: src
         run: |
@@ -183,18 +213,20 @@ jobs:
           cp -R data/. frontend/dist/data/
           python scripts/validate_publication.py --data-dir frontend/dist/data
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success' && steps.promote.outcome == 'success'
+        id: pages_configure
+        if: ${{ !cancelled() && steps.site.outcome == 'success' }}
         with:
           enablement: true
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success' && steps.promote.outcome == 'success'
+        id: pages_upload
+        if: ${{ !cancelled() && steps.site.outcome == 'success' && steps.pages_configure.outcome == 'success' }}
         with:
           path: frontend/dist
       - id: deployment
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success' && steps.promote.outcome == 'success'
+        if: ${{ !cancelled() && steps.site.outcome == 'success' && steps.pages_upload.outcome == 'success' }}
         uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5
       - name: Verify live public data bytes
-        if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success' && steps.promote.outcome == 'success'
+        if: ${{ !cancelled() && steps.deployment.outcome == 'success' }}
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
         shell: bash
