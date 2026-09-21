@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "contract": "dram-automation-health",
   "projectId": "dram",
-  "updatedAt": "2026-09-21T03:59:30.839006Z",
+  "updatedAt": "2026-09-21T04:08:19.372051Z",
   "targetDate": "2026-09-21",
   "status": "blocked",
   "collectionOutcome": "failure",
@@ -12,9 +12,9 @@
   "warningCount": 2,
   "sourceErrorCount": 1,
   "details": [
-    "memorymarket warning: DDR4 16Gb eTT: failed to fetch https://www.memorymarket.com/price/ews/100246: The read operation timed out",
-    "memorymarket warning: DDR5 RDIMM 32GB: failed to fetch https://www.memorymarket.com/price/ems/100262: The read operation timed out",
-    "memorymarket error: previously tracked products missing from collection: [('spot_proxy', 'memorymarket-100246'), ('spot_proxy', 'memorymarket-100262')]"
+    "memorymarket warning: DDR4 RDIMM 64GB 3200: failed to fetch https://www.memorymarket.com/price/ems/100256: The read operation timed out",
+    "memorymarket warning: LPDDR5X 32Gb: failed to fetch https://www.memorymarket.com/price/ews/100328: The read operation timed out",
+    "memorymarket error: previously tracked products missing from collection: [('spot_proxy', 'memorymarket-100256'), ('spot_proxy', 'memorymarket-100328')]"
   ],
   "blockingReasons": [
     "collection_failed",
@@ -23,22 +23,14 @@
     "publication_gate_incomplete",
     "source_errors:1"
   ],
-  "consecutiveWarningRuns": 3,
-  "consecutiveBlockingFailures": 1,
+  "consecutiveWarningRuns": 4,
+  "consecutiveBlockingFailures": 2,
   "alertThreshold": 3,
   "alertRequired": true,
   "alertReasons": [
-    "source warnings persisted for 3 collection runs"
+    "source warnings persisted for 4 collection runs"
   ],
   "history": [
-    {
-      "checkedAt": "2026-08-27T09:50:34.368256Z",
-      "targetDate": "2026-08-27",
-      "status": "ok",
-      "warningCount": 0,
-      "sourceErrorCount": 0,
-      "blockingReasons": []
-    },
     {
       "checkedAt": "2026-08-27T15:18:37.802464Z",
       "targetDate": "2026-08-28",
@@ -189,6 +181,20 @@
     },
     {
       "checkedAt": "2026-09-21T03:59:30.839006Z",
+      "targetDate": "2026-09-21",
+      "status": "blocked",
+      "warningCount": 2,
+      "sourceErrorCount": 1,
+      "blockingReasons": [
+        "collection_failed",
+        "target_date_missing_after_collection",
+        "tests_incomplete",
+        "publication_gate_incomplete",
+        "source_errors:1"
+      ]
+    },
+    {
+      "checkedAt": "2026-09-21T04:08:19.372051Z",
       "targetDate": "2026-09-21",
       "status": "blocked",
       "warningCount": 2,
