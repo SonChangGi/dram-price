@@ -35,7 +35,6 @@ SCHEDULE_SLOTS = {
     "30 16 * * 1-5": (1, 30, -1, frozenset(range(1, 6))),
     "30 19 * * 1-5": (4, 30, -1, frozenset(range(1, 6))),
 }
-INTRADAY_SCHEDULES = frozenset({"15 4 * * 1-5", "15 6 * * 1-5", "30 10 * * 1-5"})
 
 
 def scheduled_target_date(run_created_at: datetime, schedule: str) -> str:
@@ -147,6 +146,35 @@ def _daily_observation_count(prices_path: Path, target_date: str, *, require_kno
     return len(products)
 
 
+def _publication_completion_problem(status_path: Path, prices_path: Path) -> str | None:
+    """Check the last published bundle, not the outcome of a later attempt."""
+    try:
+        status = json.loads(status_path.read_text(encoding="utf-8"))
+        prices = json.loads(prices_path.read_text(encoding="utf-8"))
+        if not isinstance(status, dict) or not isinstance(prices, dict):
+            return "invalid-publication-metadata"
+        generated_at = status.get("generated_at")
+        if not isinstance(generated_at, str) or not generated_at:
+            return "missing-publication-timestamp"
+        _parse_utc_timestamp(generated_at)
+        if prices.get("generated_at") != generated_at:
+            return "publication-timestamps-differ"
+        sources = status.get("sources")
+        if not isinstance(sources, list):
+            return "missing-publication-source-status"
+        for name in ("trendforce", "memorymarket"):
+            matching = [source for source in sources if isinstance(source, dict) and source.get("source") == name]
+            if len(matching) != 1:
+                return f"missing-or-duplicate-source-status:{name}"
+            source = matching[0]
+            if (source.get("ok") is not True or source.get("warnings") != [] or source.get("errors") != []
+                    or type(source.get("observation_count")) is not int or source["observation_count"] < 1):
+                return f"incomplete-source-status:{name}"
+    except (OSError, ValueError, TypeError):
+        return "invalid-publication-metadata"
+    return None
+
+
 def decide_collection_need(
     status_path: Path,
     *,
@@ -159,6 +187,7 @@ def decide_collection_need(
     require_known_spot_products: bool = False,
     schedule: str | None = None,
     minimum_source_time: str | None = None,
+    require_complete_source_status: bool = False,
 ) -> FreshnessDecision:
     """Return whether a collection should run for the requested local calendar day."""
     try:
@@ -180,10 +209,6 @@ def decide_collection_need(
         if require_daily_date not in {None, "today"}:
             raise ValueError("an explicit date cannot override a scheduled recovery target")
         require_daily_date = scheduled_target_date(current, schedule)
-        # Every daytime slot observes subsequent source sessions for the same day.
-        force = force or schedule in INTRADAY_SCHEDULES
-        if schedule not in INTRADAY_SCHEDULES:
-            minimum_source_time = minimum_source_time or "17:50"
     if minimum_source_time:
         normalized_time = datetime.strptime(minimum_source_time, "%H:%M").strftime("%H:%M")
         if normalized_time != minimum_source_time:
@@ -207,6 +232,11 @@ def decide_collection_need(
             return FreshnessDecision(True, f"invalid-prices:{type(exc).__name__}", local_today, generated_at, generated_date, target, 0, minimum_source_time or "")
         required_count = max(minimum_daily_spot_rows, len(REQUIRED_TRENDFORCE_SPOT_PRODUCT_IDS)) if require_known_spot_products else minimum_daily_spot_rows
         if count >= required_count:
+            if require_complete_source_status:
+                problem = _publication_completion_problem(status_path, prices_path)
+                if problem:
+                    return FreshnessDecision(True, problem, local_today, generated_at, generated_date, target, count,
+                                             minimum_source_time or "")
             return FreshnessDecision(False, "fresh-daily-date", local_today, generated_at, generated_date, target, count, minimum_source_time or "")
         reason = "missing-daily-date" if count == 0 else "insufficient-daily-date"
         if minimum_source_time:
@@ -241,6 +271,8 @@ def build_parser() -> argparse.ArgumentParser:
         default=1,
         help="Minimum TrendForce daily spot rows required before a date is treated as collected",
     )
+    parser.add_argument("--require-complete-source-status", action="store_true",
+                        help="Require matching public generation timestamps and successful complete status for both sources")
     parser.add_argument("--require-known-spot-products", action="store_true",
                         help="Require every tracked TrendForce spot product; extra products cannot fill missing coverage")
     parser.add_argument(
@@ -268,6 +300,7 @@ def main(argv: list[str] | None = None) -> int:
         require_daily_date=args.require_daily_date,
         minimum_daily_spot_rows=args.minimum_daily_spot_rows,
         require_known_spot_products=args.require_known_spot_products,
+        require_complete_source_status=args.require_complete_source_status,
     )
     print(f"should_collect={_bool_output(decision.should_collect)}")
     print(f"reason={decision.reason}")

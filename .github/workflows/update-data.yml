@@ -9,10 +9,15 @@ on:
         required: false
         default: 'today'
         type: string
+      force_collect:
+        description: 'Collect again even when this source price date is already complete'
+        required: false
+        default: false
+        type: boolean
   schedule:
     # 13:15 KST weekdays: collection after the first public spot update at 12:00 KST.
     - cron: "15 4 * * 1-5"
-    # 15:15/19:30 KST weekdays: refresh later source sessions even after earlier success.
+    # 15:15/19:30 KST weekdays: retry only missing or failed price-day collection.
     - cron: "15 6 * * 1-5"
     - cron: "30 10 * * 1-5"
     # 22:30 KST Monday-Friday: recover an incomplete same-day collection.
@@ -58,28 +63,18 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           SCHEDULE: ${{ github.event.schedule }}
           MANUAL_TARGET: ${{ inputs.target_date }}
+          FORCE_COLLECT: ${{ inputs.force_collect }}
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           run_created_at="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" --jq .created_at)"
           test -n "$run_created_at"
-          args=(--status data/status.json --prices data/prices.json --timezone Asia/Seoul --minimum-daily-spot-rows 7 --require-known-spot-products --now "$run_created_at")
+          args=(--status data/status.json --prices data/prices.json --timezone Asia/Seoul --minimum-daily-spot-rows 7 --require-known-spot-products --require-complete-source-status --now "$run_created_at")
           if [ "$EVENT_NAME" = "schedule" ]; then
             args+=(--schedule "$SCHEDULE")
           fi
-          # A failed attempt still needs recovery even when last-good prices are current.
-          needs_recovery="$(python - <<'PYHEALTH'
-          import json
-          from pathlib import Path
-          try:
-              health = json.loads(Path("data/automation-health.json").read_text())
-              healthy = isinstance(health, dict) and health.get("status") == "ok"
-          except (OSError, ValueError):
-              healthy = False
-          print("false" if healthy else "true")
-          PYHEALTH
-          )"
-          if [ "$EVENT_NAME" = "workflow_dispatch" ] || [ "$needs_recovery" = "true" ]; then
+          # A later failed attempt does not invalidate already verified public data.
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "${FORCE_COLLECT:-false}" = "true" ]; then
             args+=(--force)
           fi
           args+=(--require-daily-date "${MANUAL_TARGET:-today}")
@@ -92,7 +87,6 @@ jobs:
           echo "generated_at=${{ steps.freshness.outputs.generated_at }}"
           echo "target_date=${{ steps.freshness.outputs.target_date }}"
           echo "daily_observation_count=${{ steps.freshness.outputs.daily_observation_count }}"
-          echo "minimum_source_time=${{ steps.freshness.outputs.minimum_source_time }}"
       - name: Prepare isolated collection candidate
         if: steps.freshness.outputs.should_collect == 'true'
         run: |
@@ -120,9 +114,8 @@ jobs:
             --status "$RUNNER_TEMP/dram-candidate/status.json" \
             --prices "$RUNNER_TEMP/dram-candidate/prices.json" \
             --timezone Asia/Seoul \
-            --minimum-daily-spot-rows 7 --require-known-spot-products \
+            --minimum-daily-spot-rows 7 --require-known-spot-products --require-complete-source-status \
             --require-daily-date "${{ steps.freshness.outputs.target_date }}" \
-            --minimum-source-time "${{ steps.freshness.outputs.minimum_source_time }}" \
             --fail-if-collect-needed
       - name: Report scheduled target-date miss
         if: steps.verify_target_date.outcome == 'failure' && github.event_name == 'schedule'

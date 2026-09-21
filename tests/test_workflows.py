@@ -33,6 +33,9 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertNotIn("--require-daily-date yesterday", workflow)
         self.assertIn('args+=(--require-daily-date "${MANUAL_TARGET:-today}")', workflow)
         self.assertIn("target_date:", workflow)
+        self.assertIn("force_collect:", workflow)
+        self.assertIn("default: false\n        type: boolean", workflow)
+        self.assertIn("FORCE_COLLECT: ${{ inputs.force_collect }}", workflow)
         for cron in ("30 13 * * 1-5", "30 16 * * 1-5", "30 19 * * 1-5"):
             self.assertIn(f'cron: "{cron}"', workflow)
         self.assertIn('run_created_at="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" --jq .created_at)"', workflow)
@@ -40,22 +43,13 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn('args+=(--schedule "$SCHEDULE")', workflow)
         self.assertIn("actions: read", workflow)
 
-    def test_failed_automation_is_retried_even_with_current_prices(self) -> None:
+    def test_latest_attempt_health_does_not_invalidate_completed_public_prices(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
-        self.assertIn('[ "$needs_recovery" = "true" ]; then', workflow)
-        script = textwrap.dedent(workflow.split("<<'PYHEALTH'\n", 1)[1].split("          PYHEALTH", 1)[0])
-        with tempfile.TemporaryDirectory() as directory:
-            path = Path(directory) / "data" / "automation-health.json"
-            path.parent.mkdir()
-            for payload, expected in (({"status": "ok"}, "false"), ({"status": "blocked"}, "true"),
-                                      ({"status": "warning"}, "true"), ({}, "true"), ([], "true")):
-                path.write_text(json.dumps(payload))
-                actual = subprocess.check_output(["python3", "-c", script], cwd=directory, text=True).strip()
-                self.assertEqual(actual, expected)
-            path.write_text("invalid json")
-            self.assertEqual(subprocess.check_output(["python3", "-c", script], cwd=directory, text=True).strip(), "true")
-            path.unlink()
-            self.assertEqual(subprocess.check_output(["python3", "-c", script], cwd=directory, text=True).strip(), "true")
+        decision = workflow.split("- name: Decide whether collection is needed", 1)[1].split("- name: Report freshness decision", 1)[0]
+        self.assertNotIn("needs_recovery", decision)
+        self.assertNotIn("automation-health.json", decision)
+        self.assertIn('--require-complete-source-status', decision)
+        self.assertIn('[ "${FORCE_COLLECT:-false}" = "true" ]; then', decision)
 
     def test_scheduled_decision_shell_uses_frozen_run_timestamp_and_rejects_invalid_manual_date(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
@@ -73,12 +67,12 @@ class WorkflowContractTests(unittest.TestCase):
             (data / "automation-health.json").write_text('{"status":"ok"}')
             env = {**os.environ, "PATH": f"{binary}:{os.environ['PATH']}", "PYTHONPATH": str(ROOT / "src"),
                    "GITHUB_REPOSITORY": "owner/repo", "GITHUB_RUN_ID": "123", "GITHUB_OUTPUT": str(root / "outputs"),
-                   "EVENT_NAME": "schedule", "SCHEDULE": "30 19 * * 1-5", "MANUAL_TARGET": "",
+                   "EVENT_NAME": "schedule", "SCHEDULE": "30 19 * * 1-5", "MANUAL_TARGET": "", "FORCE_COLLECT": "false",
                    "TEST_RUN_CREATED_AT": "2026-09-22T00:30:00Z"}
             result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertIn("target_date=2026-09-21", result.stdout)
-            self.assertIn("minimum_source_time=17:50", result.stdout)
+            self.assertIn("minimum_source_time=\n", result.stdout)
             env.update(EVENT_NAME="workflow_dispatch", SCHEDULE="", MANUAL_TARGET="2026-09-18")
             result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr)
@@ -87,16 +81,79 @@ class WorkflowContractTests(unittest.TestCase):
             result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
             self.assertNotEqual(result.returncode, 0, "tee must not hide a failed target-date resolution")
 
+    def test_all_slots_skip_completed_public_day_even_after_a_later_failed_attempt(self) -> None:
+        from dram_tracker.freshness import REQUIRED_TRENDFORCE_SPOT_PRODUCT_IDS
+        workflow = _read(UPDATE_WORKFLOW)
+        step = workflow.split("- name: Decide whether collection is needed", 1)[1].split("- name: Report freshness decision", 1)[0]
+        script = textwrap.dedent(step.split("        run: |\n", 1)[1])
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            binary = root / "bin"
+            binary.mkdir()
+            (binary / "gh").write_text('#!/bin/sh\nprintf "%s\\n" "$TEST_RUN_CREATED_AT"\n')
+            (binary / "gh").chmod(0o755)
+            (binary / "python").symlink_to(sys.executable)
+            data = root / "data"
+            data.mkdir()
+            public_status = {"generated_at": "2026-09-21T04:00:00Z", "sources": [
+                {"source": name, "ok": True, "warnings": [], "errors": [], "observation_count": 7}
+                for name in ("trendforce", "memorymarket")]}
+            (data / "status.json").write_text(json.dumps(public_status))
+            rows = [{"source": "trendforce", "kind": "spot", "cadence": "daily", "product_id": product_id,
+                     "date": "2026-09-21", "effective_date": "2026-09-21", "currency": "USD",
+                     "values": {"session_average": 50}, "source_last_update": {"date": "2026-09-21",
+                     "date_source": "table_last_update", "table_kind": "spot", "time": "11:00", "timezone": "GMT+8"}}
+                    for product_id in REQUIRED_TRENDFORCE_SPOT_PRODUCT_IDS]
+            (data / "prices.json").write_text(json.dumps({"generated_at": public_status["generated_at"], "observations": rows}))
+            env = {**os.environ, "PATH": f"{binary}:{os.environ['PATH']}", "PYTHONPATH": str(ROOT / "src"),
+                   "GITHUB_REPOSITORY": "owner/repo", "GITHUB_RUN_ID": "123", "GITHUB_OUTPUT": str(root / "outputs"),
+                   "EVENT_NAME": "schedule", "MANUAL_TARGET": "", "FORCE_COLLECT": "false"}
+            slots = (("15 4 * * 1-5", "04:15"), ("15 6 * * 1-5", "06:15"), ("30 10 * * 1-5", "10:30"),
+                     ("30 13 * * 1-5", "13:30"), ("30 16 * * 1-5", "16:30"), ("30 19 * * 1-5", "19:30"))
+            for status, expected in (("ok", "false"), ("blocked", "false")):
+                (data / "automation-health.json").write_text(json.dumps({"status": status}))
+                for schedule, utc_time in slots:
+                    with self.subTest(status=status, schedule=schedule):
+                        env.update(SCHEDULE=schedule, TEST_RUN_CREATED_AT=f"2026-09-21T{utc_time}:00Z")
+                        result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
+                        self.assertEqual(result.returncode, 0, result.stderr)
+                        self.assertIn(f"should_collect={expected}", result.stdout)
+                        self.assertIn("target_date=2026-09-21", result.stdout)
+            # Incomplete public metadata still requests recovery despite all seven prices.
+            for invalid in ({**public_status, "generated_at": "2026-09-20T04:00:00Z"},
+                            {**public_status, "sources": public_status["sources"][:1]},
+                            {**public_status, "sources": [public_status["sources"][0],
+                              {**public_status["sources"][1], "warnings": ["one product missing"]}]},
+                            {**public_status, "sources": [public_status["sources"][0],
+                              {**public_status["sources"][1], "ok": False}]}):
+                (data / "status.json").write_text(json.dumps(invalid))
+                result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn("should_collect=true", result.stdout)
+            (data / "status.json").write_text(json.dumps(public_status))
+            (data / "automation-health.json").write_text('{"status":"ok"}')
+            env.update(EVENT_NAME="workflow_dispatch", SCHEDULE="", MANUAL_TARGET="2026-09-21")
+            result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn("should_collect=false", result.stdout)
+            self.assertIn("reason=fresh-daily-date", result.stdout)
+            env["FORCE_COLLECT"] = "true"
+            result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn("should_collect=true", result.stdout)
+            self.assertIn("reason=forced", result.stdout)
+
     def test_update_workflow_has_explicit_completeness_post_check(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
         self.assertIn("--minimum-daily-spot-rows 7", workflow)
         self.assertEqual(workflow.count("--require-known-spot-products"), 2)
+        self.assertEqual(workflow.count("--require-complete-source-status"), 2)
         self.assertIn("id: collect", workflow)
         self.assertIn("id: verify_target_date", workflow)
         self.assertIn("Verify requested daily data after collection", workflow)
         self.assertIn('--require-daily-date "${{ steps.freshness.outputs.target_date }}"', workflow)
         self.assertIn("--fail-if-collect-needed", workflow)
-        self.assertIn('--minimum-source-time "${{ steps.freshness.outputs.minimum_source_time }}"', workflow)
+        self.assertNotIn("--minimum-source-time", workflow)
         self.assertIn('--target-date "${{ steps.freshness.outputs.target_date }}" --history-dir history/trendforce-spot', workflow)
         self.assertLess(workflow.index("Verify requested daily data after collection"), workflow.index("Run tests"))
         self.assertLess(workflow.index("Verify requested daily data after collection"), workflow.index("Commit data changes"))
