@@ -1,0 +1,11 @@
+{
+  "dates": {
+    "2026-09-21": {
+      "last_attempt_at": "2026-09-21T04:12:20Z",
+      "observed_products": 7,
+      "required_products": 7,
+      "state": "observed"
+    }
+  },
+  "schema_version": 1
+}

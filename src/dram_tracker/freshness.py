@@ -25,6 +25,39 @@ REQUIRED_TRENDFORCE_SPOT_PRODUCT_IDS = frozenset({
 })
 
 
+# GitHub cron uses UTC; tuple values are the corresponding Korean wall-clock
+# slot, target-day offset, and allowed local weekdays (Monday is zero).
+SCHEDULE_SLOTS = {
+    "15 4 * * 1-5": (13, 15, 0, frozenset(range(5))),
+    "15 6 * * 1-5": (15, 15, 0, frozenset(range(5))),
+    "30 10 * * 1-5": (19, 30, 0, frozenset(range(5))),
+    "30 13 * * 1-5": (22, 30, 0, frozenset(range(5))),
+    "30 16 * * 1-5": (1, 30, -1, frozenset(range(1, 6))),
+    "30 19 * * 1-5": (4, 30, -1, frozenset(range(1, 6))),
+}
+INTRADAY_SCHEDULES = frozenset({"15 4 * * 1-5", "15 6 * * 1-5", "30 10 * * 1-5"})
+
+
+def scheduled_target_date(run_created_at: datetime, schedule: str) -> str:
+    """Resolve the most recent scheduled slot from the immutable run timestamp.
+
+    A queued 22:30 run that starts after midnight still targets the preceding
+    price day. Re-running that same GitHub run preserves the same target.
+    """
+    if schedule not in SCHEDULE_SLOTS:
+        raise ValueError(f"unknown DRAM collection schedule: {schedule}")
+    hour, minute, offset, weekdays = SCHEDULE_SLOTS[schedule]
+    if run_created_at.tzinfo is None:
+        raise ValueError("scheduled run timestamp must include a timezone")
+    local = run_created_at.astimezone(ZoneInfo("Asia/Seoul"))
+    slot = local.replace(hour=hour, minute=minute, second=0, microsecond=0)
+    if slot > local:
+        slot -= timedelta(days=1)
+    while slot.weekday() not in weekdays:
+        slot -= timedelta(days=1)
+    return (slot.date() + timedelta(days=offset)).isoformat()
+
+
 @dataclass(frozen=True)
 class FreshnessDecision:
     should_collect: bool
@@ -34,6 +67,7 @@ class FreshnessDecision:
     generated_date: str
     target_date: str = ""
     daily_observation_count: int = 0
+    minimum_source_time: str = ""
 
 
 def _parse_utc_timestamp(value: str) -> datetime:
@@ -69,7 +103,8 @@ def _target_date(value: str, today: date) -> str:
         raise ValueError("--require-daily-date must be 'today', 'yesterday', or YYYY-MM-DD") from exc
 
 
-def _daily_observation_count(prices_path: Path, target_date: str, *, require_known_products: bool = False) -> int:
+def _daily_observation_count(prices_path: Path, target_date: str, *, require_known_products: bool = False,
+                             minimum_source_time: str | None = None) -> int:
     if not prices_path.exists():
         return 0
     payload = json.loads(prices_path.read_text(encoding="utf-8"))
@@ -81,6 +116,16 @@ def _daily_observation_count(prices_path: Path, target_date: str, *, require_kno
         update = obs.get("source_last_update")
         if not isinstance(update, dict):
             continue
+        if minimum_source_time:
+            source_time = update.get("time")
+            if not isinstance(source_time, str) or update.get("timezone") != "GMT+8":
+                continue
+            try:
+                normalized_time = datetime.strptime(source_time, "%H:%M").strftime("%H:%M")
+            except ValueError:
+                continue
+            if source_time != normalized_time or source_time < minimum_source_time:
+                continue
         price = observation_price(obs)
         product_id = obs.get("product_id")
         if (
@@ -112,6 +157,8 @@ def decide_collection_need(
     require_daily_date: str | None = None,
     minimum_daily_spot_rows: int = 1,
     require_known_spot_products: bool = False,
+    schedule: str | None = None,
+    minimum_source_time: str | None = None,
 ) -> FreshnessDecision:
     """Return whether a collection should run for the requested local calendar day."""
     try:
@@ -119,16 +166,32 @@ def decide_collection_need(
     except ZoneInfoNotFoundError as exc:
         raise ValueError(f"unknown timezone: {timezone_name}") from exc
 
+    if schedule and now is None:
+        raise ValueError("scheduled collection requires the immutable run creation timestamp")
     current = now or datetime.now(timezone.utc)
+    if schedule and current.tzinfo is None:
+        raise ValueError("scheduled run timestamp must include a timezone")
     if current.tzinfo is None:
         current = current.replace(tzinfo=timezone.utc)
     today = current.astimezone(local_tz).date()
     local_today = today.isoformat()
     generated_at, generated_date, status_problem = _status_dates(status_path, local_tz)
+    if schedule:
+        if require_daily_date not in {None, "today"}:
+            raise ValueError("an explicit date cannot override a scheduled recovery target")
+        require_daily_date = scheduled_target_date(current, schedule)
+        # Every daytime slot observes subsequent source sessions for the same day.
+        force = force or schedule in INTRADAY_SCHEDULES
+        if schedule not in INTRADAY_SCHEDULES:
+            minimum_source_time = minimum_source_time or "17:50"
+    if minimum_source_time:
+        normalized_time = datetime.strptime(minimum_source_time, "%H:%M").strftime("%H:%M")
+        if normalized_time != minimum_source_time:
+            raise ValueError("minimum source time must be HH:MM in GMT+8")
 
     if force:
         target = _target_date(require_daily_date, today) if require_daily_date else ""
-        return FreshnessDecision(True, "forced", local_today, generated_at, generated_date, target)
+        return FreshnessDecision(True, "forced", local_today, generated_at, generated_date, target, 0, minimum_source_time or "")
 
     if require_daily_date:
         if minimum_daily_spot_rows < 1:
@@ -137,16 +200,20 @@ def decide_collection_need(
             prices_path = status_path.parent / "prices.json"
         target = _target_date(require_daily_date, today)
         if status_problem:
-            return FreshnessDecision(True, status_problem, local_today, generated_at, generated_date, target, 0)
+            return FreshnessDecision(True, status_problem, local_today, generated_at, generated_date, target, 0, minimum_source_time or "")
         try:
-            count = _daily_observation_count(prices_path, target, require_known_products=require_known_spot_products)
+            count = _daily_observation_count(prices_path, target, require_known_products=require_known_spot_products, minimum_source_time=minimum_source_time)
         except Exception as exc:  # noqa: BLE001 - corrupt price data should trigger a safe refresh.
-            return FreshnessDecision(True, f"invalid-prices:{type(exc).__name__}", local_today, generated_at, generated_date, target, 0)
+            return FreshnessDecision(True, f"invalid-prices:{type(exc).__name__}", local_today, generated_at, generated_date, target, 0, minimum_source_time or "")
         required_count = max(minimum_daily_spot_rows, len(REQUIRED_TRENDFORCE_SPOT_PRODUCT_IDS)) if require_known_spot_products else minimum_daily_spot_rows
         if count >= required_count:
-            return FreshnessDecision(False, "fresh-daily-date", local_today, generated_at, generated_date, target, count)
+            return FreshnessDecision(False, "fresh-daily-date", local_today, generated_at, generated_date, target, count, minimum_source_time or "")
         reason = "missing-daily-date" if count == 0 else "insufficient-daily-date"
-        return FreshnessDecision(True, reason, local_today, generated_at, generated_date, target, count)
+        if minimum_source_time:
+            date_count = _daily_observation_count(prices_path, target, require_known_products=require_known_spot_products)
+            if date_count >= required_count:
+                reason = "missing-required-source-session" if count == 0 else "insufficient-required-source-session"
+        return FreshnessDecision(True, reason, local_today, generated_at, generated_date, target, count, minimum_source_time or "")
 
     if status_problem:
         return FreshnessDecision(True, status_problem, local_today, generated_at, generated_date)
@@ -165,6 +232,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--prices", default="data/prices.json", help="Path to prices.json")
     parser.add_argument("--timezone", default="Asia/Seoul", help="Local calendar timezone used for freshness checks")
     parser.add_argument("--force", action="store_true", help="Always request collection")
+    parser.add_argument("--now", help="Immutable GitHub run created_at ISO timestamp; reused across delayed/re-run jobs")
+    parser.add_argument("--schedule", help="Known GitHub UTC cron expression; resolves the intended price date")
+    parser.add_argument("--minimum-source-time", help="Require every counted product to reach this source HH:MM (GMT+8)")
     parser.add_argument(
         "--minimum-daily-spot-rows",
         type=int,
@@ -190,6 +260,9 @@ def main(argv: list[str] | None = None) -> int:
     decision = decide_collection_need(
         Path(args.status),
         timezone_name=args.timezone,
+        now=datetime.fromisoformat(args.now.replace("Z", "+00:00")) if args.now else None,
+        schedule=args.schedule,
+        minimum_source_time=args.minimum_source_time or None,
         force=args.force,
         prices_path=Path(args.prices),
         require_daily_date=args.require_daily_date,
@@ -203,6 +276,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"generated_date={decision.generated_date}")
     print(f"target_date={decision.target_date}")
     print(f"daily_observation_count={decision.daily_observation_count}")
+    print(f"minimum_source_time={decision.minimum_source_time}")
     return 1 if args.fail_if_collect_needed and decision.should_collect else 0
 
 

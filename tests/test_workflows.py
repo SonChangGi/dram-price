@@ -6,6 +6,8 @@ import subprocess
 import tempfile
 import textwrap
 import json
+import os
+import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,8 +31,14 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn('cron: "30 10 * * 1-5"', workflow)
         self.assertNotRegex(workflow, r'cron: "15 [468] \* \* \*"')
         self.assertNotIn("--require-daily-date yesterday", workflow)
-        self.assertIn("args+=(--require-daily-date today)", workflow)
-        self.assertIn('args+=(--force)\n          fi\n          args+=(--require-daily-date today)', workflow)
+        self.assertIn('args+=(--require-daily-date "${MANUAL_TARGET:-today}")', workflow)
+        self.assertIn("target_date:", workflow)
+        for cron in ("30 13 * * 1-5", "30 16 * * 1-5", "30 19 * * 1-5"):
+            self.assertIn(f'cron: "{cron}"', workflow)
+        self.assertIn('run_created_at="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" --jq .created_at)"', workflow)
+        self.assertIn('--now "$run_created_at"', workflow)
+        self.assertIn('args+=(--schedule "$SCHEDULE")', workflow)
+        self.assertIn("actions: read", workflow)
 
     def test_failed_automation_is_retried_even_with_current_prices(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
@@ -49,6 +57,36 @@ class WorkflowContractTests(unittest.TestCase):
             path.unlink()
             self.assertEqual(subprocess.check_output(["python3", "-c", script], cwd=directory, text=True).strip(), "true")
 
+    def test_scheduled_decision_shell_uses_frozen_run_timestamp_and_rejects_invalid_manual_date(self) -> None:
+        workflow = _read(UPDATE_WORKFLOW)
+        step = workflow.split("- name: Decide whether collection is needed", 1)[1].split("- name: Report freshness decision", 1)[0]
+        script = textwrap.dedent(step.split("        run: |\n", 1)[1])
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            binary = root / "bin"
+            binary.mkdir()
+            (binary / "gh").write_text('#!/bin/sh\nprintf "%s\\n" "$TEST_RUN_CREATED_AT"\n')
+            (binary / "gh").chmod(0o755)
+            (binary / "python").symlink_to(sys.executable)
+            data = root / "data"
+            data.mkdir()
+            (data / "automation-health.json").write_text('{"status":"ok"}')
+            env = {**os.environ, "PATH": f"{binary}:{os.environ['PATH']}", "PYTHONPATH": str(ROOT / "src"),
+                   "GITHUB_REPOSITORY": "owner/repo", "GITHUB_RUN_ID": "123", "GITHUB_OUTPUT": str(root / "outputs"),
+                   "EVENT_NAME": "schedule", "SCHEDULE": "30 19 * * 1-5", "MANUAL_TARGET": "",
+                   "TEST_RUN_CREATED_AT": "2026-09-22T00:30:00Z"}
+            result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn("target_date=2026-09-21", result.stdout)
+            self.assertIn("minimum_source_time=17:50", result.stdout)
+            env.update(EVENT_NAME="workflow_dispatch", SCHEDULE="", MANUAL_TARGET="2026-09-18")
+            result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn("target_date=2026-09-18", result.stdout)
+            env["MANUAL_TARGET"] = "not-a-date"
+            result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
+            self.assertNotEqual(result.returncode, 0, "tee must not hide a failed target-date resolution")
+
     def test_update_workflow_has_explicit_completeness_post_check(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
         self.assertIn("--minimum-daily-spot-rows 7", workflow)
@@ -58,6 +96,8 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("Verify requested daily data after collection", workflow)
         self.assertIn('--require-daily-date "${{ steps.freshness.outputs.target_date }}"', workflow)
         self.assertIn("--fail-if-collect-needed", workflow)
+        self.assertIn('--minimum-source-time "${{ steps.freshness.outputs.minimum_source_time }}"', workflow)
+        self.assertIn('--target-date "${{ steps.freshness.outputs.target_date }}" --history-dir history/trendforce-spot', workflow)
         self.assertLess(workflow.index("Verify requested daily data after collection"), workflow.index("Run tests"))
         self.assertLess(workflow.index("Verify requested daily data after collection"), workflow.index("Commit data changes"))
 
@@ -137,6 +177,19 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("for artifact in prices.json series.json status.json summary.json", promote)
         self.assertNotIn("automation-health.json", promote)
 
+    def test_verified_source_snapshots_are_preserved_on_success_or_failure_without_publication(self) -> None:
+        workflow = _read(UPDATE_WORKFLOW)
+        normal = workflow.split("- name: Commit data changes", 1)[1].split("- name: Commit automation health", 1)[0]
+        failure = workflow.split("- name: Commit automation health", 1)[1].split("- name: Verify last-good data", 1)[0]
+        for block in (normal, failure):
+            self.assertIn("git add history/trendforce-spot", block)
+            self.assertIn("git diff --cached --quiet", block)
+        self.assertIn("git add data/automation-health.json", failure)
+        self.assertNotIn("git add data\n", failure)
+        prepare = workflow.split("- name: Prepare static site", 1)[1].split("      - uses:", 1)[0]
+        self.assertNotIn("history/trendforce-spot", prepare)
+        self.assertIn("cp -R data/. frontend/dist/data/", prepare)
+
     def test_pages_workflows_build_the_locked_frontend_and_include_public_contracts(self) -> None:
         update = _read(UPDATE_WORKFLOW)
         deploy = _read(DEPLOY_WORKFLOW)
@@ -167,7 +220,7 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("Record repeated automation degradation", workflow)
         self.assertIn("steps.health.outputs.alert_required == 'true'", workflow)
         self.assertIn("github.event_name == 'workflow_dispatch'", workflow)
-        self.assertIn("github.event.schedule == '30 10 * * 1-5'", workflow)
+        self.assertIn("github.event.schedule == '30 19 * * 1-5'", workflow)
         degradation_block = workflow.split("Record repeated automation degradation", 1)[1].split(
             "public-site-health:", 1
         )[0]

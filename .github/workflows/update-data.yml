@@ -2,15 +2,27 @@ name: Update DRAM price data
 
 on:
   workflow_dispatch:
-    # Manual dispatch forces collection through the same validation gates.
+    # Explicit past dates recover only observations with that original source date.
+    inputs:
+      target_date:
+        description: 'Source price date to collect or recover (YYYY-MM-DD, or today)'
+        required: false
+        default: 'today'
+        type: string
   schedule:
     # 13:15 KST weekdays: collection after the first public spot update at 12:00 KST.
     - cron: "15 4 * * 1-5"
-    # 15:15/19:30 KST weekdays: retries after the first source publication window.
+    # 15:15/19:30 KST weekdays: refresh later source sessions even after earlier success.
     - cron: "15 6 * * 1-5"
     - cron: "30 10 * * 1-5"
+    # 22:30 KST Monday-Friday: recover an incomplete same-day collection.
+    - cron: "30 13 * * 1-5"
+    # 01:30/04:30 KST Tuesday-Saturday: recover the preceding price day.
+    - cron: "30 16 * * 1-5"
+    - cron: "30 19 * * 1-5"
 
 permissions:
+  actions: read
   contents: write
   pages: write
   id-token: write
@@ -45,8 +57,16 @@ jobs:
           PYTHONPATH: src
           EVENT_NAME: ${{ github.event_name }}
           SCHEDULE: ${{ github.event.schedule }}
+          MANUAL_TARGET: ${{ inputs.target_date }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          args=(--status data/status.json --prices data/prices.json --timezone Asia/Seoul --minimum-daily-spot-rows 7 --require-known-spot-products)
+          set -euo pipefail
+          run_created_at="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" --jq .created_at)"
+          test -n "$run_created_at"
+          args=(--status data/status.json --prices data/prices.json --timezone Asia/Seoul --minimum-daily-spot-rows 7 --require-known-spot-products --now "$run_created_at")
+          if [ "$EVENT_NAME" = "schedule" ]; then
+            args+=(--schedule "$SCHEDULE")
+          fi
           # A failed attempt still needs recovery even when last-good prices are current.
           needs_recovery="$(python - <<'PYHEALTH'
           import json
@@ -62,7 +82,7 @@ jobs:
           if [ "$EVENT_NAME" = "workflow_dispatch" ] || [ "$needs_recovery" = "true" ]; then
             args+=(--force)
           fi
-          args+=(--require-daily-date today)
+          args+=(--require-daily-date "${MANUAL_TARGET:-today}")
           python -m dram_tracker.freshness "${args[@]}" | tee "$GITHUB_OUTPUT"
       - name: Report freshness decision
         run: |
@@ -72,6 +92,7 @@ jobs:
           echo "generated_at=${{ steps.freshness.outputs.generated_at }}"
           echo "target_date=${{ steps.freshness.outputs.target_date }}"
           echo "daily_observation_count=${{ steps.freshness.outputs.daily_observation_count }}"
+          echo "minimum_source_time=${{ steps.freshness.outputs.minimum_source_time }}"
       - name: Prepare isolated collection candidate
         if: steps.freshness.outputs.should_collect == 'true'
         run: |
@@ -83,7 +104,7 @@ jobs:
         continue-on-error: ${{ github.event_name == 'schedule' }}
         env:
           PYTHONPATH: src
-        run: python -m dram_tracker.collect --output "$RUNNER_TEMP/dram-candidate" --attempt-status "$RUNNER_TEMP/dram-attempt-status.json"
+        run: python -m dram_tracker.collect --output "$RUNNER_TEMP/dram-candidate" --attempt-status "$RUNNER_TEMP/dram-attempt-status.json" --target-date "${{ steps.freshness.outputs.target_date }}" --history-dir history/trendforce-spot
       - name: Report scheduled collection failure
         if: steps.collect.outcome == 'failure' && github.event_name == 'schedule'
         run: |
@@ -101,6 +122,7 @@ jobs:
             --timezone Asia/Seoul \
             --minimum-daily-spot-rows 7 --require-known-spot-products \
             --require-daily-date "${{ steps.freshness.outputs.target_date }}" \
+            --minimum-source-time "${{ steps.freshness.outputs.minimum_source_time }}" \
             --fail-if-collect-needed
       - name: Report scheduled target-date miss
         if: steps.verify_target_date.outcome == 'failure' && github.event_name == 'schedule'
@@ -156,13 +178,16 @@ jobs:
         id: data_commit
         if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success' && steps.promote.outcome == 'success'
         run: |
-          if git diff --quiet -- data; then
-            echo "No data changes to commit."
+          git add data
+          if [ -d history/trendforce-spot ]; then
+            git add history/trendforce-spot
+          fi
+          if git diff --cached --quiet -- data history/trendforce-spot; then
+            echo "No data or source-history changes to commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data
           git commit \
             -m "Preserve current DRAM observations" \
             -m "Constraint: scheduled/manual public-source refresh must pass freshness, test, and publication gates" \
@@ -176,13 +201,16 @@ jobs:
         id: health_commit
         if: always() && steps.health.outcome == 'success' && steps.freshness.outputs.should_collect == 'true' && (steps.collect.outcome != 'success' || (steps.freshness.outputs.target_date != '' && steps.verify_target_date.outcome != 'success') || steps.tests.outcome != 'success' || steps.publication.outcome != 'success')
         run: |
-          if git diff --quiet -- data/automation-health.json; then
-            echo "No automation health change to commit."
+          git add data/automation-health.json
+          if [ -d history/trendforce-spot ]; then
+            git add history/trendforce-spot
+          fi
+          if git diff --cached --quiet -- data/automation-health.json history/trendforce-spot; then
+            echo "No automation health or source-history change to commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/automation-health.json
           git commit \
             -m "Record DRAM automation degradation" \
             -m "Constraint: Preserve the last verified market data while tracking repeated provider or validation failures." \
@@ -260,7 +288,7 @@ jobs:
         if: >-
           always() &&
           steps.health.outputs.alert_required == 'true' &&
-          (github.event_name == 'workflow_dispatch' || github.event.schedule == '30 10 * * 1-5')
+          (github.event_name == 'workflow_dispatch' || github.event.schedule == '30 19 * * 1-5')
         run: |
           echo "::warning::DRAM automation degradation reached the persisted alert threshold."
           echo "warning_streak=${{ steps.health.outputs.warning_streak }}"

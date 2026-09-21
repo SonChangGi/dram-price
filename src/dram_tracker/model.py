@@ -76,7 +76,19 @@ def merge_observations(existing: list[dict[str, Any]], new: list[dict[str, Any]]
             merged[observation_key(obs)] = obs
     for obs in new:
         if observation_price(obs) is not None:
-            merged[observation_key(obs)] = obs
+            key = observation_key(obs)
+            previous = merged.get(key)
+            if previous and obs.get("source") == "trendforce":
+                old_update = previous.get("source_last_update") or {}
+                new_update = obs.get("source_last_update") or {}
+                old_time = old_update.get("time")
+                new_time = new_update.get("time")
+                # Provider session time outranks fetch time; a stale response cannot roll a day back.
+                if old_time and (not new_time or old_time > new_time):
+                    continue
+                if old_time and old_time == new_time and previous.get("values") != obs.get("values"):
+                    raise ValueError(f"conflicting TrendForce prices for the same source session: {key}")
+            merged[key] = obs
     return sorted(merged.values(), key=lambda item: (item.get("date", ""), item.get("source", ""), item.get("kind", ""), item.get("product_name", "")))
 
 

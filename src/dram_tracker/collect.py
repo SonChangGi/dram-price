@@ -9,6 +9,9 @@ from pathlib import Path
 from typing import Any
 
 from dram_tracker.http import fetch_text
+from dram_tracker.history import archive_spot, load_spot_archive, daily_products, record_recovery
+from dram_tracker.freshness import REQUIRED_TRENDFORCE_SPOT_PRODUCT_IDS
+from datetime import date
 from dram_tracker.model import (
     SCHEMA_VERSION,
     build_public_summary,
@@ -33,19 +36,18 @@ def _load_fixture(fixture_dir: Path, *names: str) -> str:
 def collect_trendforce(*, fixture_dir: Path | None, collected_at: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     observations: list[dict[str, Any]] = []
     status = {"source": "trendforce", "ok": True, "urls": [trendforce.SPOT_URL, trendforce.CONTRACT_URL], "warnings": [], "errors": []}
-    try:
-        if fixture_dir:
-            spot_html = _load_fixture(fixture_dir, "trendforce_spot.html")
-            contract_html = _load_fixture(fixture_dir, "trendforce_contract.html", "trendforce_spot.html")
-        else:
-            spot_html = fetch_text(trendforce.SPOT_URL)
-            contract_html = fetch_text(trendforce.CONTRACT_URL)
-        observations.extend(trendforce.parse_price_page(spot_html, kind="spot", url=trendforce.SPOT_URL, collected_at=collected_at))
-        observations.extend(trendforce.parse_price_page(contract_html, kind="contract", url=trendforce.CONTRACT_URL, collected_at=collected_at))
-    except Exception as exc:  # noqa: BLE001 - source failures should be recorded, not fatal to other sources.
-        status["ok"] = False
-        status["errors"].append(str(exc))
-        observations = []
+    # Preserve a valid spot table even if the independent contract request fails.
+    for kind, url in (("spot", trendforce.SPOT_URL), ("contract", trendforce.CONTRACT_URL)):
+        try:
+            if fixture_dir:
+                names = ("trendforce_spot.html",) if kind == "spot" else ("trendforce_contract.html", "trendforce_spot.html")
+                html = _load_fixture(fixture_dir, *names)
+            else:
+                html = fetch_text(url)
+            observations.extend(trendforce.parse_price_page(html, kind=kind, url=url, collected_at=collected_at))
+        except Exception as exc:  # noqa: BLE001 - independent source tables keep their valid observations.
+            status["ok"] = False
+            status["errors"].append(f"{kind}: {exc}")
     status["observation_count"] = len(observations)
     return observations, status
 
@@ -184,6 +186,11 @@ def run(args: argparse.Namespace) -> int:
     existing_payload = read_json(prices_path, {"observations": []})
     existing_observations = existing_payload.get("observations", []) if isinstance(existing_payload, dict) else []
     previous_status = read_json(output / "status.json", {})
+    history_dir = Path(args.history_dir) if getattr(args, "history_dir", None) else None
+    target_date = getattr(args, "target_date", None)
+    if target_date:
+        date.fromisoformat(target_date)
+    archived_observations: list[dict] = []
 
     if args.rebuild_only:
         if not existing_observations:
@@ -196,6 +203,12 @@ def run(args: argparse.Namespace) -> int:
         new_observations = []
         if args.include_trendforce:
             obs, status = collect_trendforce(fixture_dir=fixture_dir, collected_at=collected_at)
+            if history_dir:
+                try:
+                    archive_spot(history_dir, obs, collected_at, reference=existing_observations)
+                except (OSError, ValueError) as exc:
+                    status["ok"] = False
+                    status["errors"].append(f"daily archive: {exc}")
             new_observations.extend(obs)
             source_status.append(status)
         if args.include_memorymarket:
@@ -204,6 +217,17 @@ def run(args: argparse.Namespace) -> int:
             source_status.append(status)
 
         validate_source_coverage(existing_observations, new_observations, source_status)
+        try:
+            if history_dir:
+                archived_observations = load_spot_archive(history_dir)
+            merged_candidate = merge_observations(existing_observations, [*archived_observations, *new_observations])
+            if target_date and history_dir:
+                record_recovery(history_dir, merged_candidate, target_date, collected_at)
+            if target_date and daily_products(merged_candidate, target_date) != REQUIRED_TRENDFORCE_SPOT_PRODUCT_IDS:
+                raise ValueError(f"target date {target_date} is missing verified daily prices; source dates are never relabeled")
+        except (OSError, ValueError) as exc:
+            source_status.append({"source": "daily_history", "ok": False, "observation_count": 0,
+                                  "urls": [], "warnings": [], "errors": [str(exc)]})
         attempt_status = summarize_status(new_observations, source_status, collected_at)
         if getattr(args, "attempt_status", None):
             write_json(Path(args.attempt_status), attempt_status)
@@ -215,7 +239,7 @@ def run(args: argparse.Namespace) -> int:
                     print(f"{source['source']}: {message}", file=sys.stderr)
             return 2
 
-    observations = merge_observations(existing_observations, new_observations)
+    observations = merge_observations(existing_observations, [*archived_observations, *new_observations])
     if args.rebuild_only and not observations:
         raise ValueError("rebuild-only found no valid stored price observations")
 
@@ -244,6 +268,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--limit-products", type=int, default=None, help="Limit MemoryMarket product pages for smoke runs")
     parser.add_argument("--delay", type=float, default=0.5, help="Polite delay between MemoryMarket requests")
     parser.add_argument("--rebuild-only", action="store_true", help="Rebuild generated outputs from stored observations without fetching sources")
+    parser.add_argument("--target-date", help="Require verified daily spot observations for YYYY-MM-DD; never relabel source dates")
+    parser.add_argument("--history-dir", help="Persistent immutable daily source snapshots, separate from public output")
     parser.add_argument("--attempt-status", help="Record collection-attempt diagnostics separately; failures never overwrite stored outputs")
     parser.add_argument("--include-trendforce", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--include-memorymarket", action=argparse.BooleanOptionalAction, default=True)
