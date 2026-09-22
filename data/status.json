@@ -7,14 +7,14 @@
   ],
   "counts_by_kind": {
     "contract": 7,
-    "spot": 504,
-    "spot_proxy": 1041
+    "spot": 511,
+    "spot_proxy": 1071
   },
   "counts_by_source": {
-    "memorymarket": 1041,
-    "trendforce": 511
+    "memorymarket": 1071,
+    "trendforce": 518
   },
-  "generated_at": "2026-09-21T04:25:50Z",
+  "generated_at": "2026-09-22T09:15:53Z",
   "history_repair": {
     "corrected_cadence_count": 60,
     "policy": "Exclude contract dates without table provenance; preserve original records; never infer historical dates.",
@@ -22,7 +22,7 @@
     "repaired_at": "2026-09-21T03:21:23Z",
     "version": 1
   },
-  "observation_count": 1552,
+  "observation_count": 1589,
   "schema_version": 1,
   "sources": [
     {
@@ -38,7 +38,7 @@
     },
     {
       "errors": [],
-      "observation_count": 750,
+      "observation_count": 759,
       "ok": true,
       "source": "memorymarket",
       "urls": [
