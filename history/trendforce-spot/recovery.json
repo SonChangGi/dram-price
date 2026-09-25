@@ -23,6 +23,12 @@
       "observed_products": 7,
       "required_products": 7,
       "state": "observed"
+    },
+    "2026-09-25": {
+      "last_attempt_at": "2026-09-25T09:33:54Z",
+      "observed_products": 0,
+      "required_products": 7,
+      "state": "missing"
     }
   },
   "schema_version": 1
