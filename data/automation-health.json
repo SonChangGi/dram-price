@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "contract": "dram-automation-health",
   "projectId": "dram",
-  "updatedAt": "2026-09-25T15:29:38.085008Z",
+  "updatedAt": "2026-09-25T18:05:32.418449Z",
   "targetDate": "2026-09-25",
   "status": "blocked",
   "collectionOutcome": "failure",
@@ -22,21 +22,13 @@
     "source_errors:1"
   ],
   "consecutiveWarningRuns": 0,
-  "consecutiveBlockingFailures": 3,
+  "consecutiveBlockingFailures": 4,
   "alertThreshold": 3,
   "alertRequired": true,
   "alertReasons": [
-    "blocking failures persisted for 3 collection runs"
+    "blocking failures persisted for 4 collection runs"
   ],
   "history": [
-    {
-      "checkedAt": "2026-09-07T04:45:55.714711Z",
-      "targetDate": "2026-09-07",
-      "status": "warning",
-      "warningCount": 1,
-      "sourceErrorCount": 0,
-      "blockingReasons": []
-    },
     {
       "checkedAt": "2026-09-08T04:39:00.086774Z",
       "targetDate": "2026-09-08",
@@ -207,6 +199,20 @@
     },
     {
       "checkedAt": "2026-09-25T15:29:38.085008Z",
+      "targetDate": "2026-09-25",
+      "status": "blocked",
+      "warningCount": 0,
+      "sourceErrorCount": 1,
+      "blockingReasons": [
+        "collection_failed",
+        "target_date_missing_after_collection",
+        "tests_incomplete",
+        "publication_gate_incomplete",
+        "source_errors:1"
+      ]
+    },
+    {
+      "checkedAt": "2026-09-25T18:05:32.418449Z",
       "targetDate": "2026-09-25",
       "status": "blocked",
       "warningCount": 0,
