@@ -224,7 +224,12 @@ def run(args: argparse.Namespace) -> int:
             if target_date and history_dir:
                 record_recovery(history_dir, merged_candidate, target_date, collected_at)
             if target_date and daily_products(merged_candidate, target_date) != REQUIRED_TRENDFORCE_SPOT_PRODUCT_IDS:
-                raise ValueError(f"target date {target_date} is missing verified daily prices; source dates are never relabeled")
+                source_dates = [row.get("date") for row in new_observations
+                                if row.get("source") == "trendforce" and row.get("kind") == "spot"
+                                and isinstance(row.get("date"), str)]
+                latest_source_date = max(source_dates, default="unavailable")
+                raise ValueError(f"target date {target_date} is missing verified daily prices; "
+                                 f"latest TrendForce spot source date: {latest_source_date}; source dates are never relabeled")
         except (OSError, ValueError) as exc:
             source_status.append({"source": "daily_history", "ok": False, "observation_count": 0,
                                   "urls": [], "warnings": [], "errors": [str(exc)]})

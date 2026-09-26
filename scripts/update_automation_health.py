@@ -117,6 +117,30 @@ def update_health(
     }
 
 
+def record_source_holiday(
+    previous: dict[str, Any], *, target_date: str, source_date: str,
+    holiday_name: str, holiday_url: str, now: datetime | None = None,
+) -> dict[str, Any]:
+    """Record a checked source closure without inventing a target-day price."""
+    if not (target_date and source_date and source_date < target_date and holiday_name and holiday_url):
+        raise ValueError("source holiday requires an older verified table date and calendar provenance")
+    payload = update_health(previous, {}, collection_outcome="success", target_outcome="success",
+                            tests_outcome="success", publication_outcome="success",
+                            target_date=target_date, now=now)
+    payload.update(
+        status="no_publication",
+        collectionOutcome="source_holiday",
+        targetVerificationOutcome="not_applicable",
+        testsOutcome="not_applicable",
+        publicationOutcome="last_good_preserved",
+        details=[f"TrendForce spot table remains dated {source_date}; {target_date} is {holiday_name}."],
+        sourceHoliday={"date": target_date, "name": holiday_name, "calendarUrl": holiday_url,
+                       "latestSourceDate": source_date},
+    )
+    payload["history"][-1]["status"] = "no_publication"
+    return payload
+
+
 def write_github_outputs(payload: dict[str, Any]) -> None:
     output = os.getenv("GITHUB_OUTPUT")
     if not output:
@@ -139,6 +163,9 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--target-date", default="")
     parser.add_argument("--alert-threshold", type=int, default=3)
     parser.add_argument("--now", help="Optional deterministic ISO timestamp")
+    parser.add_argument("--source-holiday-name", default="")
+    parser.add_argument("--source-date", default="")
+    parser.add_argument("--source-holiday-url", default="")
     return parser.parse_args(argv)
 
 
@@ -147,17 +174,23 @@ def main(argv: list[str] | None = None) -> int:
     previous = read_json(args.state, {})
     source_status = read_json(args.status, {})
     now = datetime.fromisoformat(args.now.replace("Z", "+00:00")) if args.now else None
-    payload = update_health(
-        previous,
-        source_status,
-        collection_outcome=args.collection_outcome,
-        target_outcome=args.target_outcome,
-        tests_outcome=args.tests_outcome,
-        publication_outcome=args.publication_outcome,
-        target_date=args.target_date,
-        now=now,
-        alert_threshold=args.alert_threshold,
-    )
+    if args.source_holiday_name:
+        payload = record_source_holiday(
+            previous, target_date=args.target_date, source_date=args.source_date,
+            holiday_name=args.source_holiday_name, holiday_url=args.source_holiday_url, now=now,
+        )
+    else:
+        payload = update_health(
+            previous,
+            source_status,
+            collection_outcome=args.collection_outcome,
+            target_outcome=args.target_outcome,
+            tests_outcome=args.tests_outcome,
+            publication_outcome=args.publication_outcome,
+            target_date=args.target_date,
+            now=now,
+            alert_threshold=args.alert_threshold,
+        )
     args.state.parent.mkdir(parents=True, exist_ok=True)
     args.state.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     write_github_outputs(payload)

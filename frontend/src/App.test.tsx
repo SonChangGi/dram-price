@@ -151,4 +151,26 @@ describe('DRAM dashboard', () => {
     expect(await screen.findByText('데이터 사용 가능 · 주의')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '대표 6개 최신 가격' })).toBeInTheDocument();
   });
+
+  it('shows a missed automation run while retaining the last verified prices', async () => {
+    const now = vi.spyOn(Date, 'now').mockReturnValue(Date.parse('2026-09-26T09:00:00Z'));
+    loadDashboardData.mockResolvedValueOnce({
+      ...dashboardFixture,
+      automation: {
+        contract: 'dram-automation-health', projectId: 'dram', status: 'ok',
+        targetDate: '2026-09-24', updatedAt: '2026-09-24T20:00:00Z',
+      },
+      status: {
+        ...dashboardFixture.status,
+        sources: dashboardFixture.status.sources?.map((source) => ({ ...source, warnings: [], errors: [] })),
+      },
+    });
+    try {
+      render(<App />);
+      expect(await screen.findByText('데이터 사용 가능 · 자동화 실행 지연')).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: '대표 6개 최신 가격' })).toBeInTheDocument();
+    } finally {
+      now.mockRestore();
+    }
+  });
 });

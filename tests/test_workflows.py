@@ -158,12 +158,11 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertLess(workflow.index("Verify requested daily data after collection"), workflow.index("Run tests"))
         self.assertLess(workflow.index("Verify requested daily data after collection"), workflow.index("Commit data changes"))
 
-    def test_manual_runs_stay_fail_fast_while_schedules_soft_fail_provider_outages(self) -> None:
+    def test_scheduled_step_guards_preserve_last_good_data_and_final_escalation_fails(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
         scheduled_guard = "continue-on-error: ${{ github.event_name == 'schedule' }}"
-        self.assertEqual(5, workflow.count(scheduled_guard))
-        self.assertIn("Scheduled-source guards keep provider outages visible", workflow)
-        self.assertIn("A separate public-site health job is the only", workflow)
+        self.assertEqual(4, workflow.count(scheduled_guard))
+        self.assertIn("Only the final recovery slot escalates", workflow)
         self.assertIn("Report scheduled collection failure", workflow)
         self.assertIn("Report scheduled target-date miss", workflow)
         self.assertIn("Report scheduled test failure", workflow)
@@ -269,6 +268,9 @@ class WorkflowContractTests(unittest.TestCase):
 
     def test_update_workflow_persists_and_escalates_repeated_degradation(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
+        update_job = workflow.split("  update-data:", 1)[1].split("  public-site-health:", 1)[0]
+        self.assertNotRegex(update_job, r"(?m)^    continue-on-error:",
+                         "the job must retain the final escalation step's failed conclusion")
         self.assertIn("Update persistent automation health", workflow)
         self.assertIn("scripts/update_automation_health.py", workflow)
         self.assertIn("data/automation-health.json", workflow)
@@ -285,6 +287,24 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("public-site-health:", workflow)
         self.assertIn("Fail only when the existing DRAM page is unusable", workflow)
         self.assertLess(workflow.index("Update persistent automation health"), workflow.index("Commit data changes"))
+
+    def test_documented_holiday_is_probed_before_collection_and_publishes_health_only(self) -> None:
+        workflow = _read(UPDATE_WORKFLOW)
+        self.assertLess(workflow.index("Probe documented source holiday"),
+                        workflow.index("Prepare isolated collection candidate"))
+        self.assertIn("python -m dram_tracker.source_holidays --target-date", workflow)
+        for step in ("Prepare isolated collection candidate", "Collect public DRAM data"):
+            block = workflow.split(f"- name: {step}", 1)[1].split("      - ", 1)[0]
+            self.assertIn("steps.holiday.outputs.unpublished != 'true'", block)
+        health = workflow.split("- name: Update persistent automation health", 1)[1].split(
+            "- name: Promote verified candidate", 1)[0]
+        self.assertIn("--source-holiday-name", health)
+        self.assertIn("--source-date", health)
+        self.assertIn("--source-holiday-url", health)
+        self.assertIn("python scripts/update_automation_health.py", health)
+        self.assertIn("steps.collect.outcome != 'success'", workflow.split(
+            "- name: Commit automation health without partial market data", 1)[1].split(
+            "- name: Verify last-good data", 1)[0])
 
     def test_update_workflow_marks_self_deployed_commits_explicitly(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)

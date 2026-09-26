@@ -45,13 +45,15 @@ export interface StatusPayload {
 }
 
 export interface AutomationHealth {
+  contract?: string;
+  projectId?: string;
   alertReasons?: string[];
   alertRequired?: boolean;
   blockingReasons?: string[];
   consecutiveBlockingFailures?: number;
   consecutiveWarningRuns?: number;
   details?: string[];
-  status?: 'ok' | 'warning' | 'blocked' | string;
+  status?: 'ok' | 'warning' | 'blocked' | 'no_publication' | string;
   targetDate?: string;
   updatedAt?: string;
 }

@@ -38,14 +38,12 @@ concurrency:
 
 jobs:
   update-data:
-    # Scheduled-source guards keep provider outages visible in logs without
-    # publishing partial data. A separate public-site health job is the only
-    # scheduled failure-mail gate; manual dispatch stays fail-fast.
+    # Keep partial prices unpublished. Only the final recovery slot escalates
+    # repeated collection failures to a failed workflow run.
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    continue-on-error: ${{ github.event_name == 'schedule' }}
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
       - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
@@ -87,14 +85,20 @@ jobs:
           echo "generated_at=${{ steps.freshness.outputs.generated_at }}"
           echo "target_date=${{ steps.freshness.outputs.target_date }}"
           echo "daily_observation_count=${{ steps.freshness.outputs.daily_observation_count }}"
-      - name: Prepare isolated collection candidate
+      - name: Probe documented source holiday
+        id: holiday
         if: steps.freshness.outputs.should_collect == 'true'
+        env:
+          PYTHONPATH: src
+        run: python -m dram_tracker.source_holidays --target-date "${{ steps.freshness.outputs.target_date }}"
+      - name: Prepare isolated collection candidate
+        if: steps.freshness.outputs.should_collect == 'true' && steps.holiday.outputs.unpublished != 'true'
         run: |
           mkdir -p "$RUNNER_TEMP/dram-candidate"
           cp -R data/. "$RUNNER_TEMP/dram-candidate/"
       - name: Collect public DRAM data
         id: collect
-        if: steps.freshness.outputs.should_collect == 'true'
+        if: steps.freshness.outputs.should_collect == 'true' && steps.holiday.outputs.unpublished != 'true'
         continue-on-error: ${{ github.event_name == 'schedule' }}
         env:
           PYTHONPATH: src
@@ -151,15 +155,19 @@ jobs:
           TESTS_OUTCOME: ${{ steps.tests.outcome }}
           PUBLICATION_OUTCOME: ${{ steps.publication.outcome }}
           TARGET_DATE: ${{ steps.freshness.outputs.target_date }}
+          SOURCE_HOLIDAY_NAME: ${{ steps.holiday.outputs.holiday_name }}
+          SOURCE_HOLIDAY_URL: ${{ steps.holiday.outputs.holiday_url }}
+          SOURCE_DATE: ${{ steps.holiday.outputs.source_date }}
         run: |
-          python scripts/update_automation_health.py \
-            --state data/automation-health.json \
-            --status "$RUNNER_TEMP/dram-attempt-status.json" \
-            --collection-outcome "${COLLECTION_OUTCOME:-skipped}" \
-            --target-outcome "${TARGET_OUTCOME:-skipped}" \
-            --tests-outcome "${TESTS_OUTCOME:-skipped}" \
-            --publication-outcome "${PUBLICATION_OUTCOME:-skipped}" \
-            --target-date "${TARGET_DATE:-}"
+          args=(--state data/automation-health.json --status "$RUNNER_TEMP/dram-attempt-status.json"
+            --collection-outcome "${COLLECTION_OUTCOME:-skipped}" --target-outcome "${TARGET_OUTCOME:-skipped}"
+            --tests-outcome "${TESTS_OUTCOME:-skipped}" --publication-outcome "${PUBLICATION_OUTCOME:-skipped}"
+            --target-date "${TARGET_DATE:-}")
+          if [ -n "${SOURCE_HOLIDAY_NAME:-}" ]; then
+            args+=(--source-holiday-name "$SOURCE_HOLIDAY_NAME" --source-holiday-url "$SOURCE_HOLIDAY_URL"
+              --source-date "$SOURCE_DATE")
+          fi
+          python scripts/update_automation_health.py "${args[@]}"
       - name: Promote verified candidate
         id: promote
         if: steps.freshness.outputs.should_collect == 'true' && steps.collect.outcome == 'success' && (steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && steps.tests.outcome == 'success' && steps.publication.outcome == 'success' && steps.health.outcome == 'success'
@@ -330,7 +338,7 @@ jobs:
               fi
             done
             if [[ "$usable" == "true" ]]; then
-              echo "The existing DRAM page remains usable; scheduled refresh errors stay in run logs without failure mail."
+              echo "The existing DRAM page remains usable."
               exit 0
             fi
             [[ $attempt -lt 12 ]] && sleep 10

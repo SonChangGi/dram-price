@@ -129,11 +129,14 @@ class DailyHistoryTests(unittest.TestCase):
     def test_new_day_cannot_be_relabeled_to_fill_missing_previous_day(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory); output = root / "data"; history = root / "history"
-            args = build_parser().parse_args(["--output", str(output), "--history-dir", str(history), "--target-date", "2026-09-21", "--no-include-memorymarket"])
+            attempt = root / "attempt-status.json"
+            args = build_parser().parse_args(["--output", str(output), "--history-dir", str(history), "--target-date", "2026-09-21", "--attempt-status", str(attempt), "--no-include-memorymarket"])
             rows = spot(day="2026-09-22")
             with patch("dram_tracker.collect.collect_trendforce", return_value=(rows, status("trendforce", rows))):
                 self.assertEqual(run(args), 2)
             self.assertFalse((output / "prices.json").exists())
+            self.assertIn("latest TrendForce spot source date: 2026-09-22",
+                          json.loads(attempt.read_text())["sources"][-1]["errors"][0])
             self.assertEqual({row["date"] for row in load_spot_archive(history)}, {"2026-09-22"})
             self.assertEqual(json.loads((history / "recovery.json").read_text())["dates"]["2026-09-21"]["state"], "missing")
 
