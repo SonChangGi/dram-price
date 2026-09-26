@@ -2,41 +2,25 @@
   "schemaVersion": 1,
   "contract": "dram-automation-health",
   "projectId": "dram",
-  "updatedAt": "2026-09-25T22:50:19.677836Z",
+  "updatedAt": "2026-09-26T09:06:12.352770Z",
   "targetDate": "2026-09-25",
-  "status": "blocked",
-  "collectionOutcome": "failure",
-  "targetVerificationOutcome": "skipped",
-  "testsOutcome": "skipped",
-  "publicationOutcome": "skipped",
+  "status": "no_publication",
+  "collectionOutcome": "source_holiday",
+  "targetVerificationOutcome": "not_applicable",
+  "testsOutcome": "not_applicable",
+  "publicationOutcome": "last_good_preserved",
   "warningCount": 0,
-  "sourceErrorCount": 1,
+  "sourceErrorCount": 0,
   "details": [
-    "daily_history error: target date 2026-09-25 is missing verified daily prices; source dates are never relabeled"
+    "TrendForce spot table remains dated 2026-09-24; 2026-09-25 is Mid-Autumn Festival."
   ],
-  "blockingReasons": [
-    "collection_failed",
-    "target_date_missing_after_collection",
-    "tests_incomplete",
-    "publication_gate_incomplete",
-    "source_errors:1"
-  ],
+  "blockingReasons": [],
   "consecutiveWarningRuns": 0,
-  "consecutiveBlockingFailures": 6,
+  "consecutiveBlockingFailures": 0,
   "alertThreshold": 3,
-  "alertRequired": true,
-  "alertReasons": [
-    "blocking failures persisted for 6 collection runs"
-  ],
+  "alertRequired": false,
+  "alertReasons": [],
   "history": [
-    {
-      "checkedAt": "2026-09-10T04:49:39.355190Z",
-      "targetDate": "2026-09-10",
-      "status": "warning",
-      "warningCount": 1,
-      "sourceErrorCount": 0,
-      "blockingReasons": []
-    },
     {
       "checkedAt": "2026-09-11T04:48:44.928402Z",
       "targetDate": "2026-09-11",
@@ -236,6 +220,20 @@
         "publication_gate_incomplete",
         "source_errors:1"
       ]
+    },
+    {
+      "checkedAt": "2026-09-26T09:06:12.352770Z",
+      "targetDate": "2026-09-25",
+      "status": "no_publication",
+      "warningCount": 0,
+      "sourceErrorCount": 0,
+      "blockingReasons": []
     }
-  ]
+  ],
+  "sourceHoliday": {
+    "date": "2026-09-25",
+    "name": "Mid-Autumn Festival",
+    "calendarUrl": "https://www.dgpa.gov.tw/information?pid=12685&uid=55",
+    "latestSourceDate": "2026-09-24"
+  }
 }
