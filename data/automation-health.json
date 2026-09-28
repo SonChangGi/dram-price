@@ -2,34 +2,32 @@
   "schemaVersion": 1,
   "contract": "dram-automation-health",
   "projectId": "dram",
-  "updatedAt": "2026-09-28T10:53:38.817796Z",
+  "updatedAt": "2026-09-28T13:58:51.347409Z",
   "targetDate": "2026-09-28",
   "status": "blocked",
-  "collectionOutcome": "success",
-  "targetVerificationOutcome": "success",
-  "testsOutcome": "failure",
+  "collectionOutcome": "failure",
+  "targetVerificationOutcome": "skipped",
+  "testsOutcome": "skipped",
   "publicationOutcome": "skipped",
-  "warningCount": 0,
-  "sourceErrorCount": 0,
-  "details": [],
-  "blockingReasons": [
-    "tests_failed",
-    "publication_gate_incomplete"
+  "warningCount": 1,
+  "sourceErrorCount": 1,
+  "details": [
+    "memorymarket warning: DDR4 UDIMM 16GB 3200: failed to fetch https://www.memorymarket.com/price/ews/100224: The read operation timed out (after deferred fetch retry)",
+    "memorymarket error: previously tracked products missing from collection: [('spot_proxy', 'memorymarket-100224')]"
   ],
-  "consecutiveWarningRuns": 0,
-  "consecutiveBlockingFailures": 1,
+  "blockingReasons": [
+    "collection_failed",
+    "target_date_missing_after_collection",
+    "tests_incomplete",
+    "publication_gate_incomplete",
+    "source_errors:1"
+  ],
+  "consecutiveWarningRuns": 1,
+  "consecutiveBlockingFailures": 2,
   "alertThreshold": 3,
   "alertRequired": false,
   "alertReasons": [],
   "history": [
-    {
-      "checkedAt": "2026-09-14T04:57:18.448070Z",
-      "targetDate": "2026-09-14",
-      "status": "ok",
-      "warningCount": 0,
-      "sourceErrorCount": 0,
-      "blockingReasons": []
-    },
     {
       "checkedAt": "2026-09-15T05:00:12.227965Z",
       "targetDate": "2026-09-15",
@@ -231,6 +229,20 @@
       "blockingReasons": [
         "tests_failed",
         "publication_gate_incomplete"
+      ]
+    },
+    {
+      "checkedAt": "2026-09-28T13:58:51.347409Z",
+      "targetDate": "2026-09-28",
+      "status": "blocked",
+      "warningCount": 1,
+      "sourceErrorCount": 1,
+      "blockingReasons": [
+        "collection_failed",
+        "target_date_missing_after_collection",
+        "tests_incomplete",
+        "publication_gate_incomplete",
+        "source_errors:1"
       ]
     }
   ]
