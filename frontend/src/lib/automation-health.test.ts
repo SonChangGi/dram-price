@@ -26,11 +26,14 @@ describe('DRAM automation freshness', () => {
   });
 
   it('preserves a verified price bundle while reporting the failed attempt', () => {
-    expect(assessAutomation({ ...health, status: 'blocked' }).label).toBe('자동화 점검 필요');
+    const checkedAt = Date.parse('2026-09-26T09:00:00Z');
+    expect(assessAutomation({ ...health, status: 'blocked' }, checkedAt).label).toBe('자동화 점검 필요');
     expect(assessAutomation({ ...health, status: 'blocked', details: [
       'daily_history error: target date 2026-09-25 is missing verified daily prices; latest TrendForce spot source date: 2026-09-24',
-    ] }).label).toBe('신규 가격 미게시');
-    expect(assessAutomation(null).label).toBe('자동화 상태 확인 불가');
-    expect(assessAutomation({ ...health, status: 'no_publication' }).label).toBe('휴일 · 신규 가격 미게시');
+    ] }, checkedAt).label).toBe('신규 가격 미게시');
+    expect(assessAutomation(null, checkedAt).label).toBe('자동화 상태 확인 불가');
+    expect(assessAutomation({ ...health, status: 'no_publication' }, checkedAt).label).toBe('휴일 · 신규 가격 미게시');
+    expect(assessAutomation({ ...health, status: 'no_publication' }, Date.parse('2026-09-28T11:00:00Z')).label)
+      .toBe('자동화 실행 지연');
   });
 });

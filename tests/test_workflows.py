@@ -170,6 +170,18 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("::warning::Scheduled collection finished", workflow)
         self.assertIn("::warning::Scheduled validation failed", workflow)
 
+    def test_transient_collection_failure_gets_one_isolated_retry(self) -> None:
+        workflow = _read(UPDATE_WORKFLOW)
+        collection = workflow.split("- name: Collect public DRAM data", 1)[1].split(
+            "- name: Report scheduled collection failure", 1
+        )[0]
+        self.assertIn('if "${collect[@]}"; then', collection)
+        self.assertIn('scripts/should_retry_collection.py "$RUNNER_TEMP/dram-attempt-status.json"', collection)
+        self.assertIn("sleep 60", collection)
+        self.assertEqual(collection.count('"${collect[@]}"'), 2)
+        self.assertIn('exit 2', collection)
+        self.assertIn('"$RUNNER_TEMP/dram-candidate"', collection)
+
     def test_update_workflow_commits_and_deploys_only_after_publication_gate(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
         pre_publication_gate = (
@@ -278,6 +290,8 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("git add data/automation-health.json", workflow)
         self.assertIn("Record repeated automation degradation", workflow)
         self.assertIn("steps.health.outputs.alert_required == 'true'", workflow)
+        self.assertIn("steps.tests.outcome == 'failure' ||", workflow)
+        self.assertIn("steps.publication.outcome == 'failure' ||", workflow)
         self.assertIn("github.event_name == 'workflow_dispatch'", workflow)
         self.assertIn("github.event.schedule == '30 19 * * 1-5'", workflow)
         degradation_block = workflow.split("Record repeated automation degradation", 1)[1].split(
@@ -342,11 +356,12 @@ class WorkflowContractTests(unittest.TestCase):
             self.assertIn('cmp --silent "frontend/dist/${relative_path}" "$readback"', workflow)
             self.assertLess(workflow.index("actions/deploy-pages@"), workflow.index("Verify live public data bytes"))
 
-    def test_automatic_failure_mail_is_gated_by_live_page_usability(self) -> None:
+    def test_validation_failure_is_visible_while_public_site_is_checked_separately(self) -> None:
         update = _read(UPDATE_WORKFLOW)
         deploy = _read(DEPLOY_WORKFLOW)
         self.assertIn("continue-on-error: ${{ github.event_name == 'schedule' }}", update)
-        self.assertIn("continue-on-error: ${{ github.event_name == 'push' }}", deploy)
+        deploy_job = deploy.split("  deploy:", 1)[1].split("  public-site-health:", 1)[0]
+        self.assertNotIn("continue-on-error:", deploy_job)
         for workflow in (update, deploy):
             self.assertIn("public-site-health:", workflow)
             self.assertIn("required_paths=(index.html data/summary.json data/prices.json)", workflow)

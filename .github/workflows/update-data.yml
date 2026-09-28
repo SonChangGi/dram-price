@@ -102,7 +102,18 @@ jobs:
         continue-on-error: ${{ github.event_name == 'schedule' }}
         env:
           PYTHONPATH: src
-        run: python -m dram_tracker.collect --output "$RUNNER_TEMP/dram-candidate" --attempt-status "$RUNNER_TEMP/dram-attempt-status.json" --target-date "${{ steps.freshness.outputs.target_date }}" --history-dir history/trendforce-spot
+        run: |
+          set -euo pipefail
+          collect=(python -m dram_tracker.collect --output "$RUNNER_TEMP/dram-candidate" --attempt-status "$RUNNER_TEMP/dram-attempt-status.json" --target-date "${{ steps.freshness.outputs.target_date }}" --history-dir history/trendforce-spot)
+          if "${collect[@]}"; then
+            exit 0
+          fi
+          if ! python scripts/should_retry_collection.py "$RUNNER_TEMP/dram-attempt-status.json"; then
+            exit 2
+          fi
+          echo "::warning::Transient source fetch failure; retrying the isolated collection once after 60 seconds."
+          sleep 60
+          "${collect[@]}"
       - name: Report scheduled collection failure
         if: steps.collect.outcome == 'failure' && github.event_name == 'schedule'
         run: |
@@ -288,10 +299,12 @@ jobs:
       - name: Record repeated automation degradation
         if: >-
           always() &&
-          steps.health.outputs.alert_required == 'true' &&
-          (github.event_name == 'workflow_dispatch' || github.event.schedule == '30 19 * * 1-5')
+          (steps.tests.outcome == 'failure' ||
+           steps.publication.outcome == 'failure' ||
+           (steps.health.outputs.alert_required == 'true' &&
+            (github.event_name == 'workflow_dispatch' || github.event.schedule == '30 19 * * 1-5')))
         run: |
-          echo "::warning::DRAM automation degradation reached the persisted alert threshold."
+          echo "::error::DRAM validation failed or automation degradation reached the persisted alert threshold."
           echo "warning_streak=${{ steps.health.outputs.warning_streak }}"
           echo "blocking_streak=${{ steps.health.outputs.blocking_streak }}"
           exit 1
