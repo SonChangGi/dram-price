@@ -7,26 +7,26 @@
   "contract": "quant-research-summary",
   "coverage": {
     "countsByKind": {
-      "contract": 7,
-      "spot": 539,
+      "contract": 14,
+      "spot": 546,
       "spot_proxy": 1101
     },
     "countsBySource": {
       "memorymarket": 1101,
-      "trendforce": 546
+      "trendforce": 560
     },
-    "observationCount": 1647,
+    "observationCount": 1661,
     "seriesCount": 50
   },
-  "dataAsOf": "2026-09-29",
+  "dataAsOf": "2026-09-30",
   "detailDataUrl": "https://sonchanggi.github.io/dram-price/data/prices.json",
   "detailUrl": "https://sonchanggi.github.io/dram-price/",
-  "generatedAt": "2026-09-29T10:37:35Z",
+  "generatedAt": "2026-09-30T10:26:39Z",
   "highlights": [
     {
       "description": "source/kind/product/date 병합 후 저장",
       "label": "관측치",
-      "value": 1647
+      "value": 1661
     },
     {
       "description": "대표 DRAM 시리즈 포함",
@@ -36,7 +36,7 @@
     {
       "description": "관측별 effective date 우선",
       "label": "최근 관측일",
-      "value": "2026-09-29"
+      "value": "2026-09-30"
     }
   ],
   "limitations": [
@@ -54,9 +54,9 @@
       "label": "DDR4 16GB SO-DIMM · contract",
       "metrics": {
         "cadence": "monthly",
-        "date": "2026-07-31",
+        "date": "2026-08-31",
         "kind": "contract",
-        "price": 265.0,
+        "price": 270.0,
         "source": "trendforce",
         "unit": "USD"
       },
@@ -81,9 +81,9 @@
       "label": "DDR5 8GB SO-DIMM · contract",
       "metrics": {
         "cadence": "monthly",
-        "date": "2026-07-31",
+        "date": "2026-08-31",
         "kind": "contract",
-        "price": 130.0,
+        "price": 133.0,
         "source": "trendforce",
         "unit": "USD"
       },
@@ -99,33 +99,6 @@
         "Memory",
         "Semiconductors",
         "ddr5"
-      ],
-      "warnings": [
-        "공개 원천별 업데이트 주기와 품목 커버리지가 다릅니다."
-      ]
-    },
-    {
-      "label": "DDR4 16Gb (2Gx8) 3200 · spot",
-      "metrics": {
-        "cadence": "daily",
-        "date": "2026-09-29",
-        "kind": "spot",
-        "price": 83.66,
-        "source": "trendforce",
-        "unit": "USD"
-      },
-      "name": "DDR4 16Gb (2Gx8) 3200",
-      "sector": "Semiconductors",
-      "sectorLabel": "반도체",
-      "signals": [
-        "메모리 가격 방향은 반도체 밸류체인 점검 출발점입니다."
-      ],
-      "symbol": "DRAM",
-      "themes": [
-        "DRAM",
-        "Memory",
-        "Semiconductors",
-        "ddr4"
       ],
       "warnings": [
         "공개 원천별 업데이트 주기와 품목 커버리지가 다릅니다."
@@ -159,33 +132,6 @@
       ]
     },
     {
-      "label": "DDR4 8Gb (1Gx8) 3200 · spot",
-      "metrics": {
-        "cadence": "daily",
-        "date": "2026-09-29",
-        "kind": "spot",
-        "price": 46.321,
-        "source": "trendforce",
-        "unit": "USD"
-      },
-      "name": "DDR4 8Gb (1Gx8) 3200",
-      "sector": "Semiconductors",
-      "sectorLabel": "반도체",
-      "signals": [
-        "메모리 가격 방향은 반도체 밸류체인 점검 출발점입니다."
-      ],
-      "symbol": "DRAM",
-      "themes": [
-        "DRAM",
-        "Memory",
-        "Semiconductors",
-        "ddr4"
-      ],
-      "warnings": [
-        "공개 원천별 업데이트 주기와 품목 커버리지가 다릅니다."
-      ]
-    },
-    {
       "label": "DDR4 8Gb 3200 · spot_proxy",
       "metrics": {
         "cadence": "weekly",
@@ -207,60 +153,6 @@
         "Memory",
         "Semiconductors",
         "ddr"
-      ],
-      "warnings": [
-        "공개 원천별 업데이트 주기와 품목 커버리지가 다릅니다."
-      ]
-    },
-    {
-      "label": "DDR5 16Gb (2Gx8) 4800/5600 · spot",
-      "metrics": {
-        "cadence": "daily",
-        "date": "2026-09-29",
-        "kind": "spot",
-        "price": 57.833,
-        "source": "trendforce",
-        "unit": "USD"
-      },
-      "name": "DDR5 16Gb (2Gx8) 4800/5600",
-      "sector": "Semiconductors",
-      "sectorLabel": "반도체",
-      "signals": [
-        "메모리 가격 방향은 반도체 밸류체인 점검 출발점입니다."
-      ],
-      "symbol": "DRAM",
-      "themes": [
-        "DRAM",
-        "Memory",
-        "Semiconductors",
-        "ddr5"
-      ],
-      "warnings": [
-        "공개 원천별 업데이트 주기와 품목 커버리지가 다릅니다."
-      ]
-    },
-    {
-      "label": "DDR5 16Gb (2Gx8) eTT · spot",
-      "metrics": {
-        "cadence": "daily",
-        "date": "2026-09-29",
-        "kind": "spot",
-        "price": 25.9,
-        "source": "trendforce",
-        "unit": "USD"
-      },
-      "name": "DDR5 16Gb (2Gx8) eTT",
-      "sector": "Semiconductors",
-      "sectorLabel": "반도체",
-      "signals": [
-        "메모리 가격 방향은 반도체 밸류체인 점검 출발점입니다."
-      ],
-      "symbol": "DRAM",
-      "themes": [
-        "DRAM",
-        "Memory",
-        "Semiconductors",
-        "ddr5"
       ],
       "warnings": [
         "공개 원천별 업데이트 주기와 품목 커버리지가 다릅니다."
@@ -321,12 +213,120 @@
       ]
     },
     {
+      "label": "DDR4 16Gb (2Gx8) 3200 · spot",
+      "metrics": {
+        "cadence": "daily",
+        "date": "2026-09-30",
+        "kind": "spot",
+        "price": 83.686,
+        "source": "trendforce",
+        "unit": "USD"
+      },
+      "name": "DDR4 16Gb (2Gx8) 3200",
+      "sector": "Semiconductors",
+      "sectorLabel": "반도체",
+      "signals": [
+        "메모리 가격 방향은 반도체 밸류체인 점검 출발점입니다."
+      ],
+      "symbol": "DRAM",
+      "themes": [
+        "DRAM",
+        "Memory",
+        "Semiconductors",
+        "ddr4"
+      ],
+      "warnings": [
+        "공개 원천별 업데이트 주기와 품목 커버리지가 다릅니다."
+      ]
+    },
+    {
+      "label": "DDR4 8Gb (1Gx8) 3200 · spot",
+      "metrics": {
+        "cadence": "daily",
+        "date": "2026-09-30",
+        "kind": "spot",
+        "price": 46.321,
+        "source": "trendforce",
+        "unit": "USD"
+      },
+      "name": "DDR4 8Gb (1Gx8) 3200",
+      "sector": "Semiconductors",
+      "sectorLabel": "반도체",
+      "signals": [
+        "메모리 가격 방향은 반도체 밸류체인 점검 출발점입니다."
+      ],
+      "symbol": "DRAM",
+      "themes": [
+        "DRAM",
+        "Memory",
+        "Semiconductors",
+        "ddr4"
+      ],
+      "warnings": [
+        "공개 원천별 업데이트 주기와 품목 커버리지가 다릅니다."
+      ]
+    },
+    {
+      "label": "DDR5 16Gb (2Gx8) 4800/5600 · spot",
+      "metrics": {
+        "cadence": "daily",
+        "date": "2026-09-30",
+        "kind": "spot",
+        "price": 57.9,
+        "source": "trendforce",
+        "unit": "USD"
+      },
+      "name": "DDR5 16Gb (2Gx8) 4800/5600",
+      "sector": "Semiconductors",
+      "sectorLabel": "반도체",
+      "signals": [
+        "메모리 가격 방향은 반도체 밸류체인 점검 출발점입니다."
+      ],
+      "symbol": "DRAM",
+      "themes": [
+        "DRAM",
+        "Memory",
+        "Semiconductors",
+        "ddr5"
+      ],
+      "warnings": [
+        "공개 원천별 업데이트 주기와 품목 커버리지가 다릅니다."
+      ]
+    },
+    {
+      "label": "DDR5 16Gb (2Gx8) eTT · spot",
+      "metrics": {
+        "cadence": "daily",
+        "date": "2026-09-30",
+        "kind": "spot",
+        "price": 26.0,
+        "source": "trendforce",
+        "unit": "USD"
+      },
+      "name": "DDR5 16Gb (2Gx8) eTT",
+      "sector": "Semiconductors",
+      "sectorLabel": "반도체",
+      "signals": [
+        "메모리 가격 방향은 반도체 밸류체인 점검 출발점입니다."
+      ],
+      "symbol": "DRAM",
+      "themes": [
+        "DRAM",
+        "Memory",
+        "Semiconductors",
+        "ddr5"
+      ],
+      "warnings": [
+        "공개 원천별 업데이트 주기와 품목 커버리지가 다릅니다."
+      ]
+    },
+    {
       "label": "DDR3 4Gb 256Mx16 · contract",
       "metrics": {
         "cadence": "monthly",
-        "date": "2026-07-31",
+        "date": "2026-08-31",
         "kind": "contract",
-        "price": 14.5,
+        "price": 15.2,
         "source": "trendforce",
         "unit": "USD"
       },
@@ -351,9 +351,9 @@
       "label": "DDR4 16Gb 2Gx8 · contract",
       "metrics": {
         "cadence": "monthly",
-        "date": "2026-07-31",
+        "date": "2026-08-31",
         "kind": "contract",
-        "price": 48.0,
+        "price": 50.0,
         "source": "trendforce",
         "unit": "USD"
       },
@@ -392,7 +392,7 @@
     "cadence": "TrendForce current tables + MemoryMarket weekly/monthly public history",
     "degradedReasons": [],
     "expectedFreshnessDays": 14,
-    "label": "1647개 가격 관측치",
+    "label": "1661개 가격 관측치",
     "state": "ok"
   },
   "timezone": "UTC"

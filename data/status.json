@@ -6,15 +6,15 @@
     "과거 고정가 497건은 기준일을 확인할 수 없어 원본 보존 후 표시에서 제외했습니다. 고정가는 원문 표의 갱신일을 확인한 관측만 표시합니다."
   ],
   "counts_by_kind": {
-    "contract": 7,
-    "spot": 539,
+    "contract": 14,
+    "spot": 546,
     "spot_proxy": 1101
   },
   "counts_by_source": {
     "memorymarket": 1101,
-    "trendforce": 546
+    "trendforce": 560
   },
-  "generated_at": "2026-09-29T10:37:35Z",
+  "generated_at": "2026-09-30T10:26:39Z",
   "history_repair": {
     "corrected_cadence_count": 60,
     "policy": "Exclude contract dates without table provenance; preserve original records; never infer historical dates.",
@@ -22,7 +22,7 @@
     "repaired_at": "2026-09-21T03:21:23Z",
     "version": 1
   },
-  "observation_count": 1647,
+  "observation_count": 1661,
   "schema_version": 1,
   "sources": [
     {
