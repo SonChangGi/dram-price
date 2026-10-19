@@ -5,7 +5,12 @@ import { cn } from '@/lib/utils';
 
 const projects = getCanonicalNavigation('dram');
 const hub = projects[0]!;
-const projectLinks = projects.slice(1);
+// Navigation-only destinations do not expand the financial data registry.
+const projectLinks = [
+  ...projects.slice(1),
+  { id: "spo", label: "SPO", url: "https://sonchanggi.github.io/SPO/", current: false },
+  { id: "observatory", label: "연구 관측소", url: "https://research-observatory-changgi.changgi-son.chatgpt.site/", current: false },
+];
 
 function initialTheme(): Theme {
   let stored: Theme | null = null;
