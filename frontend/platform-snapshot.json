@@ -12,12 +12,14 @@
       "platform/packages/ui/src/styles.css": "e277f29caa54841d3442a366718618b364b688ccd5cd38460dece5e31a57cbbf"
     }
   },
-  "aggregateFingerprint": "57b716227d14d19b4ccb53daa457779210bb1e4da82ef22f64dfb09760dfba0d",
+  "aggregateFingerprint": "33620ff4e1363ab62e71d276d1ded9ac89e2bdebd7547e0b75fd017ac236a977",
   "files": {
     "src/shared-platform/contracts.ts": "c0d4dcf0230caaf0b049d946b9b24a03dd588c7e602c13f43bc23906596dd3a8",
     "src/shared-platform/control-manifest.ts": "16870e71cd025bb3a4b5ee1a9f1bfa153cc91e3d460040911beb23a4ea152f05",
-    "src/shared-platform/project-registry.ts": "a2d97f6e685738885928ab3ad712a5a883764b8be00754f780afbb01360aabea",
+    "src/shared-platform/project-registry.ts": "be64b5b413049910c83045606321402af45bc52f00e823c4d956368be5658020",
     "src/shared-platform/static-result-adapter.ts": "5bc1d3e372a69e50519d963aea0a20fcc3ea695516a072101dd977ceb2277890",
-    "src/shared-platform/index.ts": "deab962ae9dd45559fbf0f0aa6f362b0f2b6c62067a22daedd9dd6a2979f2e2f"
+    "src/shared-platform/index.ts": "deab962ae9dd45559fbf0f0aa6f362b0f2b6c62067a22daedd9dd6a2979f2e2f",
+    "src/shared-navigation/menu.generated.ts": "a323d49c794e2844bf551d1a967b194fb970ab75bfd01de2366042c3d1726caa",
+    "src/shared-navigation/use-shared-navigation.ts": "dc90b91535ec75a1348182ea01078418cad67d75c2914a72dba4c4012f04769f"
   }
 }

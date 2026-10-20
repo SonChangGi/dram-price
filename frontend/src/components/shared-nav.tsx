@@ -1,16 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { LEGACY_THEME_KEYS, migrateStoredTheme, THEME_KEY, themeFromSearch, type Theme } from '@/lib/theme';
-import { getCanonicalNavigation } from '@/shared-platform';
+import { useSharedNavigation } from '@/shared-navigation/use-shared-navigation';
 import { cn } from '@/lib/utils';
 
-const projects = getCanonicalNavigation('dram');
-const hub = projects[0]!;
-// Navigation-only destinations do not expand the financial data registry.
-const projectLinks = [
-  ...projects.slice(1),
-  { id: "spo", label: "SPO", url: "https://sonchanggi.github.io/SPO/", current: false },
-  { id: "observatory", label: "알파 하우스", url: "https://research-observatory-changgi.changgi-son.chatgpt.site/", current: false },
-];
 
 function initialTheme(): Theme {
   let stored: Theme | null = null;
@@ -33,6 +25,7 @@ function initialTheme(): Theme {
 }
 
 export function SharedNav() {
+  const {brand: hub, navigation: projectLinks} = useSharedNavigation("dram");
   const [theme, setTheme] = useState(initialTheme);
   const linksRef = useRef<HTMLDivElement>(null);
 
@@ -58,7 +51,7 @@ export function SharedNav() {
   }
 
   return (
-    <nav className="quant-shared-nav" aria-label="연결 프로젝트 바로가기">
+    <nav data-quant-navigation-managed="react" className="quant-shared-nav" aria-label="연결 프로젝트 바로가기">
       <div className="quant-shared-nav__inner">
         <a className="quant-shared-nav__brand" href={hub.url}>Quant Research Hub</a>
         <div ref={linksRef} id="project-links" className="quant-shared-nav__links" aria-label="프로젝트 목록">
