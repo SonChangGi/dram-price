@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "contract": "dram-automation-health",
   "projectId": "dram",
-  "updatedAt": "2026-10-19T09:53:33.963819Z",
-  "targetDate": "2026-10-19",
+  "updatedAt": "2026-10-20T09:29:54.156175Z",
+  "targetDate": "2026-10-20",
   "status": "ok",
   "collectionOutcome": "success",
   "targetVerificationOutcome": "success",
@@ -19,20 +19,6 @@
   "alertRequired": false,
   "alertReasons": [],
   "history": [
-    {
-      "checkedAt": "2026-09-28T13:58:51.347409Z",
-      "targetDate": "2026-09-28",
-      "status": "blocked",
-      "warningCount": 1,
-      "sourceErrorCount": 1,
-      "blockingReasons": [
-        "collection_failed",
-        "target_date_missing_after_collection",
-        "tests_incomplete",
-        "publication_gate_incomplete",
-        "source_errors:1"
-      ]
-    },
     {
       "checkedAt": "2026-09-28T18:19:10.928780Z",
       "targetDate": "2026-09-28",
@@ -189,6 +175,14 @@
     {
       "checkedAt": "2026-10-19T09:53:33.963819Z",
       "targetDate": "2026-10-19",
+      "status": "ok",
+      "warningCount": 0,
+      "sourceErrorCount": 0,
+      "blockingReasons": []
+    },
+    {
+      "checkedAt": "2026-10-20T09:29:54.156175Z",
+      "targetDate": "2026-10-20",
       "status": "ok",
       "warningCount": 0,
       "sourceErrorCount": 0,
