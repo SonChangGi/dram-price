@@ -53,8 +53,8 @@ describe('shared platform DRAM seam', () => {
     ).not.toThrow();
   });
 
-  it('keeps the canonical 10-destination order and current DRAM identity', () => {
-    expect(canonicalProjectRegistry).toHaveLength(10);
+  it('keeps the canonical 9-destination order and current DRAM identity', () => {
+    expect(canonicalProjectRegistry).toHaveLength(9);
     expect(canonicalProjectRegistry.map((project) => project.id)).toEqual([
       'hub',
       'fear-greed',
@@ -64,7 +64,6 @@ describe('shared platform DRAM seam', () => {
       'sox',
       'regime',
       'news',
-      'spo',
       'observatory',
     ]);
     expect(

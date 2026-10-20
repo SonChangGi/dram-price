@@ -53,7 +53,8 @@ describe('DRAM dashboard', () => {
       'href',
       'https://sonchanggi.github.io/quant-dashboard/',
     );
-    expect(within(nav).getAllByRole('link')).toHaveLength(10);
+    expect(within(nav).getAllByRole('link')).toHaveLength(9);
+    expect(within(nav).queryByRole('link', { name: /^SPO$/ })).not.toBeInTheDocument();
     expect(within(nav).getByRole('link', { name: '알파 하우스' })).toHaveAttribute('href', 'https://research-observatory-changgi.changgi-son.chatgpt.site/');
     expect(within(nav).getByRole('link', { name: 'DRAM' })).toHaveAttribute('aria-current', 'page');
     expect(nav.querySelectorAll('[aria-current="page"]')).toHaveLength(1);
