@@ -8,25 +8,25 @@
   "coverage": {
     "countsByKind": {
       "contract": 14,
-      "spot": 665,
+      "spot": 672,
       "spot_proxy": 1167
     },
     "countsBySource": {
       "memorymarket": 1167,
-      "trendforce": 679
+      "trendforce": 686
     },
-    "observationCount": 1846,
+    "observationCount": 1853,
     "seriesCount": 50
   },
-  "dataAsOf": "2026-10-23",
+  "dataAsOf": "2026-10-26",
   "detailDataUrl": "https://sonchanggi.github.io/dram-price/data/prices.json",
   "detailUrl": "https://sonchanggi.github.io/dram-price/",
-  "generatedAt": "2026-10-23T09:17:40Z",
+  "generatedAt": "2026-10-26T10:02:06Z",
   "highlights": [
     {
       "description": "source/kind/product/date 병합 후 저장",
       "label": "관측치",
-      "value": 1846
+      "value": 1853
     },
     {
       "description": "대표 DRAM 시리즈 포함",
@@ -36,7 +36,7 @@
     {
       "description": "관측별 effective date 우선",
       "label": "최근 관측일",
-      "value": "2026-10-23"
+      "value": "2026-10-26"
     }
   ],
   "limitations": [
@@ -216,9 +216,9 @@
       "label": "DDR4 16Gb (2Gx8) 3200 · spot",
       "metrics": {
         "cadence": "daily",
-        "date": "2026-10-23",
+        "date": "2026-10-26",
         "kind": "spot",
-        "price": 82.87,
+        "price": 82.623,
         "source": "trendforce",
         "unit": "USD"
       },
@@ -243,9 +243,9 @@
       "label": "DDR4 8Gb (1Gx8) 3200 · spot",
       "metrics": {
         "cadence": "daily",
-        "date": "2026-10-23",
+        "date": "2026-10-26",
         "kind": "spot",
-        "price": 47.107,
+        "price": 47.0,
         "source": "trendforce",
         "unit": "USD"
       },
@@ -270,9 +270,9 @@
       "label": "DDR5 16Gb (2Gx8) 4800/5600 · spot",
       "metrics": {
         "cadence": "daily",
-        "date": "2026-10-23",
+        "date": "2026-10-26",
         "kind": "spot",
-        "price": 61.267,
+        "price": 61.333,
         "source": "trendforce",
         "unit": "USD"
       },
@@ -297,9 +297,9 @@
       "label": "DDR5 16Gb (2Gx8) eTT · spot",
       "metrics": {
         "cadence": "daily",
-        "date": "2026-10-23",
+        "date": "2026-10-26",
         "kind": "spot",
-        "price": 29.0,
+        "price": 29.2,
         "source": "trendforce",
         "unit": "USD"
       },
@@ -392,7 +392,7 @@
     "cadence": "TrendForce current tables + MemoryMarket weekly/monthly public history",
     "degradedReasons": [],
     "expectedFreshnessDays": 14,
-    "label": "1846개 가격 관측치",
+    "label": "1853개 가격 관측치",
     "state": "ok"
   },
   "timezone": "UTC"
