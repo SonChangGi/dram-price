@@ -21,6 +21,47 @@ def _read(path: Path) -> str:
 
 
 class WorkflowContractTests(unittest.TestCase):
+    def test_completed_date_checks_delivery_and_recovers_only_verified_checkout(self) -> None:
+        workflow = _read(UPDATE_WORKFLOW)
+        check = workflow.split("name: Check live delivery when collection is already complete", 1)[1].split("      - ", 1)[0]
+        self.assertIn("steps.freshness.outputs.should_collect == 'false'", check)
+        self.assertIn("bash scripts/check_live_delivery.sh", check)
+        self.assertIn("steps.delivery.outputs.needs_redeploy == 'true'", workflow)
+        self.assertIn("steps.recovery_source.outcome == 'success'", workflow)
+
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "data").mkdir()
+            for name in ("prices", "series", "status", "summary", "automation-health"):
+                (root / "data" / f"{name}.json").write_text("checkout")
+            curl = root / "curl"
+            curl.write_text(textwrap.dedent("""\
+                #!/usr/bin/env bash
+                while [[ $1 != --output ]]; do shift; done
+                printf '%s' "$TEST_BODY" > "$2"
+                printf '%s' "$TEST_CODE"
+            """))
+            curl.chmod(0o755)
+            output = root / "outputs"
+            env = {**os.environ, "PATH": f"{root}{os.pathsep}{os.environ['PATH']}",
+                   "RUNNER_TEMP": temp, "PAGE_URL": "https://example.test",
+                   "GITHUB_RUN_ID": "1", "GITHUB_RUN_ATTEMPT": "1", "GITHUB_OUTPUT": str(output)}
+            for code, body, expected in (
+                ("200", "checkout", "needs_redeploy=false\n"),
+                ("200", "older", "needs_redeploy=true\n"),
+                ("404", "", "needs_redeploy=true\n"),
+                ("503", "", ""),
+            ):
+                with self.subTest(code=code, body=body):
+                    output.write_text("")
+                    result = subprocess.run(
+                        ["bash", str(ROOT / "scripts/check_live_delivery.sh")], cwd=root,
+                        env={**env, "TEST_CODE": code, "TEST_BODY": body},
+                        capture_output=True, text=True, check=False,
+                    )
+                    self.assertEqual(result.returncode, 1 if code == "503" else 0, result.stderr)
+                    self.assertEqual(output.read_text(), expected)
+
     def test_update_workflow_has_staggered_scheduled_refresh_loop(self) -> None:
         workflow = _read(UPDATE_WORKFLOW)
         self.assertIn("workflow_dispatch:", workflow)
