@@ -2,6 +2,7 @@ import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type M
 import { formatDate, formatPrice, kindLabel, metricFor, priceUnitFor, priceUnitLabel, sourceLabel } from '@/lib/market';
 import type { Observation } from '@/types';
 import { cn } from '@/lib/utils';
+import { registerPriceRange, type RangeHandle } from '@/lib/quant-range';
 
 const WIDTH = 980;
 const HEIGHT = 460;
@@ -114,13 +115,14 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
   const descId = useId();
   const helpId = useId();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const rangeRef = useRef<RangeHandle | undefined>(undefined);
   const [hovered, setHovered] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [hoveredDate, setHoveredDate] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const completeGroups = useMemo(() => allGroups(facet.rows, facet.metricKey), [facet]);
   const trendGroups = completeGroups.filter((group) => group.points.length >= 2);
-  const groups = trendGroups.slice(0, MAX_SERIES);
+  const groups = useMemo(() => completeGroups.filter((group) => group.points.length >= 2).slice(0, MAX_SERIES), [completeGroups]);
   const groupIdsKey = groups.map((group) => group.id).join('\u001f');
   const [selectionGroupIdsKey, setSelectionGroupIdsKey] = useState(groupIdsKey);
   if (selectionGroupIdsKey !== groupIdsKey) {
@@ -142,6 +144,29 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
     ? nearestAvailableDate(selectedDates, persistentCandidate, dates)
     : null;
   const persistentDateIndex = persistentDateForScroll ? dates.indexOf(persistentDateForScroll) : -1;
+
+  useEffect(() => {
+    if (!scrollRef.current) return;
+    const timeline = [...new Set(groups.flatMap(group => group.points.map(point => point.date)))].sort();
+    const range = registerPriceRange(scrollRef.current, facet.id, `${facet.currency} · ${priceUnitLabel(facet.unit)}`,
+      groups.map((group, index) => ({ ...group, color: PALETTE[index % PALETTE.length] ?? FALLBACK_COLOR })), {
+        onSeriesFocus(id) {
+          setSelected(id);
+          setHovered(null);
+          if (id === null) { setHoveredDate(null); setSelectedDate(null); }
+        },
+        onSeriesRequest(id, context) {
+          setSelected(id);
+          setHovered(null);
+          if (context.mode === 'point' && context.index !== undefined && timeline[context.index]) {
+            setSelectedDate(timeline[context.index]!);
+            setHoveredDate(null);
+          }
+        },
+      });
+    rangeRef.current = range;
+    return () => { range?.destroy(); rangeRef.current = undefined; };
+  }, [facet, groups]);
 
   useEffect(() => {
     const scroller = scrollRef.current;
@@ -186,6 +211,8 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
   const interactionText = `${formatDate(activeDate)} · ${displayGroup.displayLabel} · ${displayPoint ? formatPrice(displayPoint.value, facet.currency) : '관측 없음'}`;
 
   function toggleSelected(id: string) {
+    // QuantRange 1.2 resolves explicit mark/legend identities and preserves ranges.
+    if (rangeRef.current?.selectSeries) return;
     const next = selected === id ? null : id;
     setSelected(next);
     const group = groups.find((candidate) => candidate.id === id);
@@ -227,6 +254,7 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
   }
 
   function pinDate(event: MouseEvent<SVGSVGElement>) {
+    if (rangeRef.current?.selectSeries) return;
     const date = dateFromClientX(event.clientX, event.currentTarget.getBoundingClientRect());
     if (!date) return;
     setSelectedDate(date);
@@ -299,13 +327,14 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
                   <g
                     key={group.id}
                     data-series-id={group.id}
+                    data-qr-series-id={group.id}
                     aria-hidden="true"
                     className={cn('chart-series', isActive && 'is-active', isContext && 'is-context', muted && 'is-muted')}
                     onPointerEnter={() => setHovered(group.id)}
                     onPointerLeave={() => setHovered(null)}
                     onClick={() => toggleSelected(group.id)}
                   >
-                    <polyline className="chart-hit-target" points={points} fill="none" stroke="transparent" strokeWidth="44" vectorEffect="non-scaling-stroke" />
+                    <polyline className="chart-hit-target" points={points} fill="none" stroke="transparent" strokeWidth="14" vectorEffect="non-scaling-stroke" />
                     <polyline className="chart-series-line" points={points} fill="none" stroke={color} strokeWidth={isActive ? 3.8 : isContext ? 2.8 : 2.2} strokeDasharray={dash} vectorEffect="non-scaling-stroke" />
                     {selectedPoint ? <g className={cn('chart-selected-point', isActive && 'is-active', isContext && 'is-context')} data-date={selectedPoint.date}><circle className="chart-selected-halo" cx={x(selectedPoint.date)} cy={y(selectedPoint.value)} r={isActive ? 9 : isContext ? 8 : 6} fill={color} /><Marker shape={index} x={x(selectedPoint.date)} y={y(selectedPoint.value)} color={color} /></g> : null}
                     {activeId === null || isActive ? <>
@@ -331,7 +360,7 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
       <div className="chart-series-controls" role="group" aria-label={`${kindLabel(facet.kind)} 정확값을 확인할 시리즈 선택`}>
         {groups.map((group, index) => {
           const color = PALETTE[index % PALETTE.length] ?? FALLBACK_COLOR;
-          return <button key={group.id} type="button" aria-pressed={selectedId === group.id} onClick={() => toggleSelected(group.id)} onFocus={() => setHovered(group.id)} onBlur={() => setHovered(null)}><svg viewBox="0 0 24 8" aria-hidden="true"><line x1="1" x2="23" y1="4" y2="4" stroke={color} strokeWidth="2" strokeDasharray={DASHES[index % DASHES.length]} /></svg><span>{group.displayLabel}</span></button>;
+          return <button key={group.id} type="button" data-qr-chart-id={`dram-${facet.id}`} data-qr-series-id={group.id} aria-pressed={selectedId === group.id} onClick={() => toggleSelected(group.id)} onFocus={() => setHovered(group.id)} onBlur={() => setHovered(null)}><svg viewBox="0 0 24 8" aria-hidden="true"><line x1="1" x2="23" y1="4" y2="4" stroke={color} strokeWidth="2" strokeDasharray={DASHES[index % DASHES.length]} /></svg><span>{group.displayLabel}</span></button>;
         })}
       </div>
       <div className="chart-date-controls">
