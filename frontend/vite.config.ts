@@ -9,6 +9,22 @@ const root = fileURLToPath(new URL('.', import.meta.url));
 const repositoryData = resolve(root, '../data');
 const dataFiles = ['prices.json', 'series.json', 'status.json', 'summary.json', 'automation-health.json'] as const;
 
+function firstPaintOrderPlugin(): Plugin {
+  return {
+    name: 'first-paint-order',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html) {
+        const stylesheet = html.match(/<link\b[^>]*data-quant-first-paint-css[^>]*>/)?.[0];
+        const bootstrap = html.match(/<script\b[^>]*data-quant-design-project="dram-price"[^>]*><\/script>/)?.[0];
+        if (!stylesheet || !bootstrap) throw new Error('Missing first-paint entry.');
+        return html.replace(stylesheet, '').replace(bootstrap, '')
+          .replace('</head>', `${stylesheet}\n${bootstrap}\n</head>`);
+      },
+    },
+  };
+}
+
 function repositoryDataPlugin(): Plugin {
   return {
     name: 'repository-data',
@@ -36,7 +52,7 @@ function repositoryDataPlugin(): Plugin {
 
 export default defineConfig({
   base: '/dram-price/',
-  plugins: [react(), tailwindcss(), repositoryDataPlugin()],
+  plugins: [react(), tailwindcss(), repositoryDataPlugin(), firstPaintOrderPlugin()],
   resolve: {
     alias: {
       '@': resolve(root, 'src'),
