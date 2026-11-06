@@ -15,7 +15,7 @@ const index = await readFile('dist/index.html', 'utf8');
 if (!index.includes('/dram-price/assets/')) {
   throw new Error('Vite base path was not applied to the production assets.');
 }
-const startupBase = 'https://sonchanggi.github.io/quant-dashboard/shared/design/startup/1.1.0/';
+const startupBase = 'https://sonchanggi.github.io/quant-dashboard/shared/design/startup/1.2.0/';
 const startupCss = `${startupBase}dram-price.css`;
 const startupJs = `${startupBase}start.js`;
 const remoteAssets = [...index.matchAll(/(?:src|href)=["'](https?:\/\/[^"']+\.(?:js|css))["']/g)].map((match) => match[1]);

@@ -1,3 +1,4 @@
+import { formatNumber } from '@/lib/number';
 import type { DashboardFilters, MetricPoint, Observation, SeriesMeta } from '@/types';
 
 export const KIND_LABELS: Record<string, string> = {
@@ -173,11 +174,11 @@ export function metricOptions(rows: Observation[]): string[] {
 }
 
 export function formatPrice(value: number, currency = 'USD'): string {
-  return `${new Intl.NumberFormat('ko-KR', { maximumFractionDigits: 3 }).format(value)} ${currency}`;
+  return `${formatNumber(value)} ${currency}`;
 }
 
 export function formatCount(value: number): string {
-  return new Intl.NumberFormat('ko-KR').format(value);
+  return formatNumber(value);
 }
 
 export function formatDate(value?: string): string {

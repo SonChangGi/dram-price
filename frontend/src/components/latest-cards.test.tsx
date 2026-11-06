@@ -12,7 +12,7 @@ describe('LatestCards price meaning', () => {
 
     const [chip, module] = screen.getAllByRole('article');
     expect(within(chip!).getByRole('heading', { name: 'DDR5 16Gb (2Gx8) 4800/5600' })).toBeInTheDocument();
-    expect(within(chip!).getByText('55.433 USD')).toBeInTheDocument();
+    expect(within(chip!).getByText('55.43 USD')).toBeInTheDocument();
     expect(within(chip!).getByText('칩당 · 세션 평균 · TrendForce')).toBeInTheDocument();
     expect(within(module!).getByRole('heading', { name: 'DDR5 8GB SO-DIMM' })).toBeInTheDocument();
     expect(within(module!).getByText('130 USD')).toBeInTheDocument();

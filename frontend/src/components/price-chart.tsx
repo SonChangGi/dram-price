@@ -1,3 +1,4 @@
+import { formatNumber } from '@/lib/number';
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
 import { formatDate, formatPrice, kindLabel, metricFor, priceUnitFor, priceUnitLabel, sourceLabel } from '@/lib/market';
 import type { Observation } from '@/types';
@@ -300,7 +301,7 @@ function ChartFacet({ facet }: { facet: FacetDefinition }) {
             <g className="chart-grid" aria-hidden="true">
               {yTicks.map((tick) => {
                 const position = y(tick);
-                return <g key={tick}><line x1={MARGIN.left} x2={WIDTH - MARGIN.right} y1={position} y2={position} /><text x={MARGIN.left - 10} y={position + 4} textAnchor="end">{new Intl.NumberFormat('ko-KR', { maximumFractionDigits: 1 }).format(tick)}</text></g>;
+                return <g key={tick}><line x1={MARGIN.left} x2={WIDTH - MARGIN.right} y1={position} y2={position} /><text x={MARGIN.left - 10} y={position + 4} textAnchor="end">{formatNumber(tick)}</text></g>;
               })}
               {dateTicks(dates).map((date) => <text key={date} x={x(date)} y={HEIGHT - 18} textAnchor="middle">{date.slice(5).replace('-', '.')}</text>)}
               <line className="chart-axis" x1={MARGIN.left} x2={MARGIN.left} y1={MARGIN.top} y2={HEIGHT - MARGIN.bottom} />
