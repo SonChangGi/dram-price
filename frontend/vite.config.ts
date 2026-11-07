@@ -1,9 +1,12 @@
+import { createRequire } from 'node:module';
 import { copyFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { basename, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig, type Plugin } from 'vite';
+
+const { verifyHtml } = createRequire(import.meta.url)('../scripts/design-contract/verify-design.cjs');
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const repositoryData = resolve(root, '../data');
@@ -18,8 +21,12 @@ function firstPaintOrderPlugin(): Plugin {
         const stylesheet = html.match(/<link\b[^>]*data-quant-first-paint-css[^>]*>/)?.[0];
         const bootstrap = html.match(/<script\b[^>]*data-quant-design-project="dram-price"[^>]*><\/script>/)?.[0];
         if (!stylesheet || !bootstrap) throw new Error('Missing first-paint entry.');
-        return html.replace(stylesheet, '').replace(bootstrap, '')
-          .replace('</head>', `${stylesheet}\n${bootstrap}\n</head>`);
+        const entries = [...html.matchAll(/<script\b[^>]*type="module"[^>]*src="[^"]+"[^>]*><\/script>/g)].map((match) => match[0]);
+        let ordered = html.replace(stylesheet, '').replace(bootstrap, '');
+        entries.forEach((entry) => { ordered = ordered.replace(entry, ''); });
+        ordered = ordered.replace('</head>', `${stylesheet}\n${bootstrap}\n${entries.join('\n')}\n</head>`);
+        verifyHtml(ordered, { project: 'dram-price', navigation: 'react' });
+        return ordered;
       },
     },
   };

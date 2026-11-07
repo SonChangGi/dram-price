@@ -1,3 +1,4 @@
+import designContract from '../../scripts/design-contract/verify-design.cjs';
 import { access, readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 
@@ -22,11 +23,7 @@ const remoteAssets = [...index.matchAll(/(?:src|href)=["'](https?:\/\/[^"']+\.(?
 if (remoteAssets.length !== 2 || !remoteAssets.includes(startupCss) || !remoteAssets.includes(startupJs)) {
   throw new Error('Production HTML must contain only the approved first-paint remote assets.');
 }
-const head = index.split('</head>')[0];
-const startupTags = head.match(/<link\b[^>]*data-quant-first-paint-css[^>]*>\s*<script\b[^>]*data-quant-design-project="dram-price"[^>]*><\/script>\s*$/)?.[0];
-if (!startupTags || /\b(?:async|defer|type\s*=)/.test(startupTags)) {
-  throw new Error('First-paint stylesheet and blocking bootstrap must be last in the production head.');
-}
+designContract.verifyHtml(index, { project: 'dram-price', navigation: 'react' });
 
 const dataFiles = required.filter((file) => file.startsWith('dist/data/'));
 for (const distPath of dataFiles) {
