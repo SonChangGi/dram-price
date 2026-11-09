@@ -209,6 +209,12 @@
       "observed_products": 7,
       "required_products": 7,
       "state": "observed"
+    },
+    "2026-11-09": {
+      "last_attempt_at": "2026-11-09T12:46:02Z",
+      "observed_products": 7,
+      "required_products": 7,
+      "state": "observed"
     }
   },
   "schema_version": 1
