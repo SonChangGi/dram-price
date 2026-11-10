@@ -10,7 +10,7 @@ export function ObservationList({ rows, metric }: { rows: Observation[]; metric:
   const shown = sorted.slice(0, visible);
 
   return (
-    <section className="panel observation-panel" aria-labelledby="observations-heading">
+    <section data-quant-card="" className="panel observation-panel" aria-labelledby="observations-heading">
       <div className="section-heading">
         <div><p className="eyebrow">Latest observations</p><h2 id="observations-heading">최신 가격 목록</h2></div>
         <p>{sorted.length.toLocaleString('ko-KR')}개 관측치 중 {shown.length}개 표시 · 날짜 역순</p>

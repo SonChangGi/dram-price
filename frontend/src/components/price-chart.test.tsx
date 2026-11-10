@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, within, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { PriceChart } from '@/components/price-chart';
@@ -21,6 +21,15 @@ function spotObservation(productIndex: number, day: number): Observation {
 }
 
 describe('PriceChart', () => {
+  it('does not bridge an empty requested date interval with observations outside it',async()=>{
+    const user=userEvent.setup();const {container}=render(<PriceChart rows={[spotObservation(1,20),spotObservation(1,25)]} metric="auto"/>);
+    await user.click(screen.getByText('차트 옵션'));
+    fireEvent.change(screen.getByLabelText('구간 시작'),{target:{value:'2026-07-21'}});
+    fireEvent.change(screen.getByLabelText('구간 종료'),{target:{value:'2026-07-24'}});
+    await user.click(screen.getByRole('button',{name:'적용'}));
+    expect(container.querySelector('.qe-direct-range')).not.toBeVisible();
+  });
+
   it('separates chip and module prices into comparable unit facets', () => {
     const rows=['DDR4 8Gb (1Gx8)','DDR4 8GB SO-DIMM'].flatMap((product_name,index)=>[20,21].map(day=>({...spotObservation(index+1,day),product_name,kind:'contract'})));
     const {container}=render(<PriceChart rows={rows} metric="auto"/>);
@@ -75,7 +84,7 @@ describe('PriceChart', () => {
   it('calculates a requested range from actual prices without mutating observations',async()=>{
     const user=userEvent.setup();const rows=[spotObservation(1,20),spotObservation(1,21)],before=JSON.stringify(rows);
     const {container}=render(<PriceChart rows={rows} metric="auto"/>);await user.click(screen.getByText('차트 옵션'));await user.click(screen.getByRole('button',{name:'적용'}));
-    expect(container.querySelector('.qe-price-range')).toHaveTextContent('0.05%');expect(JSON.stringify(rows)).toBe(before);
-    await user.click(screen.getByRole('button',{name:'해제'}));expect(container.querySelector('.qe-price-range')).toBeNull();
+    expect(container.querySelector('.qe-direct-range')).toHaveTextContent('0.05%');expect(JSON.stringify(rows)).toBe(before);
+    await user.click(screen.getByRole('button',{name:'해제'}));expect(container.querySelector('.qe-direct-range')).not.toBeVisible();
   });
 });

@@ -72,7 +72,7 @@ export function App() {
       <main className="dashboard-shell" id="main-content" tabIndex={-1}>
         <StatusStrip status={data.status} automation={data.automation} dataAsOf={dataAsOf} />
         <LatestCards rows={cards} />
-        <section className="panel chart-panel" aria-labelledby="chart-heading">
+        <section data-quant-card="" className="panel chart-panel" aria-labelledby="chart-heading">
           <div className="section-heading"><div><p className="eyebrow">Price trend</p><h2 id="chart-heading">제품별 가격 추이</h2></div><p>{startDate && endDate ? `${startDate}–${endDate}` : '기간 없음'} · {formatCount(rows.length)}개 관측치</p></div>
           <FilterControls filters={filters} onChange={updateFilters} baseRows={baseRows} allRows={data.observations} series={data.series} />
           <Suspense fallback={<div className="qe-chart-loading" role="status">차트 불러오는 중</div>}><PriceChart rows={rows} metric={filters.metric} /></Suspense>

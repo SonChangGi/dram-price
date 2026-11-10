@@ -19,8 +19,8 @@ if (!index.includes('/dram-price/assets/')) {
 const startupBase = 'https://sonchanggi.github.io/quant-dashboard/shared/design/startup/1.2.0/';
 const startupCss = `${startupBase}dram-price.css`;
 const startupJs = `${startupBase}start.js`;
-const remoteAssets = [...index.matchAll(/(?:src|href)=["'](https?:\/\/[^"']+\.(?:js|css))["']/g)].map((match) => match[1]);
-if (remoteAssets.length !== 3 || !remoteAssets.includes(startupCss) || !remoteAssets.includes(startupJs) || !remoteAssets.includes('https://sonchanggi.github.io/quant-dashboard/shared/preferences/1.0.1/preferences.js')) {
+const remoteAssets = [...index.matchAll(/(?:src|href)=["'](https?:\/\/[^"']+\.(?:js|css)(?:\?[^"']*)?)["']/g)].map((match) => match[1]);
+if (remoteAssets.length !== 4 || !remoteAssets.includes('https://sonchanggi.github.io/quant-dashboard/shared/design/tokens/0.4.2/shell.css?v=d3ef280dc5d3') || !remoteAssets.includes(startupCss) || !remoteAssets.includes(startupJs) || !remoteAssets.includes('https://sonchanggi.github.io/quant-dashboard/shared/preferences/1.0.1/preferences.js')) {
   throw new Error('Production HTML must contain only the approved first-paint remote assets.');
 }
 designContract.verifyHtml(index, { project: 'dram-price', navigation: 'react' });

@@ -12,7 +12,7 @@ export function LatestCards({ rows }: { rows: Observation[] }) {
         {rows.map((row) => {
           const metric = metricFor(row, 'auto');
           return (
-            <article className="latest-card" key={`${row.product_id}-${row.kind}`}>
+            <article data-quant-card="" className="latest-card" key={`${row.product_id}-${row.kind}`}>
               <div className="latest-card__meta"><span className={`kind-badge is-${row.kind}`}>{kindLabel(row.kind)}</span><span>{formatDate(row.date)}</span></div>
               <h3>{row.product_name}</h3>
               <strong>{metric ? formatPrice(metric.value, row.currency) : '값 없음'}</strong>
