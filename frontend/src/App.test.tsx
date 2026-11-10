@@ -23,7 +23,7 @@ describe('DRAM dashboard', () => {
     expect(within(latest).getAllByRole('article')).toHaveLength(6);
     expect(screen.getByText('데이터 사용 가능 · 주의')).toBeInTheDocument();
     expect(screen.getAllByText('2026년 7월 16일').length).toBeGreaterThan(0);
-    expect(screen.getByRole('img', { name: /현물가 세션 평균 가격 추이/ })).toBeInTheDocument();
+    expect(await screen.findByRole('img', { name: /현물가 세션 평균 가격 추이/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '세부 조건' })).toHaveAttribute('data-state', 'closed');
     const operations = screen.getByRole('button', { name: /데이터 · 출처 · 운영 상세/ });
     expect(operations).toHaveAttribute('data-state', 'closed');

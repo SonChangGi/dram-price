@@ -24,7 +24,7 @@
    if(!region.hasAttribute('role'))region.setAttribute('role','region');
    if(!region.hasAttribute('aria-label'))region.setAttribute('aria-label',region.querySelector('caption')?.textContent.trim()||'데이터 표');
   }
-  for(const facet of doc.querySelectorAll('.chart-facet')){
+  for(const facet of doc.querySelectorAll('.chart-facet:not(.qe-price-facet)')){
    const caption=facet.querySelector('figcaption');
    if(caption&&!caption.querySelector('.qe-native-tools')){const details=doc.createElement('details');details.className='qe-native-tools';const summary=doc.createElement('summary');summary.textContent='차트 도구';details.append(summary);caption.append(details);}
   }

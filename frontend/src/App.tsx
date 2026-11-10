@@ -1,11 +1,11 @@
 import { AlertTriangle, ArrowUpRight, LoaderCircle } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { DataDetails } from '@/components/data-details';
 import { Button } from '@/components/ui/button';
 import { FilterControls } from '@/components/filter-controls';
 import { LatestCards } from '@/components/latest-cards';
 import { ObservationList } from '@/components/observation-list';
-import { PriceChart } from '@/components/price-chart';
+const PriceChart = lazy(() => import('@/components/price-chart').then(module => ({default: module.PriceChart})));
 import { SharedNav } from '@/components/shared-nav';
 import { StatusStrip } from '@/components/status-strip';
 import { loadDashboardData } from '@/lib/data';
@@ -75,7 +75,7 @@ export function App() {
         <section className="panel chart-panel" aria-labelledby="chart-heading">
           <div className="section-heading"><div><p className="eyebrow">Price trend</p><h2 id="chart-heading">제품별 가격 추이</h2></div><p>{startDate && endDate ? `${startDate}–${endDate}` : '기간 없음'} · {formatCount(rows.length)}개 관측치</p></div>
           <FilterControls filters={filters} onChange={updateFilters} baseRows={baseRows} allRows={data.observations} series={data.series} />
-          <PriceChart rows={rows} metric={filters.metric} />
+          <Suspense fallback={<div className="qe-chart-loading" role="status">차트 불러오는 중</div>}><PriceChart rows={rows} metric={filters.metric} /></Suspense>
         </section>
         <ObservationList key={`${filters.kind}|${filters.product}|${filters.source}|${filters.category}|${filters.metric}`} rows={rows} metric={filters.metric} />
         <DataDetails status={data.status} automation={data.automation} />

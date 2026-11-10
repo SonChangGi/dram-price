@@ -1,16 +1,15 @@
 import { formatNumber } from '@/lib/number';
-import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import * as echarts from 'echarts/core';
+import { LineChart } from 'echarts/charts';
+import { GridComponent, TooltipComponent, DataZoomComponent } from 'echarts/components';
+import { SVGRenderer } from 'echarts/renderers';
+echarts.use([LineChart,GridComponent,TooltipComponent,DataZoomComponent,SVGRenderer]);
 import { formatDate, formatPrice, kindLabel, metricFor, priceUnitFor, priceUnitLabel, sourceLabel } from '@/lib/market';
 import type { Observation } from '@/types';
-import { cn } from '@/lib/utils';
-import { registerPriceRange, type RangeHandle } from '@/lib/quant-range';
 
-const WIDTH = 980;
-const HEIGHT = 460;
 const MAX_SERIES = 5;
-const MARGIN = { top: 96, right: 190, bottom: 52, left: 64 };
 const PALETTE = ['#3182f6', '#008f7a', '#c56b12', '#7c5ce7', '#0891b2'];
-const DASHES = ['', '8 4', '3 4', '10 3 2 3', '2 3'];
 const FALLBACK_COLOR = '#3182f6';
 
 interface ChartGroup {
@@ -84,302 +83,53 @@ function facetDefinitions(rows: Observation[], requestedMetric: string): FacetDe
   return [...facets.values()].sort((a, b) => kindOrder.indexOf(a.kind) - kindOrder.indexOf(b.kind) || a.metricLabel.localeCompare(b.metricLabel));
 }
 
-function dateTicks(dates: string[], count = 5): string[] {
-  if (dates.length <= count) return dates;
-  const indexes = Array.from({ length: count }, (_, index) => Math.round((index * (dates.length - 1)) / (count - 1)));
-  return [...new Set(indexes.map((index) => dates[index]).filter((date): date is string => Boolean(date)))];
+function ChartFacet({facet}:{facet:FacetDefinition}){
+ const plot=useRef<HTMLDivElement>(null),instance=useRef<echarts.EChartsType|null>(null);
+ const groups=useMemo(()=>allGroups(facet.rows,facet.metricKey).filter(g=>g.points.length>=2).slice(0,MAX_SERIES),[facet]);
+ const dates=useMemo(()=>[...new Set(groups.flatMap(g=>g.points.map(p=>p.date)))].sort(),[groups]);
+ const [date,setDate]=useState<string|null>(null),[selected,setSelected]=useState<string|null>(null),[zoomed,setZoomed]=useState(false);
+ const [rangeStart,setRangeStart]=useState(''),[rangeEnd,setRangeEnd]=useState(''),[range,setRange]=useState<[string,string]|null>(null);
+ const [hoveredDate,setHoveredDate]=useState<string|null>(null),[hovered,setHovered]=useState<string|null>(null);
+ const groupKey=groups.map(g=>g.id).join('|');const [selectionKey,setSelectionKey]=useState(groupKey);
+ if(selectionKey!==groupKey){setSelectionKey(groupKey);setSelected(null);setHovered(null);setHoveredDate(null);}
+ const activeId=groups.some(g=>g.id===(hovered||selected))?(hovered||selected):null;
+ const activeDates=groups.find(g=>g.id===activeId)?.points.map(p=>p.date)||dates;
+ const requestedDate=hoveredDate||date||dates.at(-1)||'';
+ const activeDate=activeDates.includes(requestedDate)?requestedDate:activeDates.reduce((best,d)=>Math.abs(Date.parse(d)-Date.parse(requestedDate))<Math.abs(Date.parse(best)-Date.parse(requestedDate))?d:best,activeDates.at(-1)||'');
+ useEffect(()=>{
+  const host=plot.current;if(!host||!dates.length)return;
+  const chart=echarts.init(host,null,{renderer:'svg'});instance.current=chart;
+  const option=()=>{const style=getComputedStyle(document.documentElement),muted=style.getPropertyValue('--muted').trim()||'#a6b4b6',line=style.getPropertyValue('--line').trim()||'#344247',text=style.getPropertyValue('--ink').trim()||'#edf3f2',panel=style.getPropertyValue('--panel').trim()||'#171d20';return {
+   animation:false,grid:{left:12,right:38,top:38,bottom:30,containLabel:true},textStyle:{fontFamily:'Pretendard, sans-serif',color:text},
+   tooltip:{trigger:'axis' as const,confine:true,backgroundColor:panel,borderColor:line,textStyle:{color:text,fontSize:12},valueFormatter:(value:unknown)=>typeof value==='number'?formatPrice(value,facet.currency):'관측 없음'},
+   xAxis:{type:'category' as const,data:dates,boundaryGap:false,axisLabel:{color:muted,hideOverlap:true,fontSize:11,formatter:(v:string)=>v.slice(2)},axisTick:{show:false},axisLine:{lineStyle:{color:line}}},
+   yAxis:{type:'value' as const,min:0,name:`${priceUnitLabel(facet.unit)} · ${facet.currency}`,nameTextStyle:{color:muted,fontSize:11},splitNumber:4,axisLabel:{color:muted,fontSize:11},splitLine:{lineStyle:{color:line,type:'dashed' as const}}},
+   dataZoom:[{type:'inside' as const,filterMode:'none' as const,preventDefaultMouseMove:false,moveOnMouseMove:true}],
+   series:groups.map((group,index)=>({id:group.id,name:group.displayLabel,type:'line' as const,showSymbol:false,connectNulls:false,data:dates.map(d=>group.points.find(p=>p.date===d)?.value??null),lineStyle:{width:2.4,color:PALETTE[index%PALETTE.length]},itemStyle:{color:PALETTE[index%PALETTE.length]},emphasis:{focus:'series' as const}}))
+  };};
+  chart.setOption(option());
+  chart.getZr().on('click',event=>{const index=Math.round(chart.convertFromPixel({xAxisIndex:0},event.offsetX) as number);if(dates[index]){setDate(dates[index]);setHoveredDate(null);}});
+  chart.on('updateAxisPointer',(event:unknown)=>{const p=event as {axesInfo?:Array<{value:number}>};const index=p.axesInfo?.[0]?.value;if(index!==undefined&&dates[index])setHoveredDate(dates[index]);});
+  chart.getZr().on('globalout',()=>setHoveredDate(null));
+  chart.on('datazoom',()=>{const state=chart.getOption().dataZoom as Array<{start:number;end:number}>;setZoomed(Boolean(state?.[0]&&(state[0].start>0||state[0].end<100)));});
+  const resize=typeof ResizeObserver!=='undefined'?new ResizeObserver(()=>chart.resize()):null;resize?.observe(host);
+  const theme=new MutationObserver(()=>{const zoom=chart.getOption().dataZoom;chart.setOption({...option(),dataZoom:zoom},true);});theme.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  return()=>{resize?.disconnect();theme.disconnect();chart.dispose();instance.current=null;};
+ },[dates,groups,facet.currency,facet.unit]);
+ useEffect(()=>{const chart=instance.current;if(!chart)return;chart.dispatchAction({type:'downplay'});if(activeId)chart.dispatchAction({type:'highlight',seriesId:activeId});},[activeId]);
+ if(!groups.length)return <figure className="chart-facet chart-facet--sparse"><figcaption><strong>{kindLabel(facet.kind)} · {facet.metricLabel}</strong><span>{priceUnitLabel(facet.unit)} · {facet.currency}</span></figcaption><div className="empty-state">가격 추이를 그리려면 같은 제품에 날짜가 다른 관측치가 2개 이상 필요합니다.</div></figure>;
+ return <figure className="chart-facet qe-price-facet">
+  <figcaption><div><strong>{kindLabel(facet.kind)} · {facet.metricLabel}</strong><span>{formatDate(dates[0])}–{formatDate(dates.at(-1))} · {groups.length}/{allGroups(facet.rows,facet.metricKey).filter(g=>g.points.length>=2).length}개 시리즈</span></div>{zoomed&&<button type="button" onClick={()=>instance.current?.dispatchAction({type:'dataZoom',start:0,end:100})}>전체 보기</button>}</figcaption>
+  <div className="qe-price-plot" ref={plot} role="img" aria-label={`${kindLabel(facet.kind)} ${facet.metricLabel} 가격 추이`} tabIndex={0} onKeyDown={e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const index=Math.max(0,Math.min(activeDates.length-1,e.key==='Home'?0:e.key==='End'?activeDates.length-1:activeDates.indexOf(activeDate)+(e.key==='ArrowLeft'?-1:1)));setDate(activeDates[index]!);setHoveredDate(null);instance.current?.dispatchAction({type:'showTip',seriesIndex:0,dataIndex:dates.indexOf(activeDates[index]!)});}}/>
+  <div className="chart-series-controls" role="group" aria-label={`${kindLabel(facet.kind)} 정확값을 확인할 시리즈 선택`}>{groups.map((group,index)=><button type="button" key={group.id} aria-pressed={activeId===group.id} onClick={()=>setSelected(selected===group.id?null:group.id)} onPointerEnter={()=>setHovered(group.id)} onPointerLeave={()=>setHovered(null)}><i style={{background:PALETTE[index%PALETTE.length]||FALLBACK_COLOR}}/><span>{group.displayLabel}</span></button>)}</div>
+  <div className="qe-price-readout" data-date={activeDate} aria-live="polite"><strong>{formatDate(activeDate)}</strong>{groups.filter(g=>!activeId||g.id===activeId).map(group=>{const value=group.points.find(p=>p.date===activeDate)?.value;return <span key={group.id}>{group.displayLabel}<b>{value==null?'관측 없음':formatPrice(value,facet.currency)}</b></span>;})}</div>
+  <details className="qe-price-options"><summary>차트 옵션</summary><label>선택일<select aria-label={`${kindLabel(facet.kind)} 차트 고정 선택일`} value={activeDate} onChange={e=>{setDate(e.target.value);setHoveredDate(null);}}>{activeDates.slice().reverse().map(d=><option key={d} value={d}>{formatDate(d)}</option>)}</select></label><button type="button" onClick={()=>setDate(dates.at(-1)!)}>차트 최신일</button><fieldset><legend>구간 수익률</legend><input type="date" aria-label="구간 시작" min={dates[0]} max={dates.at(-1)} value={rangeStart||dates[0]} onChange={e=>setRangeStart(e.target.value)}/><input type="date" aria-label="구간 종료" min={dates[0]} max={dates.at(-1)} value={rangeEnd||dates.at(-1)} onChange={e=>setRangeEnd(e.target.value)}/><button type="button" onClick={()=>{const a=rangeStart||dates[0]!,b=rangeEnd||dates.at(-1)!;if(a<b)setRange([a,b]);}}>적용</button>{range&&<button type="button" onClick={()=>setRange(null)}>해제</button>}</fieldset></details>
+  {range&&<div className="qe-price-range"><strong>{range[0]}–{range[1]}</strong>{groups.map(g=>{const points=g.points.filter(p=>p.date>=range[0]&&p.date<=range[1]),first=points[0],last=points.at(-1);return <span key={g.id}>{g.displayLabel}<b>{points.length>1&&first&&last&&first.value>0?`${formatNumber((last.value/first.value-1)*100)}%`:'비교 관측 없음'}</b></span>;})}</div>}
+ </figure>;
 }
 
-function Marker({ shape, x, y, color }: { shape: number; x: number; y: number; color: string }) {
-  if (shape % 3 === 1) return <rect x={x - 3} y={y - 3} width="6" height="6" fill="var(--chart-panel)" stroke={color} strokeWidth="2" />;
-  if (shape % 3 === 2) return <path d={`M ${x} ${y - 4} L ${x + 4} ${y + 3} L ${x - 4} ${y + 3} Z`} fill="var(--chart-panel)" stroke={color} strokeWidth="2" />;
-  return <circle cx={x} cy={y} r="3.5" fill="var(--chart-panel)" stroke={color} strokeWidth="2" />;
+export function PriceChart({rows,metric}:{rows:Observation[];metric:string}){
+ const facets=useMemo(()=>facetDefinitions(rows,metric),[rows,metric]);
+ return <div className="chart-stack">{facets.map(f=><ChartFacet key={f.id} facet={f}/>)}{!facets.length&&<div className="empty-state">선택 조건에서 표시할 유효 평균 가격이 없습니다.</div>}</div>;
 }
 
-function pointAtDate(group: ChartGroup, date: string) {
-  return group.points.find((point) => point.date === date) ?? null;
-}
-
-function nearestAvailableDate(candidates: string[], target: string, timeline: string[]) {
-  if (!candidates.length) return target;
-  if (candidates.includes(target)) return target;
-  const targetIndex = Math.max(0, timeline.indexOf(target));
-  return candidates.reduce((nearest, candidate) => {
-    const candidateDistance = Math.abs(timeline.indexOf(candidate) - targetIndex);
-    const nearestDistance = Math.abs(timeline.indexOf(nearest) - targetIndex);
-    return candidateDistance < nearestDistance ? candidate : nearest;
-  }, candidates[0]!);
-}
-
-function ChartFacet({ facet }: { facet: FacetDefinition }) {
-  const titleId = useId();
-  const descId = useId();
-  const helpId = useId();
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const rangeRef = useRef<RangeHandle | undefined>(undefined);
-  const [hovered, setHovered] = useState<string | null>(null);
-  const [selected, setSelected] = useState<string | null>(null);
-  const [hoveredDate, setHoveredDate] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const completeGroups = useMemo(() => allGroups(facet.rows, facet.metricKey), [facet]);
-  const trendGroups = completeGroups.filter((group) => group.points.length >= 2);
-  const groups = useMemo(() => completeGroups.filter((group) => group.points.length >= 2).slice(0, MAX_SERIES), [completeGroups]);
-  const groupIdsKey = groups.map((group) => group.id).join('\u001f');
-  const [selectionGroupIdsKey, setSelectionGroupIdsKey] = useState(groupIdsKey);
-  if (selectionGroupIdsKey !== groupIdsKey) {
-    setSelectionGroupIdsKey(groupIdsKey);
-    setSelected(null);
-    setHovered(null);
-  }
-  const selectedId = groups.some((group) => group.id === selected) ? selected : null;
-  const hoveredId = groups.some((group) => group.id === hovered) ? hovered : null;
-  const activeId = hoveredId ?? selectedId;
-  const selectedGroup = groups.find((group) => group.id === selectedId) ?? null;
-  const activeGroup = groups.find((group) => group.id === activeId) ?? null;
-  const dates = [...new Set(groups.flatMap((group) => group.points.map((point) => point.date)))].sort();
-  const values = groups.flatMap((group) => group.points.map((point) => point.value));
-  const latestAvailableDate = dates.at(-1) ?? null;
-  const persistentCandidate = selectedDate && dates.includes(selectedDate) ? selectedDate : latestAvailableDate;
-  const selectedDates = selectedGroup?.points.map((point) => point.date) ?? dates;
-  const persistentDateForScroll = persistentCandidate
-    ? nearestAvailableDate(selectedDates, persistentCandidate, dates)
-    : null;
-  const persistentDateIndex = persistentDateForScroll ? dates.indexOf(persistentDateForScroll) : -1;
-
-  useEffect(() => {
-    if (!scrollRef.current) return;
-    const timeline = [...new Set(groups.flatMap(group => group.points.map(point => point.date)))].sort();
-    const range = registerPriceRange(scrollRef.current, facet.id, `${facet.currency} · ${priceUnitLabel(facet.unit)}`,
-      groups.map((group, index) => ({ ...group, color: PALETTE[index % PALETTE.length] ?? FALLBACK_COLOR })), {
-        onSeriesFocus(id) {
-          setSelected(id);
-          setHovered(null);
-          if (id === null) { setHoveredDate(null); setSelectedDate(null); }
-        },
-        onSeriesRequest(id, context) {
-          setSelected(id);
-          setHovered(null);
-          if (context.mode === 'point' && context.index !== undefined && timeline[context.index]) {
-            setSelectedDate(timeline[context.index]!);
-            setHoveredDate(null);
-          }
-        },
-      });
-    rangeRef.current = range;
-    return () => { range?.destroy(); rangeRef.current = undefined; };
-  }, [facet, groups]);
-
-  useEffect(() => {
-    const scroller = scrollRef.current;
-    if (!scroller || persistentDateIndex < 0 || !dates.length) return;
-    const ratio = dates.length === 1 ? 1 : persistentDateIndex / (dates.length - 1);
-    const viewX = MARGIN.left + ratio * (WIDTH - MARGIN.left - MARGIN.right);
-    const contentX = (viewX / WIDTH) * scroller.scrollWidth;
-    const padding = Math.min(56, scroller.clientWidth * 0.16);
-    if (contentX < scroller.scrollLeft + padding) scroller.scrollLeft = Math.max(0, contentX - padding);
-    if (contentX > scroller.scrollLeft + scroller.clientWidth - padding) {
-      scroller.scrollLeft = Math.min(scroller.scrollWidth - scroller.clientWidth, contentX - scroller.clientWidth + padding);
-    }
-  }, [dates.length, persistentDateForScroll, persistentDateIndex]);
-
-  if (!groups.length || !dates.length || !values.length) {
-    return (
-      <figure className="chart-facet chart-facet--sparse">
-        <figcaption><strong>{kindLabel(facet.kind)} · {facet.metricLabel}</strong><span>{priceUnitLabel(facet.unit)} · {facet.currency}</span></figcaption>
-        <div className="empty-state">가격 추이를 그리려면 같은 제품에 날짜가 다른 관측치가 2개 이상 필요합니다.</div>
-      </figure>
-    );
-  }
-
-  const max = Math.max(...values, 1);
-  const plotWidth = WIDTH - MARGIN.left - MARGIN.right;
-  const plotHeight = HEIGHT - MARGIN.top - MARGIN.bottom;
-  const x = (date: string) => MARGIN.left + (dates.length === 1 ? plotWidth / 2 : (dates.indexOf(date) / (dates.length - 1)) * plotWidth);
-  const y = (value: number) => MARGIN.top + plotHeight - (value / (max * 1.08)) * plotHeight;
-  const yTicks = Array.from({ length: 5 }, (_, index) => (max * 1.08 * index) / 4);
-  const range = `${formatDate(dates[0])}–${formatDate(dates.at(-1))}`;
-  const latestDate = latestAvailableDate!;
-  const persistentDate = persistentDateForScroll ?? latestDate;
-  const activeCandidateDate = hoveredDate && dates.includes(hoveredDate) ? hoveredDate : persistentDate;
-  const activeDates = activeGroup?.points.map((point) => point.date) ?? dates;
-  const activeDate = nearestAvailableDate(activeDates, activeCandidateDate, dates);
-  const displayGroup = activeGroup ?? groups.find((group) => pointAtDate(group, activeDate)) ?? groups[0]!;
-  const displayPoint = pointAtDate(displayGroup, activeDate);
-  const displayGroupIndex = Math.max(0, groups.findIndex((group) => group.id === displayGroup.id));
-  const displayColor = PALETTE[displayGroupIndex % PALETTE.length] ?? FALLBACK_COLOR;
-  const activeDateX = x(activeDate);
-  const chipX = Math.max(MARGIN.left + 45, Math.min(WIDTH - MARGIN.right - 45, activeDateX));
-  const interactionText = `${formatDate(activeDate)} · ${displayGroup.displayLabel} · ${displayPoint ? formatPrice(displayPoint.value, facet.currency) : '관측 없음'}`;
-
-  function toggleSelected(id: string) {
-    // QuantRange 1.2 resolves explicit mark/legend identities and preserves ranges.
-    if (rangeRef.current?.selectSeries) return;
-    const next = selected === id ? null : id;
-    setSelected(next);
-    const group = groups.find((candidate) => candidate.id === id);
-    const latest = group?.points.at(-1);
-    if (next && latest) setSelectedDate(latest.date);
-  }
-
-  function moveSelectedDate(event: KeyboardEvent<HTMLDivElement>) {
-    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-    event.preventDefault();
-    const keyboardDates = activeGroup?.points.map((point) => point.date) ?? dates;
-    const currentIndex = Math.max(0, keyboardDates.indexOf(activeDate));
-    const nextIndex = event.key === 'Home'
-      ? 0
-      : event.key === 'End'
-        ? keyboardDates.length - 1
-        : Math.max(0, Math.min(keyboardDates.length - 1, currentIndex + (event.key === 'ArrowLeft' ? -1 : 1)));
-    setHoveredDate(null);
-    const nextDate = keyboardDates[nextIndex];
-    if (nextDate) setSelectedDate(nextDate);
-  }
-
-  function dateFromClientX(clientX: number, bounds: DOMRect) {
-    if (!bounds.width) return null;
-    const viewX = ((clientX - bounds.left) / bounds.width) * WIDTH;
-    const ratio = Math.max(0, Math.min(1, (viewX - MARGIN.left) / plotWidth));
-    const selectableDates = activeGroup?.points.map((point) => point.date) ?? dates;
-    if (!selectableDates.length) return null;
-    const targetX = MARGIN.left + ratio * plotWidth;
-    return selectableDates.reduce((nearest, candidate) => (
-      Math.abs(x(candidate) - targetX) < Math.abs(x(nearest) - targetX) ? candidate : nearest
-    ), selectableDates[0]!);
-  }
-
-  function exploreDate(event: PointerEvent<SVGSVGElement>) {
-    if (event.pointerType && event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
-    const date = dateFromClientX(event.clientX, event.currentTarget.getBoundingClientRect());
-    if (date) setHoveredDate(date);
-  }
-
-  function pinDate(event: MouseEvent<SVGSVGElement>) {
-    if (rangeRef.current?.selectSeries) return;
-    const date = dateFromClientX(event.clientX, event.currentTarget.getBoundingClientRect());
-    if (!date) return;
-    setSelectedDate(date);
-    setHoveredDate(null);
-  }
-
-  function selectLatest() {
-    setHoveredDate(null);
-    setSelectedDate(latestDate);
-    const scroller = scrollRef.current;
-    if (scroller) scroller.scrollLeft = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
-  }
-
-  return (
-    <figure className="chart-facet">
-      <figcaption>
-        <div><strong>{kindLabel(facet.kind)} · {facet.metricLabel}</strong><span>{range} · {groups.length}/{trendGroups.length}개 시리즈 · {priceUnitLabel(facet.unit)} · {facet.currency}</span></div>
-        <button type="button" className="chart-latest-button" onClick={selectLatest}>차트 최신일</button>
-      </figcaption>
-      <div className="chart-viewport">
-        <div
-          className="chart-scroll"
-          ref={scrollRef}
-          tabIndex={0}
-          role="group"
-          aria-roledescription="대화형 가격 차트"
-          aria-label={`${kindLabel(facet.kind)} ${facet.metricLabel} 가격 차트 가로 스크롤 영역`}
-          aria-describedby={helpId}
-          aria-keyshortcuts="ArrowLeft ArrowRight Home End"
-          data-selected-date={activeDate}
-          onKeyDown={moveSelectedDate}
-        >
-          <svg
-            viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-            role="img"
-            aria-labelledby={`${titleId} ${descId}`}
-            onPointerMove={exploreDate}
-            onPointerLeave={() => { setHoveredDate(null); setHovered(null); }}
-            onClick={pinDate}
-          >
-            <title id={titleId}>{kindLabel(facet.kind)} {facet.metricLabel} 가격 추이</title>
-            <desc id={descId}>{range} 동안의 {groups.length}개 제품 가격을 선으로 비교합니다. {priceUnitLabel(facet.unit)} {facet.currency}이며 세로축은 0에서 시작합니다. 선택일은 {formatDate(activeDate)}입니다.</desc>
-            <g className="chart-grid" aria-hidden="true">
-              {yTicks.map((tick) => {
-                const position = y(tick);
-                return <g key={tick}><line x1={MARGIN.left} x2={WIDTH - MARGIN.right} y1={position} y2={position} /><text x={MARGIN.left - 10} y={position + 4} textAnchor="end">{formatNumber(tick)}</text></g>;
-              })}
-              {dateTicks(dates).map((date) => <text key={date} x={x(date)} y={HEIGHT - 18} textAnchor="middle">{date.slice(5).replace('-', '.')}</text>)}
-              <line className="chart-axis" x1={MARGIN.left} x2={MARGIN.left} y1={MARGIN.top} y2={HEIGHT - MARGIN.bottom} />
-              <line className="chart-axis" x1={MARGIN.left} x2={WIDTH - MARGIN.right} y1={HEIGHT - MARGIN.bottom} y2={HEIGHT - MARGIN.bottom} />
-            </g>
-            <g className="chart-selection-guide" aria-hidden="true" data-date={activeDate}>
-              <line x1={activeDateX} x2={activeDateX} y1={MARGIN.top} y2={HEIGHT - MARGIN.bottom} />
-              <g className="chart-date-chip" transform={`translate(${chipX} ${HEIGHT - MARGIN.bottom + 18})`}>
-                <rect x="-44" y="-10" width="88" height="20" rx="5" />
-                <text textAnchor="middle" y="4">{activeDate.slice(5).replace('-', '.')}</text>
-              </g>
-            </g>
-            <g aria-label={`${kindLabel(facet.kind)} 제품 시리즈`}>
-              {groups.map((group, index) => {
-                const color = PALETTE[index % PALETTE.length] ?? FALLBACK_COLOR;
-                const dash = DASHES[index % DASHES.length];
-                const points = group.points.map((point) => `${x(point.date)},${y(point.value)}`).join(' ');
-                const last = group.points.at(-1)!;
-                const selectedPoint = pointAtDate(group, activeDate);
-                const muted = activeId !== null && activeId !== group.id;
-                const isActive = activeId === group.id;
-                const isContext = activeId === null && displayGroup.id === group.id;
-                return (
-                  <g
-                    key={group.id}
-                    data-series-id={group.id}
-                    data-qr-series-id={group.id}
-                    aria-hidden="true"
-                    className={cn('chart-series', isActive && 'is-active', isContext && 'is-context', muted && 'is-muted')}
-                    onPointerEnter={() => setHovered(group.id)}
-                    onPointerLeave={() => setHovered(null)}
-                    onClick={() => toggleSelected(group.id)}
-                  >
-                    <polyline className="chart-hit-target" points={points} fill="none" stroke="transparent" strokeWidth="14" vectorEffect="non-scaling-stroke" />
-                    <polyline className="chart-series-line" points={points} fill="none" stroke={color} strokeWidth={isActive ? 3.8 : isContext ? 2.8 : 2.2} strokeDasharray={dash} vectorEffect="non-scaling-stroke" />
-                    {selectedPoint ? <g className={cn('chart-selected-point', isActive && 'is-active', isContext && 'is-context')} data-date={selectedPoint.date}><circle className="chart-selected-halo" cx={x(selectedPoint.date)} cy={y(selectedPoint.value)} r={isActive ? 9 : isContext ? 8 : 6} fill={color} /><Marker shape={index} x={x(selectedPoint.date)} y={y(selectedPoint.value)} color={color} /></g> : null}
-                    {activeId === null || isActive ? <>
-                      <line className="chart-end-connector" x1={x(last.date) + 7} x2={WIDTH - MARGIN.right + 13} y1={y(last.value)} y2={y(last.value)} stroke={color} strokeDasharray="2 3" />
-                      <text className="chart-end-label" x={WIDTH - MARGIN.right + 18} y={y(last.value) + 4} fill={color}>{group.displayLabel.length > 22 ? `${group.displayLabel.slice(0, 21)}…` : group.displayLabel}</text>
-                    </> : null}
-                  </g>
-                );
-              })}
-            </g>
-            <text className="chart-unit" x={MARGIN.left} y={15}>{priceUnitLabel(facet.unit)} {facet.currency} · 0 기준</text>
-          </svg>
-        </div>
-        <div className={cn('chart-value-callout', activeId && 'is-active')} data-date={activeDate}>
-          <div className="chart-value-callout__date"><span>차트 선택일</span><strong>{formatDate(activeDate)}</strong></div>
-          <div className="chart-value-callout__series">
-            <i style={{ backgroundColor: displayColor }} aria-hidden="true" />
-            <span>{displayGroup.displayLabel}</span>
-            <strong>{displayPoint ? formatPrice(displayPoint.value, facet.currency) : '관측 없음'}</strong>
-          </div>
-        </div>
-      </div>
-      <div className="chart-series-controls" role="group" aria-label={`${kindLabel(facet.kind)} 정확값을 확인할 시리즈 선택`}>
-        {groups.map((group, index) => {
-          const color = PALETTE[index % PALETTE.length] ?? FALLBACK_COLOR;
-          return <button key={group.id} type="button" data-qr-chart-id={`dram-${facet.id}`} data-qr-series-id={group.id} aria-pressed={selectedId === group.id} onClick={() => toggleSelected(group.id)} onFocus={() => setHovered(group.id)} onBlur={() => setHovered(null)}><svg viewBox="0 0 24 8" aria-hidden="true"><line x1="1" x2="23" y1="4" y2="4" stroke={color} strokeWidth="2" strokeDasharray={DASHES[index % DASHES.length]} /></svg><span>{group.displayLabel}</span></button>;
-        })}
-      </div>
-      <div className="chart-date-controls">
-        <label><span>고정 선택일</span><select aria-label={`${kindLabel(facet.kind)} 차트 고정 선택일`} value={persistentDate} onChange={(event) => { setHoveredDate(null); setSelectedDate(event.target.value); }}>{selectedDates.slice().reverse().map((date) => <option key={date} value={date}>{formatDate(date)}</option>)}</select></label>
-        <span className="sr-only" id={helpId}>차트 위 이동 · 클릭으로 고정 · 키보드 ← → Home End</span>
-        <span className="sr-only" aria-live="polite">{interactionText}</span>
-      </div>
-      <ul className="sr-only">{groups.map((group) => { const last = group.points.at(-1)!; return <li key={group.id}>{group.displayLabel}: {formatDate(last.date)} {formatPrice(last.value, group.currency)}</li>; })}</ul>
-    </figure>
-  );
-}
-
-export function PriceChart({ rows, metric }: { rows: Observation[]; metric: string }) {
-  const facets = useMemo(() => facetDefinitions(rows, metric), [rows, metric]);
-  return (
-    <div className="chart-stack">
-      {facets.map((facet) => <ChartFacet key={facet.id} facet={facet} />)}
-      {!facets.length ? <div className="empty-state">선택 조건에서 표시할 유효 평균 가격이 없습니다.</div> : null}
-    </div>
-  );
-}
