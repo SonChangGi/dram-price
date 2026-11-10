@@ -23,7 +23,7 @@ function spotObservation(productIndex: number, day: number): Observation {
 describe('PriceChart', () => {
   it('does not bridge an empty requested date interval with observations outside it',async()=>{
     const user=userEvent.setup();const {container}=render(<PriceChart rows={[spotObservation(1,20),spotObservation(1,25)]} metric="auto"/>);
-    await user.click(screen.getByText('차트 옵션'));
+    await user.click(screen.getByText('날짜로 비교'));
     fireEvent.change(screen.getByLabelText('구간 시작'),{target:{value:'2026-07-21'}});
     fireEvent.change(screen.getByLabelText('구간 종료'),{target:{value:'2026-07-24'}});
     await user.click(screen.getByRole('button',{name:'적용'}));
@@ -57,7 +57,7 @@ describe('PriceChart', () => {
     const chart=screen.getByRole('img');chart.focus();await user.keyboard('{Home}');
     expect(container.querySelector('.qe-price-readout')).toHaveAttribute('data-date','2026-07-20');
     await user.keyboard('{End}');expect(container.querySelector('.qe-price-readout')).toHaveAttribute('data-date','2026-07-21');
-    await user.click(screen.getByText('차트 옵션'));await user.selectOptions(screen.getByRole('combobox'),'2026-07-20');
+    await user.click(screen.getByText('날짜로 비교'));await user.selectOptions(screen.getByRole('combobox'),'2026-07-20');
     expect(container.querySelector('.qe-price-readout')).toHaveAttribute('data-date','2026-07-20');
   });
   it('uses actual observations of the selected sparse series',async()=>{
@@ -83,7 +83,7 @@ describe('PriceChart', () => {
   });
   it('calculates a requested range from actual prices without mutating observations',async()=>{
     const user=userEvent.setup();const rows=[spotObservation(1,20),spotObservation(1,21)],before=JSON.stringify(rows);
-    const {container}=render(<PriceChart rows={rows} metric="auto"/>);await user.click(screen.getByText('차트 옵션'));await user.click(screen.getByRole('button',{name:'적용'}));
+    const {container}=render(<PriceChart rows={rows} metric="auto"/>);await user.click(screen.getByText('날짜로 비교'));await user.click(screen.getByRole('button',{name:'적용'}));
     expect(container.querySelector('.qe-direct-range')).toHaveTextContent('0.05%');expect(JSON.stringify(rows)).toBe(before);
     await user.click(screen.getByRole('button',{name:'해제'}));expect(container.querySelector('.qe-direct-range')).not.toBeVisible();
   });

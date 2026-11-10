@@ -20,8 +20,11 @@ const startupBase = 'https://sonchanggi.github.io/quant-dashboard/shared/design/
 const startupCss = `${startupBase}dram-price.css`;
 const startupJs = `${startupBase}start.js`;
 const remoteAssets = [...index.matchAll(/(?:src|href)=["'](https?:\/\/[^"']+\.(?:js|css)(?:\?[^"']*)?)["']/g)].map((match) => match[1]);
-if (remoteAssets.length !== 4 || !remoteAssets.includes('https://sonchanggi.github.io/quant-dashboard/shared/design/tokens/0.4.2/shell.css?v=d3ef280dc5d3') || !remoteAssets.includes(startupCss) || !remoteAssets.includes(startupJs) || !remoteAssets.includes('https://sonchanggi.github.io/quant-dashboard/shared/preferences/1.0.1/preferences.js')) {
+if (remoteAssets.length !== 4 || !remoteAssets.includes('https://sonchanggi.github.io/quant-dashboard/shared/design/tokens/0.4.3/shell.css?v=8414ab0c137f') || !remoteAssets.includes(startupCss) || !remoteAssets.includes(startupJs) || !remoteAssets.includes('https://sonchanggi.github.io/quant-dashboard/shared/preferences/1.0.1/preferences.js')) {
   throw new Error('Production HTML must contain only the approved first-paint remote assets.');
+}
+if (index.search(/href="[^"]+\/assets\/index-[^"]+\.css"/) > index.indexOf('data-quant-design="0.4.3"')) {
+  throw new Error('Common shell must follow the generated app stylesheet.');
 }
 designContract.verifyHtml(index, { project: 'dram-price', navigation: 'react' });
 

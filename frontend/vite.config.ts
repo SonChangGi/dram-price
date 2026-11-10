@@ -18,13 +18,14 @@ function firstPaintOrderPlugin(): Plugin {
     transformIndexHtml: {
       order: 'post',
       handler(html) {
+        const shell = html.match(/<link\b[^>]*data-quant-design="0\.4\.3"[^>]*>/)?.[0];
         const stylesheet = html.match(/<link\b[^>]*data-quant-first-paint-css[^>]*>/)?.[0];
         const bootstrap = html.match(/<script\b[^>]*data-quant-design-project="dram-price"[^>]*><\/script>/)?.[0];
-        if (!stylesheet || !bootstrap) throw new Error('Missing first-paint entry.');
+        if (!shell || !stylesheet || !bootstrap) throw new Error('Missing first-paint entry.');
         const entries = [...html.matchAll(/<script\b[^>]*type="module"[^>]*src="[^"]+"[^>]*><\/script>/g)].map((match) => match[0]);
-        let ordered = html.replace(stylesheet, '').replace(bootstrap, '');
+        let ordered = html.replace(shell, '').replace(stylesheet, '').replace(bootstrap, '');
         entries.forEach((entry) => { ordered = ordered.replace(entry, ''); });
-        ordered = ordered.replace('</head>', `${stylesheet}\n${bootstrap}\n${entries.join('\n')}\n</head>`);
+        ordered = ordered.replace('</head>', `${shell}\n${stylesheet}\n${bootstrap}\n${entries.join('\n')}\n</head>`);
         verifyHtml(ordered, { project: 'dram-price', navigation: 'react' });
         return ordered;
       },
