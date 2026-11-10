@@ -589,3 +589,5 @@ html[data-design-engine] body .filter-shell{border:0!important;background:transp
 html[data-theme] body :is(.qd-focus-button,.qd-focus-tools) {display:none!important}
 [data-quant-touch-chart]:focus-visible {outline:2px solid var(--qs-focus);outline-offset:3px}
 [data-quant-touch-chart][data-quant-gesture=compare] .qe-point-tooltip {visibility:hidden!important}
+
+.qe-price-facet:has([data-quant-range-output]:not([hidden])) .qe-price-readout{display:none}

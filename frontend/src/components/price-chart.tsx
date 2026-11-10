@@ -109,14 +109,14 @@ function ChartFacet({facet}:{facet:FacetDefinition}){
    series:groups.map((group,index)=>({id:group.id,name:group.displayLabel,type:'line' as const,showSymbol:false,connectNulls:false,data:dates.map(d=>group.points.find(p=>p.date===d)?.value??null),lineStyle:{width:2.4,color:PALETTE[index%PALETTE.length]},itemStyle:{color:PALETTE[index%PALETTE.length]},emphasis:{focus:'series' as const}}))
   };};
   chart.setOption(option());
-  const direct=bindDirectRange(host,chart,{dates,series:groups.map(g=>({name:g.displayLabel,values:dates.map(d=>g.points.find(p=>p.date===d)?.value??null),measure:'relative',unit:' '+facet.currency}))},undefined,undefined,i=>{if(dates[i]){setDate(dates[i]);setHoveredDate(null);chart.dispatchAction({type:'showTip',seriesIndex:0,dataIndex:i});}});
+  const direct=bindDirectRange(host,chart,{dates,series:groups.map((g,index)=>({name:g.displayLabel,values:dates.map(d=>g.points.find(p=>p.date===d)?.value??null),measure:'relative',unit:' '+facet.currency,color:PALETTE[index%PALETTE.length]}))},undefined,undefined,i=>{if(dates[i]){setDate(dates[i]);setHoveredDate(null);chart.dispatchAction({type:'showTip',seriesIndex:0,dataIndex:i});}});
   rangeControl.current=direct;
   chart.getZr().on('click',event=>{const index=Math.round(chart.convertFromPixel({xAxisIndex:0},event.offsetX) as number);if(dates[index]){setDate(dates[index]);setHoveredDate(null);}});
   chart.on('updateAxisPointer',(event:unknown)=>{const p=event as {axesInfo?:Array<{value:number}>};const index=p.axesInfo?.[0]?.value;if(index!==undefined&&dates[index])setHoveredDate(dates[index]);});
   chart.getZr().on('globalout',()=>setHoveredDate(null));
   chart.on('datazoom',()=>{const state=chart.getOption().dataZoom as Array<{start:number;end:number}>;setZoomed(Boolean(state?.[0]&&(state[0].start>0||state[0].end<100)));});
-  const resize=typeof ResizeObserver!=='undefined'?new ResizeObserver(()=>chart.resize()):null;resize?.observe(host);
-  const theme=new MutationObserver(()=>{const zoom=chart.getOption().dataZoom;chart.setOption({...option(),dataZoom:zoom},true);});theme.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  const resize=typeof ResizeObserver!=='undefined'?new ResizeObserver(()=>{chart.resize();direct.refresh();}):null;resize?.observe(host);
+  const theme=new MutationObserver(()=>{const zoom=chart.getOption().dataZoom;chart.setOption({...option(),dataZoom:zoom},true);direct.refresh();});theme.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
   return()=>{resize?.disconnect();theme.disconnect();direct.dispose();chart.dispose();rangeControl.current=null;instance.current=null;};
  },[dates,groups,facet.currency,facet.unit]);
  useEffect(()=>{const chart=instance.current;if(!chart)return;chart.dispatchAction({type:'downplay'});if(activeId)chart.dispatchAction({type:'highlight',seriesId:activeId});},[activeId]);

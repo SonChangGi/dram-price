@@ -18,7 +18,7 @@ function firstPaintOrderPlugin(): Plugin {
     transformIndexHtml: {
       order: 'post',
       handler(html) {
-        const shell = html.match(/<link\b[^>]*data-quant-design="0\.4\.3"[^>]*>/)?.[0];
+        const shell = html.match(/<link\b[^>]*data-quant-design="0\.4\.4"[^>]*>/)?.[0];
         const stylesheet = html.match(/<link\b[^>]*data-quant-first-paint-css[^>]*>/)?.[0];
         const bootstrap = html.match(/<script\b[^>]*data-quant-design-project="dram-price"[^>]*><\/script>/)?.[0];
         if (!shell || !stylesheet || !bootstrap) throw new Error('Missing first-paint entry.');

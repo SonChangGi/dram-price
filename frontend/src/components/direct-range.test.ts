@@ -12,8 +12,8 @@ function fixture(){
  return {host,api,fire,touch,inspect,onRange,dispatch,output:()=>container.querySelector('.qe-direct-range') as HTMLElement,zoom:()=>{offset=1;}};
 }
 describe('direct range contract',()=>{
- it('shows start/end and correct changes during the drag before release',()=>{const f=fixture();f.fire('pointerdown',0);f.fire('pointermove',100);expect(f.onRange).toHaveBeenLastCalledWith(0,1);expect(f.output().textContent).toContain('10 → 15  · 50%');expect(f.output().textContent).toContain('10% → 50%  · 40%p');expect(f.output().textContent).toContain('0 → 2  · 2 · 상대 비교 불가');expect(f.output().textContent).toContain('-2 → -1  · 1 · 상대 비교 불가');expect(f.output().textContent).toContain('관측 없음 → 1  · 관측 없음');f.api.dispose();});
- it('normalizes reverse drags and uses current zoom coordinates',()=>{const f=fixture();f.zoom();f.fire('pointerdown',100);f.fire('pointermove',0);expect(f.onRange).toHaveBeenLastCalledWith(1,2);expect(f.output().textContent).toContain('b — c');f.api.dispose();});
+ it('shows start/end and correct changes during the drag before release',()=>{const f=fixture();f.fire('pointerdown',0);f.fire('pointermove',100);expect(f.onRange).toHaveBeenLastCalledWith(0,1);expect([...f.output().querySelectorAll('.qs-range-value')].map(x=>x.textContent)).toEqual(['+50%','+40%p','Δ +2','Δ +1','—']);expect(f.output().textContent).toContain('0 → 2 · 상대 변화율 미제공');expect(f.output().textContent).toContain('관측 없음 → 1');f.api.dispose();});
+ it('normalizes reverse drags and uses current zoom coordinates',()=>{const f=fixture();f.zoom();f.fire('pointerdown',100);f.fire('pointermove',0);expect(f.onRange).toHaveBeenLastCalledWith(1,2);expect(f.output().textContent).toContain('b → c');f.api.dispose();});
  it('keeps an early vertical touch available for scrolling and leaves Alt-pan to the renderer',()=>{
   const f=fixture();f.fire('pointerdown',0,0,1,{altKey:true});f.fire('pointermove',100,0);f.fire('pointerup',100,0);
   const at=(clientX:number,clientY:number)=>({clientX,clientY,identifier:1});
