@@ -1,0 +1,226 @@
+{
+  "captured_at": "2026-11-16T12:39:26Z",
+  "contract": "dram-daily-source-snapshot",
+  "observations": [
+    {
+      "cadence": "daily",
+      "category": "ddr3",
+      "collected_at": "2026-11-16T12:39:26Z",
+      "currency": "USD",
+      "date": "2026-11-16",
+      "effective_date": "2026-11-16",
+      "effective_month": "2026-11",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr3-4gb-512mx8-1600-1866",
+      "product_name": "DDR3 4Gb 512Mx8 1600/1866",
+      "source": "trendforce",
+      "source_content_sha256": "831e384786874c14740f951a10fa58d3b9e5430281cd5e327225b7596377ea04",
+      "source_last_update": {
+        "date": "2026-11-16",
+        "date_source": "table_last_update",
+        "raw": "Last Update 2026-11-16 18:10 (GMT+8)",
+        "table_kind": "spot",
+        "time": "18:10",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 21.2,
+        "daily_low": 9.65,
+        "session_average": 13.779,
+        "session_change_percent": 0.15,
+        "session_high": 21.2,
+        "session_low": 9.65
+      }
+    },
+    {
+      "cadence": "daily",
+      "category": "ddr4",
+      "collected_at": "2026-11-16T12:39:26Z",
+      "currency": "USD",
+      "date": "2026-11-16",
+      "effective_date": "2026-11-16",
+      "effective_month": "2026-11",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr4-16gb-2gx8-3200",
+      "product_name": "DDR4 16Gb (2Gx8) 3200",
+      "source": "trendforce",
+      "source_content_sha256": "831e384786874c14740f951a10fa58d3b9e5430281cd5e327225b7596377ea04",
+      "source_last_update": {
+        "date": "2026-11-16",
+        "date_source": "table_last_update",
+        "raw": "Last Update 2026-11-16 18:10 (GMT+8)",
+        "table_kind": "spot",
+        "time": "18:10",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 112.0,
+        "daily_low": 44.9,
+        "session_average": 79.375,
+        "session_change_percent": -0.16,
+        "session_high": 112.0,
+        "session_low": 44.9
+      }
+    },
+    {
+      "cadence": "daily",
+      "category": "ddr4",
+      "collected_at": "2026-11-16T12:39:26Z",
+      "currency": "USD",
+      "date": "2026-11-16",
+      "effective_date": "2026-11-16",
+      "effective_month": "2026-11",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr4-16gb-2gx8-ett",
+      "product_name": "DDR4 16Gb (2Gx8) eTT",
+      "source": "trendforce",
+      "source_content_sha256": "831e384786874c14740f951a10fa58d3b9e5430281cd5e327225b7596377ea04",
+      "source_last_update": {
+        "date": "2026-11-16",
+        "date_source": "table_last_update",
+        "raw": "Last Update 2026-11-16 18:10 (GMT+8)",
+        "table_kind": "spot",
+        "time": "18:10",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 13.5,
+        "daily_low": 11.5,
+        "session_average": 12.875,
+        "session_change_percent": -0.58,
+        "session_high": 13.5,
+        "session_low": 11.5
+      }
+    },
+    {
+      "cadence": "daily",
+      "category": "ddr4",
+      "collected_at": "2026-11-16T12:39:26Z",
+      "currency": "USD",
+      "date": "2026-11-16",
+      "effective_date": "2026-11-16",
+      "effective_month": "2026-11",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr4-8gb-1gx8-3200",
+      "product_name": "DDR4 8Gb (1Gx8) 3200",
+      "source": "trendforce",
+      "source_content_sha256": "831e384786874c14740f951a10fa58d3b9e5430281cd5e327225b7596377ea04",
+      "source_last_update": {
+        "date": "2026-11-16",
+        "date_source": "table_last_update",
+        "raw": "Last Update 2026-11-16 18:10 (GMT+8)",
+        "table_kind": "spot",
+        "time": "18:10",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 81.0,
+        "daily_low": 24.7,
+        "session_average": 44.357,
+        "session_change_percent": -0.4,
+        "session_high": 81.0,
+        "session_low": 24.7
+      }
+    },
+    {
+      "cadence": "daily",
+      "category": "ddr4",
+      "collected_at": "2026-11-16T12:39:26Z",
+      "currency": "USD",
+      "date": "2026-11-16",
+      "effective_date": "2026-11-16",
+      "effective_month": "2026-11",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr4-8gb-1gx8-ett",
+      "product_name": "DDR4 8Gb (1Gx8) eTT",
+      "source": "trendforce",
+      "source_content_sha256": "831e384786874c14740f951a10fa58d3b9e5430281cd5e327225b7596377ea04",
+      "source_last_update": {
+        "date": "2026-11-16",
+        "date_source": "table_last_update",
+        "raw": "Last Update 2026-11-16 18:10 (GMT+8)",
+        "table_kind": "spot",
+        "time": "18:10",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 5.85,
+        "daily_low": 5.3,
+        "session_average": 5.58,
+        "session_change_percent": -0.54,
+        "session_high": 5.85,
+        "session_low": 5.3
+      }
+    },
+    {
+      "cadence": "daily",
+      "category": "ddr5",
+      "collected_at": "2026-11-16T12:39:26Z",
+      "currency": "USD",
+      "date": "2026-11-16",
+      "effective_date": "2026-11-16",
+      "effective_month": "2026-11",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr5-16gb-2gx8-4800-5600",
+      "product_name": "DDR5 16Gb (2Gx8) 4800/5600",
+      "source": "trendforce",
+      "source_content_sha256": "831e384786874c14740f951a10fa58d3b9e5430281cd5e327225b7596377ea04",
+      "source_last_update": {
+        "date": "2026-11-16",
+        "date_source": "table_last_update",
+        "raw": "Last Update 2026-11-16 18:10 (GMT+8)",
+        "table_kind": "spot",
+        "time": "18:10",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 72.0,
+        "daily_low": 45.3,
+        "session_average": 60.333,
+        "session_change_percent": 0.11,
+        "session_high": 72.0,
+        "session_low": 45.3
+      }
+    },
+    {
+      "cadence": "daily",
+      "category": "ddr5",
+      "collected_at": "2026-11-16T12:39:26Z",
+      "currency": "USD",
+      "date": "2026-11-16",
+      "effective_date": "2026-11-16",
+      "effective_month": "2026-11",
+      "kind": "spot",
+      "product_id": "trendforce-spot-ddr5-16gb-2gx8-ett",
+      "product_name": "DDR5 16Gb (2Gx8) eTT",
+      "source": "trendforce",
+      "source_content_sha256": "831e384786874c14740f951a10fa58d3b9e5430281cd5e327225b7596377ea04",
+      "source_last_update": {
+        "date": "2026-11-16",
+        "date_source": "table_last_update",
+        "raw": "Last Update 2026-11-16 18:10 (GMT+8)",
+        "table_kind": "spot",
+        "time": "18:10",
+        "timezone": "GMT+8"
+      },
+      "source_url": "https://www.trendforce.com/price/dram/dram_spot",
+      "values": {
+        "daily_high": 31.5,
+        "daily_low": 30.0,
+        "session_average": 30.6,
+        "session_change_percent": 0.33,
+        "session_high": 31.5,
+        "session_low": 30.0
+      }
+    }
+  ],
+  "observations_sha256": "10c25ee58cf4c3ca09d641d2523fcb6601686c2e837584c819d53bca4078d470",
+  "schema_version": 1,
+  "source_date": "2026-11-16"
+}
