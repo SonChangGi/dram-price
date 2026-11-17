@@ -1,308 +1,31 @@
-from __future__ import annotations
-
 from pathlib import Path
-import re
-import subprocess
-import tempfile
-import textwrap
-import json
-import os
-import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-UPDATE_WORKFLOW = ROOT / ".github" / "workflows" / "update-data.yml"
-DEPLOY_WORKFLOW = ROOT / ".github" / "workflows" / "deploy-pages.yml"
-SKIP_MARKER = "Skip-Pages-Deploy: update-data-workflow"
+DEPLOY_WORKFLOW = ROOT / '.github/workflows/deploy-pages.yml'
 
 
-def _read(path: Path) -> str:
-    return path.read_text(encoding="utf-8")
+def _read(path):
+    return path.read_text(encoding='utf-8')
 
 
 class WorkflowContractTests(unittest.TestCase):
-    def test_completed_date_checks_delivery_and_recovers_only_verified_checkout(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        check = workflow.split("name: Check live delivery when collection is already complete", 1)[1].split("      - ", 1)[0]
-        self.assertIn("steps.freshness.outputs.should_collect == 'false'", check)
-        self.assertIn("bash scripts/check_live_delivery.sh", check)
-        self.assertIn("steps.delivery.outputs.needs_redeploy == 'true'", workflow)
-        self.assertIn("steps.recovery_source.outcome == 'success'", workflow)
-
-        with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
-            (root / "data").mkdir()
-            for name in ("prices", "series", "status", "summary", "automation-health"):
-                (root / "data" / f"{name}.json").write_text("checkout")
-            curl = root / "curl"
-            curl.write_text(textwrap.dedent("""\
-                #!/usr/bin/env bash
-                while [[ $1 != --output ]]; do shift; done
-                printf '%s' "$TEST_BODY" > "$2"
-                printf '%s' "$TEST_CODE"
-            """))
-            curl.chmod(0o755)
-            output = root / "outputs"
-            env = {**os.environ, "PATH": f"{root}{os.pathsep}{os.environ['PATH']}",
-                   "RUNNER_TEMP": temp, "PAGE_URL": "https://example.test",
-                   "GITHUB_RUN_ID": "1", "GITHUB_RUN_ATTEMPT": "1", "GITHUB_OUTPUT": str(output)}
-            for code, body, expected in (
-                ("200", "checkout", "needs_redeploy=false\n"),
-                ("200", "older", "needs_redeploy=true\n"),
-                ("404", "", "needs_redeploy=true\n"),
-                ("503", "", ""),
-            ):
-                with self.subTest(code=code, body=body):
-                    output.write_text("")
-                    result = subprocess.run(
-                        ["bash", str(ROOT / "scripts/check_live_delivery.sh")], cwd=root,
-                        env={**env, "TEST_CODE": code, "TEST_BODY": body},
-                        capture_output=True, text=True, check=False,
-                    )
-                    self.assertEqual(result.returncode, 1 if code == "503" else 0, result.stderr)
-                    self.assertEqual(output.read_text(), expected)
-
-    def test_update_workflow_has_staggered_scheduled_refresh_loop(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        self.assertIn("workflow_dispatch:", workflow)
-        self.assertIn("schedule:", workflow)
-        self.assertIn('cron: "15 4 * * 1-5"', workflow)
-        self.assertIn('cron: "15 6 * * 1-5"', workflow)
-        self.assertIn("13:15 KST weekdays", workflow)
-        self.assertIn('cron: "30 10 * * 1-5"', workflow)
-        self.assertNotRegex(workflow, r'cron: "15 [468] \* \* \*"')
-        self.assertNotIn("--require-daily-date yesterday", workflow)
-        self.assertIn('args+=(--require-daily-date "${MANUAL_TARGET:-today}")', workflow)
-        self.assertIn("target_date:", workflow)
-        self.assertIn("force_collect:", workflow)
-        self.assertIn("default: false\n        type: boolean", workflow)
-        self.assertIn("FORCE_COLLECT: ${{ inputs.force_collect }}", workflow)
-        for cron in ("30 13 * * 1-5", "30 16 * * 1-5", "30 19 * * 1-5"):
-            self.assertIn(f'cron: "{cron}"', workflow)
-        self.assertIn('run_created_at="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" --jq .created_at)"', workflow)
-        self.assertIn('--now "$run_created_at"', workflow)
-        self.assertIn('args+=(--schedule "$SCHEDULE")', workflow)
-        self.assertIn("actions: read", workflow)
-
-    def test_latest_attempt_health_does_not_invalidate_completed_public_prices(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        decision = workflow.split("- name: Decide whether collection is needed", 1)[1].split("- name: Report freshness decision", 1)[0]
-        self.assertNotIn("needs_recovery", decision)
-        self.assertNotIn("automation-health.json", decision)
-        self.assertIn('--require-complete-source-status', decision)
-        self.assertIn('[ "${FORCE_COLLECT:-false}" = "true" ]; then', decision)
-
-    def test_scheduled_decision_shell_uses_frozen_run_timestamp_and_rejects_invalid_manual_date(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        step = workflow.split("- name: Decide whether collection is needed", 1)[1].split("- name: Report freshness decision", 1)[0]
-        script = textwrap.dedent(step.split("        run: |\n", 1)[1])
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            binary = root / "bin"
-            binary.mkdir()
-            (binary / "gh").write_text('#!/bin/sh\nprintf "%s\\n" "$TEST_RUN_CREATED_AT"\n')
-            (binary / "gh").chmod(0o755)
-            (binary / "python").symlink_to(sys.executable)
-            data = root / "data"
-            data.mkdir()
-            (data / "automation-health.json").write_text('{"status":"ok"}')
-            env = {**os.environ, "PATH": f"{binary}:{os.environ['PATH']}", "PYTHONPATH": str(ROOT / "src"),
-                   "GITHUB_REPOSITORY": "owner/repo", "GITHUB_RUN_ID": "123", "GITHUB_OUTPUT": str(root / "outputs"),
-                   "EVENT_NAME": "schedule", "SCHEDULE": "30 19 * * 1-5", "MANUAL_TARGET": "", "FORCE_COLLECT": "false",
-                   "TEST_RUN_CREATED_AT": "2026-09-22T00:30:00Z"}
-            result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
-            self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn("target_date=2026-09-21", result.stdout)
-            self.assertIn("minimum_source_time=\n", result.stdout)
-            env.update(EVENT_NAME="workflow_dispatch", SCHEDULE="", MANUAL_TARGET="2026-09-18")
-            result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
-            self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn("target_date=2026-09-18", result.stdout)
-            env["MANUAL_TARGET"] = "not-a-date"
-            result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
-            self.assertNotEqual(result.returncode, 0, "tee must not hide a failed target-date resolution")
-
-    def test_all_slots_skip_completed_public_day_even_after_a_later_failed_attempt(self) -> None:
-        from dram_tracker.freshness import REQUIRED_TRENDFORCE_SPOT_PRODUCT_IDS
-        workflow = _read(UPDATE_WORKFLOW)
-        step = workflow.split("- name: Decide whether collection is needed", 1)[1].split("- name: Report freshness decision", 1)[0]
-        script = textwrap.dedent(step.split("        run: |\n", 1)[1])
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            binary = root / "bin"
-            binary.mkdir()
-            (binary / "gh").write_text('#!/bin/sh\nprintf "%s\\n" "$TEST_RUN_CREATED_AT"\n')
-            (binary / "gh").chmod(0o755)
-            (binary / "python").symlink_to(sys.executable)
-            data = root / "data"
-            data.mkdir()
-            public_status = {"generated_at": "2026-09-21T04:00:00Z", "sources": [
-                {"source": name, "ok": True, "warnings": [], "errors": [], "observation_count": 7}
-                for name in ("trendforce", "memorymarket")]}
-            (data / "status.json").write_text(json.dumps(public_status))
-            rows = [{"source": "trendforce", "kind": "spot", "cadence": "daily", "product_id": product_id,
-                     "date": "2026-09-21", "effective_date": "2026-09-21", "currency": "USD",
-                     "values": {"session_average": 50}, "source_last_update": {"date": "2026-09-21",
-                     "date_source": "table_last_update", "table_kind": "spot", "time": "11:00", "timezone": "GMT+8"}}
-                    for product_id in REQUIRED_TRENDFORCE_SPOT_PRODUCT_IDS]
-            (data / "prices.json").write_text(json.dumps({"generated_at": public_status["generated_at"], "observations": rows}))
-            env = {**os.environ, "PATH": f"{binary}:{os.environ['PATH']}", "PYTHONPATH": str(ROOT / "src"),
-                   "GITHUB_REPOSITORY": "owner/repo", "GITHUB_RUN_ID": "123", "GITHUB_OUTPUT": str(root / "outputs"),
-                   "EVENT_NAME": "schedule", "MANUAL_TARGET": "", "FORCE_COLLECT": "false"}
-            slots = (("15 4 * * 1-5", "04:15"), ("15 6 * * 1-5", "06:15"), ("30 10 * * 1-5", "10:30"),
-                     ("30 13 * * 1-5", "13:30"), ("30 16 * * 1-5", "16:30"), ("30 19 * * 1-5", "19:30"))
-            for status, expected in (("ok", "false"), ("blocked", "false")):
-                (data / "automation-health.json").write_text(json.dumps({"status": status}))
-                for schedule, utc_time in slots:
-                    with self.subTest(status=status, schedule=schedule):
-                        env.update(SCHEDULE=schedule, TEST_RUN_CREATED_AT=f"2026-09-21T{utc_time}:00Z")
-                        result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
-                        self.assertEqual(result.returncode, 0, result.stderr)
-                        self.assertIn(f"should_collect={expected}", result.stdout)
-                        self.assertIn("target_date=2026-09-21", result.stdout)
-            # Incomplete public metadata still requests recovery despite all seven prices.
-            for invalid in ({**public_status, "generated_at": "2026-09-20T04:00:00Z"},
-                            {**public_status, "sources": public_status["sources"][:1]},
-                            {**public_status, "sources": [public_status["sources"][0],
-                              {**public_status["sources"][1], "warnings": ["one product missing"]}]},
-                            {**public_status, "sources": [public_status["sources"][0],
-                              {**public_status["sources"][1], "ok": False}]}):
-                (data / "status.json").write_text(json.dumps(invalid))
-                result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
-                self.assertEqual(result.returncode, 0, result.stderr)
-                self.assertIn("should_collect=true", result.stdout)
-            (data / "status.json").write_text(json.dumps(public_status))
-            (data / "automation-health.json").write_text('{"status":"ok"}')
-            env.update(EVENT_NAME="workflow_dispatch", SCHEDULE="", MANUAL_TARGET="2026-09-21")
-            result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
-            self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn("should_collect=false", result.stdout)
-            self.assertIn("reason=fresh-daily-date", result.stdout)
-            env["FORCE_COLLECT"] = "true"
-            result = subprocess.run(["bash", "-c", script], cwd=root, env=env, text=True, capture_output=True)
-            self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn("should_collect=true", result.stdout)
-            self.assertIn("reason=forced", result.stdout)
-
-    def test_update_workflow_has_explicit_completeness_post_check(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        self.assertIn("--minimum-daily-spot-rows 7", workflow)
-        self.assertEqual(workflow.count("--require-known-spot-products"), 2)
-        self.assertEqual(workflow.count("--require-complete-source-status"), 2)
-        self.assertIn("id: collect", workflow)
-        self.assertIn("id: verify_target_date", workflow)
-        self.assertIn("Verify requested daily data after collection", workflow)
-        self.assertIn('--require-daily-date "${{ steps.freshness.outputs.target_date }}"', workflow)
-        self.assertIn("--fail-if-collect-needed", workflow)
-        self.assertNotIn("--minimum-source-time", workflow)
-        self.assertIn('--target-date "${{ steps.freshness.outputs.target_date }}" --history-dir history/trendforce-spot', workflow)
-        self.assertLess(workflow.index("Verify requested daily data after collection"), workflow.index("Run tests"))
-        self.assertLess(workflow.index("Verify requested daily data after collection"), workflow.index("Commit data changes"))
-
-    def test_scheduled_step_guards_preserve_last_good_data_and_final_escalation_fails(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        scheduled_guard = "continue-on-error: ${{ github.event_name == 'schedule' }}"
-        self.assertEqual(4, workflow.count(scheduled_guard))
-        self.assertIn("Only the final recovery slot escalates", workflow)
-        self.assertIn("Report scheduled collection failure", workflow)
-        self.assertIn("Report scheduled target-date miss", workflow)
-        self.assertIn("Report scheduled test failure", workflow)
-        self.assertIn("::warning::Scheduled DRAM collection failed", workflow)
-        self.assertIn("::warning::Scheduled collection finished", workflow)
-        self.assertIn("::warning::Scheduled validation failed", workflow)
-
-    def test_transient_collection_failure_gets_one_isolated_retry(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        collection = workflow.split("- name: Collect public DRAM data", 1)[1].split(
-            "- name: Report scheduled collection failure", 1
-        )[0]
-        self.assertIn('if "${collect[@]}"; then', collection)
-        self.assertIn('scripts/should_retry_collection.py "$RUNNER_TEMP/dram-attempt-status.json"', collection)
-        self.assertIn("sleep 60", collection)
-        self.assertEqual(collection.count('"${collect[@]}"'), 2)
-        self.assertIn('exit 2', collection)
-        self.assertIn('"$RUNNER_TEMP/dram-candidate"', collection)
-
-    def test_update_workflow_commits_and_deploys_only_after_publication_gate(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        pre_publication_gate = (
-            "steps.freshness.outputs.should_collect == 'true' && "
-            "steps.collect.outcome == 'success' && "
-            "(steps.freshness.outputs.target_date == '' || steps.verify_target_date.outcome == 'success') && "
-            "steps.tests.outcome == 'success'"
-        )
-        required_gate = pre_publication_gate + " && steps.publication.outcome == 'success' && steps.health.outcome == 'success' && steps.promote.outcome == 'success'"
-        self.assertIn(
-            f"- name: Validate public data publication floor\n        id: publication\n        if: {pre_publication_gate}",
-            workflow,
-        )
-        self.assertIn("run: python scripts/validate_publication.py", workflow)
-        self.assertIn(f"- name: Commit data changes\n        id: data_commit\n        if: {required_gate}", workflow)
-        self.assertIn(f"(({required_gate} && steps.data_commit.outcome == 'success') || steps.health_frontend.outcome == 'success')", workflow)
-        self.assertIn("id: site", workflow)
-        for action, dependency in (("actions/configure-pages", "steps.site.outcome == 'success'"),
-                                   ("actions/upload-pages-artifact", "steps.pages_configure.outcome == 'success'")):
-            action_block = workflow.split(f"- uses: {action}@", 1)[1].split("      - ", 1)[0]
-            self.assertIn(dependency, action_block)
-            self.assertIn("!cancelled()", action_block)
-        deployment = workflow.split("- id: deployment", 1)[1].split("      - ", 1)[0]
-        self.assertIn("steps.pages_upload.outcome == 'success'", deployment)
-        readback = workflow.split("- name: Verify live public data bytes", 1)[1].split("      - ", 1)[0]
-        self.assertIn("steps.deployment.outcome == 'success'", readback)
-
-    def test_failed_collection_publishes_health_only_after_verifying_last_good_data(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        health = workflow.split("- name: Verify last-good data for health-only publication", 1)[1].split(
-            "- name: Prepare static site", 1)[0]
-        self.assertIn("steps.health_commit.outcome == 'success'", health)
-        self.assertIn("steps.promote.outcome == 'skipped'", health)
-        self.assertIn("steps.tests.outcome == 'skipped' || steps.tests.outcome == 'success'", health)
-        self.assertIn("git diff --exit-code -- data/prices.json data/series.json data/status.json data/summary.json", health)
-        self.assertIn("python scripts/validate_publication.py", health)
-        self.assertIn('if [ "$TESTS_OUTCOME" != "success" ]; then', health)
-        self.assertIn("python -m unittest discover -s tests -v", health)
-        self.assertIn("npm ci --prefix frontend", health)
-        self.assertIn("npm run verify --prefix frontend", health)
-        self.assertNotIn("dram-candidate", health)
-        self.assertNotIn("continue-on-error", health)
-        self.assertLess(workflow.index("Commit automation health without partial market data"),
-                        workflow.index("Verify last-good data for health-only publication"))
-        self.assertLess(workflow.index("Verify last-good data for health-only publication"),
-                        workflow.index("actions/configure-pages@"))
-
-    def test_failed_collection_cannot_replace_published_market_data(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        self.assertNotIn("collect --output data", workflow)
-        self.assertIn('collect --output "$RUNNER_TEMP/dram-candidate" --attempt-status "$RUNNER_TEMP/dram-attempt-status.json"', workflow)
-        self.assertIn('validate_publication.py --data-dir "$RUNNER_TEMP/dram-candidate"', workflow)
-        self.assertIn('--status "$RUNNER_TEMP/dram-candidate/status.json"', workflow)
-        self.assertIn('--prices "$RUNNER_TEMP/dram-candidate/prices.json"', workflow)
-        self.assertIn('--status "$RUNNER_TEMP/dram-attempt-status.json"', workflow)
-        self.assertLess(workflow.index("Validate public data publication floor"), workflow.index("Promote verified candidate"))
-        self.assertLess(workflow.index("Promote verified candidate"), workflow.index("Commit data changes"))
-        promote = workflow.split("- name: Promote verified candidate", 1)[1].split("- name: Commit data changes", 1)[0]
-        self.assertIn("steps.publication.outcome == 'success'", promote)
-        self.assertIn("steps.health.outcome == 'success'", promote)
-        self.assertIn("for artifact in prices.json series.json status.json summary.json", promote)
-        self.assertNotIn("automation-health.json", promote)
-
-    def test_verified_source_snapshots_are_preserved_on_success_or_failure_without_publication(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        normal = workflow.split("- name: Commit data changes", 1)[1].split("- name: Commit automation health", 1)[0]
-        failure = workflow.split("- name: Commit automation health", 1)[1].split("- name: Verify last-good data", 1)[0]
-        for block in (normal, failure):
-            self.assertIn("git add history/trendforce-spot", block)
-            self.assertIn("git diff --cached --quiet", block)
-        self.assertIn("git add data/automation-health.json", failure)
-        self.assertNotIn("git add data\n", failure)
-        prepare = workflow.split("- name: Prepare static site", 1)[1].split("      - uses:", 1)[0]
-        self.assertNotIn("history/trendforce-spot", prepare)
-        self.assertIn("cp -R data/. frontend/dist/data/", prepare)
+    def test_original_collection_is_retired_without_disabling_page_publication(self):
+        self.assertFalse((ROOT / '.github/workflows/update-data.yml').exists())
+        for path in (ROOT / '.github/workflows').glob('*.yml'):
+            workflow = _read(path)
+            self.assertNotRegex(workflow, r'(?m)^  schedule:')
+            self.assertNotIn('dram_tracker.collect', workflow)
+        deploy = _read(DEPLOY_WORKFLOW)
+        self.assertIn('workflow_dispatch:', deploy)
+        self.assertIn('  push:', deploy)
+        self.assertIn('contents: read', deploy)
+        self.assertNotIn('Skip-Pages-Deploy:', deploy)
+        self.assertNotIn('git push', deploy)
 
     def test_pages_workflows_build_the_locked_frontend_and_include_public_contracts(self) -> None:
-        update = _read(UPDATE_WORKFLOW)
         deploy = _read(DEPLOY_WORKFLOW)
-        for workflow in (update, deploy):
+        for workflow in (deploy,):
             self.assertRegex(workflow, r"actions/setup-node@[0-9a-f]{40} # v6")
             self.assertIn("cache-dependency-path: frontend/package-lock.json", workflow)
             self.assertIn("npm ci --prefix frontend", workflow)
@@ -319,75 +42,16 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("python scripts/validate_publication.py", deploy)
         self.assertLess(deploy.index("Validate backend and public data"), deploy.index("Verify and build frontend"))
 
-    def test_update_workflow_persists_and_escalates_repeated_degradation(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        update_job = workflow.split("  update-data:", 1)[1].split("  public-site-health:", 1)[0]
-        self.assertNotRegex(update_job, r"(?m)^    continue-on-error:",
-                         "the job must retain the final escalation step's failed conclusion")
-        self.assertIn("Update persistent automation health", workflow)
-        self.assertIn("scripts/update_automation_health.py", workflow)
-        self.assertIn("data/automation-health.json", workflow)
-        self.assertIn("Commit automation health without partial market data", workflow)
-        self.assertIn("git add data/automation-health.json", workflow)
-        self.assertIn("Record repeated automation degradation", workflow)
-        self.assertIn("steps.health.outputs.alert_required == 'true'", workflow)
-        self.assertIn("steps.tests.outcome == 'failure' ||", workflow)
-        self.assertIn("steps.publication.outcome == 'failure' ||", workflow)
-        self.assertIn("github.event_name == 'workflow_dispatch'", workflow)
-        self.assertIn("github.event.schedule == '30 19 * * 1-5'", workflow)
-        degradation_block = workflow.split("Record repeated automation degradation", 1)[1].split(
-            "public-site-health:", 1
-        )[0]
-        self.assertIn("exit 1", degradation_block)
-        self.assertIn("public-site-health:", workflow)
-        self.assertIn("Fail only when the existing DRAM page is unusable", workflow)
-        self.assertLess(workflow.index("Update persistent automation health"), workflow.index("Commit data changes"))
-
-    def test_documented_holiday_is_probed_before_collection_and_publishes_health_only(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        self.assertLess(workflow.index("Probe documented source holiday"),
-                        workflow.index("Prepare isolated collection candidate"))
-        self.assertIn("python -m dram_tracker.source_holidays --target-date", workflow)
-        for step in ("Prepare isolated collection candidate", "Collect public DRAM data"):
-            block = workflow.split(f"- name: {step}", 1)[1].split("      - ", 1)[0]
-            self.assertIn("steps.holiday.outputs.unpublished != 'true'", block)
-        health = workflow.split("- name: Update persistent automation health", 1)[1].split(
-            "- name: Promote verified candidate", 1)[0]
-        self.assertIn("--source-holiday-name", health)
-        self.assertIn("--source-date", health)
-        self.assertIn("--source-holiday-url", health)
-        self.assertIn("python scripts/update_automation_health.py", health)
-        self.assertIn("steps.collect.outcome != 'success'", workflow.split(
-            "- name: Commit automation health without partial market data", 1)[1].split(
-            "- name: Verify last-good data", 1)[0])
-
-    def test_update_workflow_marks_self_deployed_commits_explicitly(self) -> None:
-        workflow = _read(UPDATE_WORKFLOW)
-        data_commit = workflow.split("- name: Commit data changes", 1)[1].split(
-            "- name: Commit automation health without partial market data", 1
-        )[0]
-        health_commit = workflow.split("- name: Commit automation health without partial market data", 1)[1].split(
-            "- name: Prepare static site", 1
-        )[0]
-        self.assertIn(SKIP_MARKER, data_commit)
-        self.assertNotIn(SKIP_MARKER, health_commit)
-        self.assertIn("git config user.email", workflow)
-
-    def test_deploy_workflow_uses_explicit_skip_marker_not_bot_identity(self) -> None:
-        workflow = _read(DEPLOY_WORKFLOW)
-        self.assertIn(SKIP_MARKER, workflow)
-        self.assertIn("github.event.head_commit.message", workflow)
-        self.assertNotIn("github-actions[bot]", workflow)
-        self.assertNotIn("41898282+github-actions[bot]@users.noreply.github.com", workflow)
 
     def test_pages_workflows_share_a_non_cancelling_deployment_queue(self) -> None:
-        for workflow in (_read(UPDATE_WORKFLOW), _read(DEPLOY_WORKFLOW)):
+        for workflow in (_read(DEPLOY_WORKFLOW),):
             self.assertIn("group: dram-price-pages", workflow)
             self.assertIn("cancel-in-progress: false", workflow)
         self.assertNotIn("cancel-in-progress: true", _read(DEPLOY_WORKFLOW))
 
+
     def test_pages_workflows_verify_live_public_data_bytes_after_deploy(self) -> None:
-        for workflow in (_read(UPDATE_WORKFLOW), _read(DEPLOY_WORKFLOW)):
+        for workflow in (_read(DEPLOY_WORKFLOW),):
             self.assertIn("Verify live public data bytes", workflow)
             self.assertIn("steps.deployment.outputs.page_url", workflow)
             self.assertIn(
@@ -397,16 +61,16 @@ class WorkflowContractTests(unittest.TestCase):
             self.assertIn('cmp --silent "frontend/dist/${relative_path}" "$readback"', workflow)
             self.assertLess(workflow.index("actions/deploy-pages@"), workflow.index("Verify live public data bytes"))
 
+
     def test_validation_failure_is_visible_while_public_site_is_checked_separately(self) -> None:
-        update = _read(UPDATE_WORKFLOW)
         deploy = _read(DEPLOY_WORKFLOW)
-        self.assertIn("continue-on-error: ${{ github.event_name == 'schedule' }}", update)
         deploy_job = deploy.split("  deploy:", 1)[1].split("  public-site-health:", 1)[0]
         self.assertNotIn("continue-on-error:", deploy_job)
-        for workflow in (update, deploy):
+        for workflow in (deploy,):
             self.assertIn("public-site-health:", workflow)
             self.assertIn("required_paths=(index.html data/summary.json data/prices.json)", workflow)
 
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     unittest.main()
